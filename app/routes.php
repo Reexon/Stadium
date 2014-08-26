@@ -18,3 +18,13 @@ Route::get('/', function()
 
 Route::resource('matches', 'MatchesController');
 Route::resource('tickets', 'TicketsController');
+Route::post('users/login','UsersController@login');
+Route::get('users/login',function(){
+    return View::make('users.login');
+});
+Route::post('users/logout','UsersController@logout');
+Route::get('users/register',function(){
+    return View::make('users.register');
+});
+//not working ?
+Route::resource('users', 'UsersController');

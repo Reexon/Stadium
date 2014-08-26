@@ -30,7 +30,6 @@
             <td>{{ $match->guest_team }}</td>
             <td>{{ $match->date }}</td>
 
-
             <td>
                 <!-- GET /nerds/{id} -->
                 <a class="btn btn-small btn-success" href="{{ URL::to('matches/' . $match->id_match) }}">{{ FA::icon('eye'); }}</a>
@@ -48,5 +47,5 @@
         @endforeach
         </tbody>
     </table>
-<?php echo $matches->links(); ?>
+<?php //$matches->links(); ?>
 @stop

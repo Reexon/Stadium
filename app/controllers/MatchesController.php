@@ -11,7 +11,7 @@ class MatchesController extends \BaseController {
 	{
         //prendo i match che non sono scaduti
 		//$matches = Match::where('date','>',time())->paginate(15);
-        $matches = Match::where('date','<',time())->paginate(5);
+        $matches = Match::all();
 		return View::make('matches.index', compact('matches'));
 	}
 

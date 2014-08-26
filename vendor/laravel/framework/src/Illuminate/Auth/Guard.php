@@ -340,7 +340,7 @@ class Guard {
 	 * @param  bool   $login
 	 * @return bool
 	 */
-	public function attempt(array $credentials = array(), $remember = false, $login = true)
+	public function  attempt(array $credentials = array(), $remember = false, $login = true)
 	{
 		$this->fireAttemptEvent($credentials, $remember, $login);
 

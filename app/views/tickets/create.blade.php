@@ -67,13 +67,13 @@
 
 <table class="table">
     <thead>
-    <tr>
-        <th>#</th>
-        <th>Type</th>
-        <th>Price</th>
-        <th>Match</th>
-        <th>Action</th>
-    </tr>
+        <tr>
+            <th>#</th>
+            <th>Type</th>
+            <th>Price</th>
+            <th>Match</th>
+            <th>Action</th>
+        </tr>
     </thead>
     <tbody>
     <tr>

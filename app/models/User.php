@@ -9,6 +9,7 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 
 	use UserTrait, RemindableTrait;
 
+    protected $primaryKey = 'id_user';
 	/**
 	 * The database table used by the model.
 	 *
@@ -23,4 +24,13 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 	 */
 	protected $hidden = array('password', 'remember_token');
 
+    public static $rules = [
+        'firstname'=>'required|alpha|min:2',
+        'lastname'=>'required|alpha|min:2',
+        'email'=>'required|email|unique:users',
+        'password'=>'required|alpha_num|between:6,12|confirmed',
+        'password_confirmation'=>'required|alpha_num|between:6,12',
+    ];
+
+    protected $fillable = ['firstname','lastname','email','password'];
 }

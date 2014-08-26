@@ -39,11 +39,21 @@ class TicketsController extends \BaseController {
 
         for($i = 0; $i < count($ticket_type); $i++){
             //TODO: Bisogna Validare i dati prima di creare il ticket
+
             $dataTicket = [
+                '_token' => Input::get('_token'),
                 'label' => $ticket_type[$i],
                 'price' => $ticket_price[$i],
                 'match_id' => $ticket_matchID[$i],
             ];
+
+           $validator = Validator::make($data = $dataTicket, Ticket::$rules);
+
+
+            if ($validator->fails())
+            {
+                return Redirect::back()->withErrors($validator);
+            }
 
             Ticket::create($dataTicket);
         }
@@ -59,7 +69,7 @@ class TicketsController extends \BaseController {
 		Ticket::create($data);
         */
 
-		return Redirect::route('tickets.index');
+		return Redirect::route('tickets.index')->with('success','Ticket Created Succesfully');
 	}
 
 	/**
