@@ -1,0 +1,28 @@
+language: php
+
+php: 
+  - 5.3
+  - 5.4
+  - 5.5
+
+branches:
+  only:
+    - master
+
+before_script:
+  - composer self-update
+  - composer install --dev --no-interaction
+
+notifications:
+  email:
+    recipients:
+      - kevinkhill@gmail.com
+    on_success: change # default: change
+    on_failure: always # default: always
+
+script:
+  - mkdir log
+  - phpunit --coverage-clover build/logs/clover.xml
+
+after_script:
+  - php vendor/bin/coveralls -v
