@@ -10,7 +10,6 @@ class TicketsController extends \BaseController {
 	public function index()
 	{
 		$tickets = Ticket::all();
-
 		return View::make('tickets.index', compact('tickets'));
 	}
 
@@ -46,8 +45,7 @@ class TicketsController extends \BaseController {
                 'match_id' => $ticket_matchID[$i],
             ];
 
-           Debugbar::info($dataTicket);
-            Match::create($dataTicket);
+            Ticket::create($dataTicket);
         }
 
         /*
@@ -60,6 +58,7 @@ class TicketsController extends \BaseController {
 
 		Ticket::create($data);
         */
+
 		return Redirect::route('tickets.index');
 	}
 

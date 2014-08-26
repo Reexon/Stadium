@@ -10,7 +10,7 @@
 
 @section('content')
 
-    <h1>All Matchs</h1>
+    <h1>All Matches</h1>
 
     <table class="table table-striped table-bordered">
         <thead>
@@ -23,23 +23,23 @@
         </tr>
         </thead>
         <tbody>
-        @foreach($matches as $key => $value)
+        @foreach($matches as $match)
         <tr>
-            <td>{{ $value->id_match }}</td>
-            <td>{{ $value->home_team }}</td>
-            <td>{{ $value->guest_team }}</td>
-            <td>{{ $value->date }}</td>
+            <td>{{ $match->id_match }}</td>
+            <td>{{ $match->home_team }}</td>
+            <td>{{ $match->guest_team }}</td>
+            <td>{{ $match->date }}</td>
 
 
             <td>
-                <!-- show the nerd (uses the show method found at GET /nerds/{id} -->
-                <a class="btn btn-small btn-success" href="{{ URL::to('matches/' . $value->id_match) }}">{{ FA::icon('eye'); }}</a>
+                <!-- GET /nerds/{id} -->
+                <a class="btn btn-small btn-success" href="{{ URL::to('matches/' . $match->id_match) }}">{{ FA::icon('eye'); }}</a>
 
-                <!-- edit this nerd (uses the edit method found at GET /nerds/{id}/edit -->
-                <a class="btn btn-small btn-info" href="{{ URL::to('matches/' . $value->id_match . '/edit') }}">{{ FA::icon('pencil'); }}</a>
+                <!-- GET /nerds/{id}/edit -->
+                <a class="btn btn-small btn-info" href="{{ URL::to('matches/' . $match->id_match . '/edit') }}">{{ FA::icon('pencil'); }}</a>
 
                 <!-- TODO: Confirmation Before Delete -->
-                {{ Form::open(array('url' => 'matches/' . $value->id_match,'style' =>'display:inline-block')) }}
+                {{ Form::open(array('url' => 'matches/' . $match->id_match,'style' =>'display:inline-block')) }}
                     {{ Form::hidden('_method', 'DELETE') }}
                     {{ Form::button(FA::icon('trash-o'), array('type' => 'submit', 'class' => 'btn btn-small btn-danger'))}}
                 {{ Form::close() }}
@@ -48,4 +48,5 @@
         @endforeach
         </tbody>
     </table>
+<?php echo $matches->links(); ?>
 @stop

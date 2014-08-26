@@ -9,16 +9,16 @@
 
     $(document).on('click','#addTicket',function(){
         var tableBody = $('table tbody');//prendo il tbody
-        var home_team = '<input class="form-control" placeholder="Ticket Type" name="home_team[]" type="text"></div>';
-        var guest_team ='<input class="form-control" placeholder="Price" name="guest_team[]" type="text">';
-        var selectMatch ='{{ Form::select('match_id', $matches) }}';
+        var ticket_type = '{{ Form::text('label[]', Input::old('label'), array('class' => 'form-control','placeholder' => 'Ticket Type')) }}';
+        var ticket_price ='{{ Form::text('price[]', Input::old('price'), array('class' => 'form-control','placeholder' => 'Price')) }}';
+        var selectMatch ='{{ Form::select('match_id[]', $matches) }}';
         var addTicket = '{{ Form::button(FA::icon('plus'), ['class' => 'btn btn-large btn-primary openbutton','id' => 'addTicket'])}}';
         var deleteTicket ='{{ Form::button(FA::icon('times'), ['class' => 'btn btn-large btn-danger','id' => 'deleteTicket'])}}';
 
         //rimuovo il bottone (addTicket) dalla riga corrente (verrà aggiunto nella riga successiva
         $(this).remove();
         var index = $('table.table tbody tr').length+1;
-        tableBody.append('<tr><td>'+index+'</td><td>'+home_team+'</td><td>'+guest_team+'<td>'+selectMatch+'</td><td>'+addTicket+' '+deleteTicket+'</td></tr>');
+        tableBody.append('<tr><td>'+index+'</td><td>'+ticket_type+'</td><td>'+ticket_price+'<td>'+selectMatch+'</td><td>'+addTicket+' '+deleteTicket+'</td></tr>');
 
     });
 

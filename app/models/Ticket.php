@@ -4,14 +4,18 @@ class Ticket extends \Eloquent {
 
 	// Add your validation rules here
 	public static $rules = [
-		// 'title' => 'required'
+		 'label' => 'required',
+         'price' => 'required',
+         'match_id' => 'required'
 	];
 
+    protected $primaryKey = 'id_ticket';
+
 	// Don't forget to fill this array
-	protected $fillable = [];
+	protected $fillable = ['label','price','match_id'];
 
     public function match(){
-        return $this->hasOne('match');
+        return $this->belongsTo('Match');
     }
 
 }
