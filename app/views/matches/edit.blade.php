@@ -20,27 +20,27 @@
     {{ Form::model($match, array('route' => array('matches.update', $match->id_match), 'method' => 'PUT','class'=>'form-horizontal', 'role' => 'form')) }}
 
     <div class="form-group">
-        <label for="inputEmail3" class="col-sm-2 control-label">Home Team</label>
+        {{ Form::label('home_team','Home Team',['class' => 'col-sm-2 control-label']) }}
         <div class="col-sm-10">
             {{ Form::text('home_team', Input::old('home_team'), array('class' => 'form-control')) }}
         </div>
     </div>
     <div class="form-group">
-        <label for="inputPassword3" class="col-sm-2 control-label">Guest Team</label>
+        {{ Form::label('guest_team','Guest Team',['class' => 'col-sm-2 control-label']) }}
         <div class="col-sm-10">
             {{ Form::text('guest_team', Input::old('guest_team'), array('class' => 'form-control')) }}
         </div>
     </div>
     <div class="form-group">
-        <label for="inputPassword3" class="col-sm-2 control-label">Stadium</label>
+        {{ Form::label('stadium','Stadium',['class' => 'col-sm-2 control-label']) }}
         <div class="col-sm-10">
             {{ Form::text('stadium', Input::old('stadium'), array('class' => 'form-control')) }}
         </div>
     </div>
     <div class="form-group">
-        <label for="inputPassword3" class="col-sm-2 control-label">Date</label>
+        {{ Form::label('date','Date',['class' => 'col-sm-2 control-label']) }}
         <div class="col-sm-10">
-            {{ Bootstrap::date('date', '', date('d-m-Y',strtotime(Input::old('date'))), $errors, ['class' => 'form-control datepicker'], ['format' => 'DD-MM-YYYY'])}}
+            {{ Bootstrap::date('date', '', $match->date->format('d-m-Y'), $errors, ['class' => 'form-control datepicker'], ['format' => 'DD-MM-YYYY'])}}
         </div>
     </div>
 
