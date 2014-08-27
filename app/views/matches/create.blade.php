@@ -105,29 +105,6 @@
             </tbody>
         </table>
 
-        <!--
-        <div class="form-group">
-            {{ Form::text('home_team[]', Input::old('home_team'), array('class' => 'form-control',
-                                                                      'placeholder' => 'Home Team')) }}
-        </div>
-
-        <div class="form-group">
-            {{ Form::text('guest_team[]', Input::old('guest_team'), array('class' => 'form-control',
-                                                                        'placeholder' => 'Guest Team')) }}
-        </div>
-        -->
-
-        <!--
-            controllo admin
-             per il picker usare: http://amsul.ca/pickadate.js/index.htm
-
-        <div class="form-group">
-            {{ Form::label('date', 'Date') }}
-            {{ Form::text('date', Input::old('date'), array('class' => 'form-control')) }}
-        </div>
-
-        -->
-
         {{ Form::submit('Create Match!', array('class' => 'btn btn-primary')) }}
 
         {{ Form::close() }}
