@@ -15,29 +15,40 @@
     <h1>Edit {{ $match->home_team }} vs {{ $match->guest_team }}</h1>
 
     <!-- if there are creation errors, they will show here -->
-    {{ HTML::ul($errors->all()) }}
 
-    {{ Form::model($match, array('route' => array('matches.update', $match->id_match), 'method' => 'PUT')) }}
+
+    {{ Form::model($match, array('route' => array('matches.update', $match->id_match), 'method' => 'PUT','class'=>'form-horizontal', 'role' => 'form')) }}
 
     <div class="form-group">
-        {{ Form::label('home_team', 'Home Team') }}
-        {{ Form::text('home_team', null, array('class' => 'form-control')) }}
+        <label for="inputEmail3" class="col-sm-2 control-label">Home Team</label>
+        <div class="col-sm-10">
+            {{ Form::text('home_team', Input::old('home_team'), array('class' => 'form-control')) }}
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="inputPassword3" class="col-sm-2 control-label">Guest Team</label>
+        <div class="col-sm-10">
+            {{ Form::text('guest_team', Input::old('guest_team'), array('class' => 'form-control')) }}
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="inputPassword3" class="col-sm-2 control-label">Stadium</label>
+        <div class="col-sm-10">
+            {{ Form::text('stadium', Input::old('stadium'), array('class' => 'form-control')) }}
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="inputPassword3" class="col-sm-2 control-label">Date</label>
+        <div class="col-sm-10">
+            {{ Bootstrap::date('date', '', date('d-m-Y',strtotime(Input::old('date'))), $errors, ['class' => 'form-control datepicker'], ['format' => 'DD-MM-YYYY'])}}
+        </div>
     </div>
 
     <div class="form-group">
-        {{ Form::label('guest_team', 'Guest Team') }}
-        {{ Form::text('guest_team', null, array('class' => 'form-control')) }}
+        <div class="col-sm-offset-2 col-sm-10">
+            {{ Form::submit('Edit Match!', array('class' => 'btn btn-primary')) }}
+        </div>
     </div>
-
-    <!--
-    <div class="form-group">
-        {{ Form::label('nerd_level', 'Nerd Level') }}
-        {{ Form::select('nerd_level', array('0' => 'Select a Level', '1' => 'Sees Sunlight', '2' => 'Foosball Fanatic', '3' => 'Basement Dweller'), null, array('class' => 'form-control')) }}
-    </div>
-    -->
-
-    {{ Form::submit('Edit Match!', array('class' => 'btn btn-primary')) }}
-
     {{ Form::close() }}
 
     @stop

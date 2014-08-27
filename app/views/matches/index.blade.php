@@ -18,6 +18,7 @@
             <td>ID</td>
             <td>Home</td>
             <td>Guest</td>
+            <td>Stadium</td>
             <td>Date</td>
             <td>Actions</td>
         </tr>
@@ -28,6 +29,7 @@
             <td>{{ $match->id_match }}</td>
             <td>{{ $match->home_team }}</td>
             <td>{{ $match->guest_team }}</td>
+            <td>{{ $match->stadium }}</td>
             <td>{{ $match->date }}</td>
 
             <td>
