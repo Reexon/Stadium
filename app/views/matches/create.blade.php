@@ -74,6 +74,7 @@
                     <th>#</th>
                     <th>Home Team</th>
                     <th>Guest Team</th>
+                    <th>Stadium</th>
                     <th>Date</th>
                     <th>Action</th>
                 </tr>
@@ -90,7 +91,11 @@
                         'placeholder' => 'Guest Team')) }}
                     </td>
                     <td>
-                        {{Bootstrap::date('date', '', date('d-m-Y'), $errors, ['name'=>'date[]','class' => 'form-control datepicker'], ['format' => 'DD-MM-YYYY'])}}
+                        {{ Form::text('stadium[]', Input::old('stadium'), array('class' => 'form-control',
+                        'placeholder' => 'Stadium')) }}
+                    </td>
+                    <td>
+                        {{Bootstrap::date('date', '', date('d-m-Y'), $errors, ['name'=>'date','class' => 'form-control datepicker'], ['format' => 'DD-MM-YYYY'])}}
                     </td>
                     <td>
                         {{ Form::button(FA::icon('plus'), ['class' => 'btn btn-large btn-primary openbutton','id' => 'addMatch'])}}

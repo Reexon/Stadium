@@ -12,7 +12,9 @@ class MatchesController extends \BaseController {
         //prendo i match che non sono scaduti
 		//$matches = Match::where('date','>',time())->paginate(15);
         $matches = Match::all();
+
 		return View::make('matches.index', compact('matches'));
+
 	}
 
 	/**
@@ -81,7 +83,6 @@ class MatchesController extends \BaseController {
 	public function show($id)
 	{
 		$match = Match::findOrFail($id);
-
 		return View::make('matches.show', compact('match'));
 	}
 
@@ -94,7 +95,6 @@ class MatchesController extends \BaseController {
 	public function edit($id)
 	{
 		$match = Match::find($id);
-
 		return View::make('matches.edit', compact('match'));
 	}
 
@@ -115,9 +115,14 @@ class MatchesController extends \BaseController {
 			return Redirect::back()->withErrors($validator)->withInput();
 		}
 
+        /*
+         * Solo per convertire la data da: DD-MM-YYYY a un formato compatibile con MySQL (YYYY-MM-DD)
+         */
+        $data['date'] = date("Y-m-d", strtotime($data['date']));
+
 		$match->update($data);
 
-		return Redirect::route('matches.index');
+	    return Redirect::route('matches.index');
 	}
 
 	/**
