@@ -41,7 +41,7 @@ class UsersController extends \BaseController {
 
 		User::create($data);
 
-		return Redirect::route('users.index')->with('message','User Created Succesfully');
+		return Redirect::route('users.index')->with('success','User Created Succesfully');
 	}
 
 	/**
@@ -91,7 +91,7 @@ class UsersController extends \BaseController {
 
 		$user->update($data);
 
-		return Redirect::route('users.index');
+		return Redirect::route('users.index')->with('success','User Updated Succesfully');
 	}
 
 	/**
