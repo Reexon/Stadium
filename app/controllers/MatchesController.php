@@ -35,6 +35,11 @@ class MatchesController extends \BaseController {
 	public function store()
 	{
 
+        /**
+         * WARNIGN: non toccare questo metodo finchè non viene risolto il problema
+         * @see  http://laravel.io/forum/08-26-2014-inputold-with-array-of-input
+         */
+
         $home_team = Input::get('home_team');
         $guest_team = Input::get('guest_team');
 
@@ -83,6 +88,7 @@ class MatchesController extends \BaseController {
 	public function show($id)
 	{
 		$match = Match::findOrFail($id);
+
 		return View::make('matches.show', compact('match'));
 	}
 
@@ -95,6 +101,7 @@ class MatchesController extends \BaseController {
 	public function edit($id)
 	{
 		$match = Match::find($id);
+
 		return View::make('matches.edit', compact('match'));
 	}
 
@@ -122,7 +129,7 @@ class MatchesController extends \BaseController {
 
 		$match->update($data);
 
-	    return Redirect::route('matches.index');
+	    return Redirect::route('matches.index')->with('success','Match Updated Succesfully');
 	}
 
 	/**
