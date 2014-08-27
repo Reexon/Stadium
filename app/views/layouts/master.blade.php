@@ -8,10 +8,10 @@
        <!-- <script src="https://code.jquery.com/ui/1.11.1/jquery-ui.min.js"></script>-->
 
         <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+
         {{ Bootstrap::css() }}
 
-        {{ Bootstrap::js() }}
-
+        <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
 
         {{ FA::css() }}
     </head>
