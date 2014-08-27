@@ -80,7 +80,9 @@ class UsersController extends \BaseController {
 	{
 		$user = User::findOrFail($id);
 
-		$validator = Validator::make($data = Input::all(), User::$rules);
+		$validator = Validator::make($data = Input::all(), ['firstname' => 'required',
+                                                            'lastname' => 'required',
+                                                             'email' => 'required|email']);
 
 		if ($validator->fails())
 		{
