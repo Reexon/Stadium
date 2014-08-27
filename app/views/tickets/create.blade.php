@@ -11,21 +11,21 @@
         var tableBody = $('table tbody');//prendo il tbody
         var ticket_type = '{{ Form::text('label[]', Input::old('label'), array('class' => 'form-control','placeholder' => 'Ticket Type')) }}';
         var ticket_price ='{{ Form::text('price[]', Input::old('price'), array('class' => 'form-control','placeholder' => 'Price')) }}';
-        var selectMatch ='{{ Form::select('match_id[]', $matches) }}';
+        var ticket_quantity ='{{ Form::text('quantity[]', Input::old('quantity'), array('class' => 'form-control','placeholder' => 'Quantity')) }}';
+        var selectMatch ='{{ Form::select('match_id[]', $matches,$match_id) }}';
         var addTicket = '{{ Form::button(FA::icon('plus'), ['class' => 'btn btn-large btn-primary openbutton','id' => 'addTicket'])}}';
         var deleteTicket ='{{ Form::button(FA::icon('times'), ['class' => 'btn btn-large btn-danger','id' => 'deleteTicket'])}}';
 
         //rimuovo il bottone (addTicket) dalla riga corrente (verrà aggiunto nella riga successiva
         $(this).remove();
         var index = $('table.table tbody tr').length+1;
-        tableBody.append('<tr><td>'+index+'</td><td>'+ticket_type+'</td><td>'+ticket_price+'<td>'+selectMatch+'</td><td>'+addTicket+' '+deleteTicket+'</td></tr>');
+        tableBody.append('<tr><td>'+index+'</td><td>'+ticket_type+'</td><td>'+ticket_price+'</td><td>'+ticket_quantity+'</td><td>'+selectMatch+'</td><td>'+addTicket+' '+deleteTicket+'</td></tr>');
 
     });
 
     $(document).on('click','#deleteTicket',function(){
         var current_tr = $(this).closest('tr');
         var last_tr = $('table.table tbody tr:last');
-
         var total_row = $('table.table tbody tr').length;
 
 
@@ -71,6 +71,7 @@
             <th>#</th>
             <th>Type</th>
             <th>Price</th>
+            <th>Quantity</th>
             <th>Match</th>
             <th>Action</th>
         </tr>
@@ -79,15 +80,16 @@
     <tr>
         <td>1</td>
         <td>
-            {{ Form::text('label[]', Input::old('label'), array('class' => 'form-control',
-            'placeholder' => 'Ticket Type')) }}
+            {{ Form::text('label[]', Input::old('label'), array('class' => 'form-control','placeholder' => 'Ticket Type')) }}
         </td>
         <td>
-            {{ Form::text('price[]', Input::old('price'), array('class' => 'form-control',
-            'placeholder' => 'Price')) }}
+            {{ Form::text('price[]', Input::old('price'), array('class' => 'form-control','placeholder' => 'Price')) }}
         </td>
         <td>
-            {{ Form::select('match_id[]', $matches) }}
+            {{ Form::text('quantity[]', Input::old('quantity'), array('class' => 'form-control','placeholder' => 'Quantity')) }}
+        </td>
+        <td>
+            {{ Form::select('match_id[]', $matches,$match_id) }}
         </td>
         <td>
             {{ Form::button(FA::icon('plus'), ['class' => 'btn btn-large btn-primary openbutton','id' => 'addTicket'])}}
