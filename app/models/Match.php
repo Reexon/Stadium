@@ -28,5 +28,5 @@ class Match extends Eloquent {
         'stadium',
     ];
 
-    //protected $dates = ['date'];
+    protected $dates = ['date'];
 }
