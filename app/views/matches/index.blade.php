@@ -30,7 +30,7 @@
             <td>{{ $match->home_team }}</td>
             <td>{{ $match->guest_team }}</td>
             <td>{{ $match->stadium }}</td>
-            <td>{{ $match->date }}</td>
+            <td>{{ $match->date->format('d-m-Y') }}</td>
 
             <td>
                 <!-- GET /nerds/{id} -->
@@ -49,5 +49,6 @@
         @endforeach
         </tbody>
     </table>
+
 <?php //$matches->links(); ?>
 @stop

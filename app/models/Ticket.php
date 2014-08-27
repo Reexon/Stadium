@@ -6,13 +6,14 @@ class Ticket extends \Eloquent {
 	public static $rules = [
 		 'label' => 'required',
          'price' => 'required',
-         'match_id' => 'required'
+         'match_id' => 'required',
+         'quantity' => 'required'
 	];
 
     protected $primaryKey = 'id_ticket';
 
 	// Don't forget to fill this array
-	protected $fillable = ['label','price','match_id'];
+	protected $fillable = ['label','price','match_id','quantity'];
 
     public function match(){
         return $this->belongsTo('Match');

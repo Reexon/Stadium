@@ -12,6 +12,7 @@
 
     @section('content')
 
+<h1>Users</h1>
 <table class="table table-striped table-bordered">
     <thead>
     <tr>
@@ -30,7 +31,7 @@
         <td>{{ $user->firstname }}  </td>
         <td>{{ $user->lastname }}   </td>
         <td>{{ $user->email }}      </td>
-        <td>{{ $user->created_at }} </td>
+        <td>{{ $user->created_at->format('m-d-Y') }} </td>
 
         <td>
             <!-- GET /nerds/{id} -->
@@ -43,6 +44,7 @@
             {{ Form::open(array('url' => 'users/' . $user->id_user,'style' =>'display:inline-block')) }}
             {{ Form::hidden('_method', 'DELETE') }}
             {{ Form::button(FA::icon('trash-o'), array('type' => 'submit', 'class' => 'btn btn-small btn-danger'))}}
+
             {{ Form::close() }}
         </td>
     </tr>
