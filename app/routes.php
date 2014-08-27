@@ -17,6 +17,7 @@ Route::get('/', function()
 });
 
 Route::resource('matches', 'MatchesController');
+Route::get('tickets/create/{id}', 'TicketsController@create');
 Route::resource('tickets', 'TicketsController');
 Route::post('users/login','UsersController@login');
 Route::get('users/login',function(){

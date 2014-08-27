@@ -15,15 +15,16 @@ class TicketsController extends \BaseController {
 
 	/**
 	 * Show the form for creating a new ticket
-	 *
+	 * @param int   $match_id   viene valorizzato quando viene effettuata una chiamata /tickets/create/4
+     *                          l'unica utilità è che viene caricato il form di creazione con il match gia selezionato.
 	 * @return Response
 	 */
-	public function create()
+	public function create($match_id = 0)
 	{
         $matches = Match::select('id_match', DB::raw('CONCAT(home_team, " - ", guest_team) AS label_match'))->take(10)
         ->orderBy('date')
         ->lists('label_match', 'id_match');
-		return View::make('tickets.create', compact('matches'));
+        return View::make('tickets.create', compact('matches','match_id'));
 	}
 
 	/**
@@ -33,18 +34,25 @@ class TicketsController extends \BaseController {
 	 */
 	public function store()
 	{
+
+        /**
+         * WARNIGN: non toccare questo metodo finchè non viene risolto il problema
+         * @see  http://laravel.io/forum/08-26-2014-inputold-with-array-of-input
+         */
+
         $ticket_type = Input::get('label');
         $ticket_price = Input::get('price');
         $ticket_matchID = Input::get('match_id');
+        $ticket_quantity = Input::get('quantity');
 
         for($i = 0; $i < count($ticket_type); $i++){
-            //TODO: Bisogna Validare i dati prima di creare il ticket
 
             $dataTicket = [
                 '_token' => Input::get('_token'),
                 'label' => $ticket_type[$i],
                 'price' => $ticket_price[$i],
                 'match_id' => $ticket_matchID[$i],
+                'quantity' => $ticket_quantity[$i],
             ];
 
            $validator = Validator::make($data = $dataTicket, Ticket::$rules);
@@ -95,7 +103,11 @@ class TicketsController extends \BaseController {
 	{
 		$ticket = Ticket::find($id);
 
-		return View::make('tickets.edit', compact('ticket'));
+        //TODO:selezionare solo i match prossimi
+        $matches = Match::select('id_match', DB::raw('CONCAT(home_team, " - ", guest_team) AS label_match'))->take(10)
+            ->orderBy('date')
+            ->lists('label_match', 'id_match');
+		return View::make('tickets.edit', compact('ticket','matches'));
 	}
 
 	/**
