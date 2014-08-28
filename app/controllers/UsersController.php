@@ -133,4 +133,21 @@ class UsersController extends \BaseController {
         return Redirect::to('users/login')->with('message', 'Your are now logged out!');
     }
 
+    public function search(){
+        //check if its our form
+        if ( Session::token() !== Input::get( '_token' ) ) {
+            return Response::json( Input::all() );
+        }
+
+        $firstname = Input::get( 'firstname' );
+        $lastname = Input::get( 'lastname' );
+        $email = Input::get( 'email' );
+
+        $response = User::where('firstname','LIKE','%'.$firstname.'%')
+                                ->where('lastname','LIKE','%'.$lastname.'%')
+                                ->where('email','LIKE','%'.$email.'%')->get();
+
+        return Response::json( $response );
+    }
+
 }

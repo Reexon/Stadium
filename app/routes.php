@@ -27,5 +27,6 @@ Route::post('users/logout','UsersController@logout');
 Route::get('users/register',function(){
     return View::make('users.register');
 });
+Route::post('users/search','UsersController@search');
 //not working ?
 Route::resource('users', 'UsersController');
