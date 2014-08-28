@@ -42,7 +42,7 @@
 
         <!-- TODO: Link ai dettagli del match -->
         <td>
-            <a href="#"
+            <a href="{{ URL::to('matches/'.$ticket->match->id_match) }}"
                data-trigger="hover"
                data-content="<b>When:</b> {{ $ticket->match->date->format('d-m-Y') }}<br>
                              <b>Where:</b> {{ $ticket->match->stadium}}"
