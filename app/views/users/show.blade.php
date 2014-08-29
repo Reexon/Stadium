@@ -29,7 +29,7 @@
         </address>
     </p>
     <p class="text-right">
-        <a class="btn btn-primary btn-lg btn-block btn-success" href="#">{{FA::icon('envelope-o')}} Contact User</a>
+        <a class="btn btn-primary btn-lg btn-block btn-success" href="{{URL::to('mails/create')}}">{{FA::icon('envelope-o')}} Contact User</a>
     </p>
 </div>
 
