@@ -12,18 +12,18 @@
 
 <h1>All Payments</h1>
 
-<table class="table table-striped table-bordered">
+<table class="table table-bordered">
     <thead>
-    <tr>
-        <td>ID</td>
-        <td>User</td>
-        <td>Ticket</td>
-        <td>Match</td>
-        <td>Date</td>
-        <td>Quantity</td>
-        <td>Total</td>
-        <td>Actions</td>
-    </tr>
+        <tr>
+            <th>ID</th>
+            <th>User</th>
+            <th>Ticket</th>
+            <th>Match</th>
+            <th>Quantity</th>
+            <th>Date</th>
+            <th>Total</th>
+            <th>Actions</th>
+        </tr>
     </thead>
     <tbody>
     @foreach($payments as $payment)
@@ -35,16 +35,14 @@
         <tr>
             <td>{{ $order->ticket->label }}</td>
             <td>{{ $order->ticket->match->home_team }} vs {{ $order->ticket->match->guest_team }}</td>
+            <td style="vertical-align:middle;">{{ $order->quantity }}</td>
             @if($firstLoop)
                 <td rowspan="{{ count($payment->orders) }}" style="vertical-align:middle;">{{ $payment->pay_date->format('d-m-Y') }}</td>
-                <td rowspan="{{ count($payment->orders) }}" style="vertical-align:middle;">{{ $order->quantity }}</td>
-                <td rowspan="{{ count($payment->orders) }}" style="vertical-align:middle;">{{ $order->total }}</td>
-
+                <td rowspan="{{ count($payment->orders) }}" style="vertical-align:middle;">{{ number_format($payment->total, 2, ',', '.') }}</td>
                 <td rowspan="{{ count($payment->orders) }}" style="vertical-align:middle;">
-                    <!-- GET /nerds/{id} -->
+
                     <a class="btn btn-small btn-success" href="{{ URL::to('payments/' . $payment->id_payment) }}">{{ FA::icon('eye'); }}</a>
 
-                    <!-- GET /nerds/{id}/edit -->
                     <a class="btn btn-small btn-info" href="{{ URL::to('payments/' . $payment->id_payment . '/edit') }}">{{ FA::icon('pencil'); }}</a>
 
                     <!-- TODO: Confirmation Before Delete -->
@@ -52,10 +50,8 @@
                     {{ Form::button(FA::icon('trash-o'), array('type' => 'submit', 'class' => 'btn btn-small btn-danger'))}}
                     {{ Form::close() }}
                 </td></tr>
-
-            @endif
-            @if(!$firstLoop)
-            </tr>
+            @else
+                </tr>
             @endif
     <?php $firstLoop = false;?>
         @endforeach

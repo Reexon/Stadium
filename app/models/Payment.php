@@ -4,7 +4,8 @@ class Payment extends \Eloquent {
 
 	// Add your validation rules here
 	public static $rules = [
-         'total' => 'required'
+         'total' => 'required',
+         'pay_date' => 'required'
 	];
 
     protected $primaryKey = 'id_payment';

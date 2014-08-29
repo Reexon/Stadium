@@ -102,7 +102,7 @@
 
 {{ Form::open(array('url' => 'payments','class' => 'form-inline')) }}
 <h4>User: {{ Form::select('user_id', $users) }}</h4>
-<h4>Date:  {{ Bootstrap::date('date', '',null, $errors,['class' =>'form-control datepicker'])}}</h4>
+<h4>Date:  {{ Bootstrap::date('pay_date', '',null, $errors,['class' =>'form-control datepicker'])}}</h4>
 <table class="table">
     <thead>
     <tr>

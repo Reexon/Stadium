@@ -48,7 +48,7 @@ class PaymentsController extends \BaseController {
         $quantity = Input::get('quantity');
 
         $dataPayment =[
-            'pay_date' => date("Y-m-d", strtotime($pay_date)),
+            'pay_date' => date('Y-m-d',strtotime($pay_date)),
             'total' => '200'
         ];
 
@@ -59,6 +59,11 @@ class PaymentsController extends \BaseController {
         }
 
 
+        /*
+         * Creo un oggetto payment e lo inizializzo
+         * Cerco l'user da associare al payment
+         * Salvo la relazione
+         */
         $payment = new Payment($dataPayment);
         $user = User::find($user_id);
         $payment = $user->payments()->save($payment);
@@ -75,12 +80,22 @@ class PaymentsController extends \BaseController {
                 return Redirect::back()->withErrors($validateOrder);
             }
 
+            /*
+             * Creo Ordine e lo inizializzo con i dati appena validati
+             * Cerco il modello ticket con id
+             * All'ordine (che ancora non esiste) gli associo il ticket
+             * All'ordine (che ancora non esiste) gli associo il pagamento
+             * Salvo infine il pagamento inserendolo in relazione con i Payment
+             */
             $order = new Order($dataOrder);
             $ticket = Ticket::find($ticket_id[$i]);
             $order = $order->ticket()->associate($ticket);
             $order = $order->payment()->associate($payment);
             $payment->orders()->save($order);
+            $payment->total = $order->quantity * $ticket->price;
+            $payment->save();
         }
+
 
 		return Redirect::route('payments.index');
 	}
