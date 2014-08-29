@@ -16,11 +16,11 @@
                 '</span></div>';
             var addMatch = '{{ Form::button(FA::icon('plus'), ['class' => 'btn btn-large btn-primary openbutton','id' => 'addMatch'])}}';
             var deleteMatch ='{{ Form::button(FA::icon('times'), ['class' => 'btn btn-large btn-danger','id' => 'deleteMatch'])}}';
-
+            var stadium = '{{ Form::text('stadium[]', Input::old('stadium'), array('class' => 'form-control','placeholder' => 'Stadium')) }}';
             //rimuovo il bottone (addMatch) dalla riga corrente (verrà aggiunto nella riga successiva
             $(this).remove();
             var index = $('table.table tbody tr').length+1;
-            tableBody.append('<tr><td>'+index+'</td><td>'+home_team+'</td><td>'+guest_team+'<td>'+date+'</td><td>'+addMatch+' '+deleteMatch+'</td></tr>');
+            tableBody.append('<tr><td>'+index+'</td><td>'+home_team+'</td><td>'+guest_team+'</td><td>'+stadium+'</td><td>'+date+'</td><td>'+addMatch+' '+deleteMatch+'</td></tr>');
 
         });
 
@@ -95,7 +95,7 @@
                         'placeholder' => 'Stadium')) }}
                     </td>
                     <td>
-                        {{Bootstrap::date('date', '', date('d-m-Y'), $errors, ['name'=>'date','class' => 'form-control datepicker'], ['format' => 'DD-MM-YYYY'])}}
+                        {{Bootstrap::date('date[]', '', date('d-m-Y'), $errors, ['name'=>'date[]','class' => 'form-control datepicker'], ['format' => 'DD-MM-YYYY'])}}
                     </td>
                     <td>
                         {{ Form::button(FA::icon('plus'), ['class' => 'btn btn-large btn-primary openbutton','id' => 'addMatch'])}}

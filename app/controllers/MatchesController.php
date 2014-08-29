@@ -42,12 +42,24 @@ class MatchesController extends \BaseController {
 
         $home_team = Input::get('home_team');
         $guest_team = Input::get('guest_team');
+        $stadium = Input::get('stadium');
+        $date = Input::get('date');
 
         for($i = 0 ; $i < count($guest_team); $i++){
             $dataMatches = [
+                '_token' => Input::get('_token'),
                 'home_team'     =>  $home_team[$i],
-                'guest_team'    =>  $guest_team[$i]
+                'guest_team'    =>  $guest_team[$i],
+                'stadium'       =>  $stadium[$i],
+                'date'          => date('Y-m-d',strtotime($date[$i]))
             ];
+
+            $validator = Validator::make($data = $dataMatches, Match::$rules);
+
+            if ($validator->fails())
+            {
+                return Redirect::back()->withErrors($validator);
+            }
 
             //TODO: Bisogna Validare i dati prima di creare il match
             Match::create($dataMatches);
@@ -145,4 +157,9 @@ class MatchesController extends \BaseController {
 		return Redirect::route('matches.index');
 	}
 
+    public function findTicket(){
+
+        $match = Match::find(Input::get('match_id'));
+        return Response::json( $match->tickets );
+    }
 }
