@@ -1724,58 +1724,6 @@
         "description": "PHP wrapper library for the fantastic FontAwesome icon set."
     },
     {
-        "name": "cornford/bootstrapper",
-        "version": "v1.2.0",
-        "version_normalized": "1.2.0.0",
-        "source": {
-            "type": "git",
-            "url": "https://github.com/bradcornford/Bootstrapper.git",
-            "reference": "4367bec0ba0a50a773614138a779476831ce43a9"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://api.github.com/repos/bradcornford/Bootstrapper/zipball/4367bec0ba0a50a773614138a779476831ce43a9",
-            "reference": "4367bec0ba0a50a773614138a779476831ce43a9",
-            "shasum": ""
-        },
-        "require": {
-            "illuminate/support": "4.2.*",
-            "php": ">=5.4.0"
-        },
-        "require-dev": {
-            "mockery/mockery": "~0.9.1",
-            "phpspec/phpspec": "2.0.*@dev"
-        },
-        "time": "2014-06-06 08:15:25",
-        "type": "library",
-        "installation-source": "dist",
-        "autoload": {
-            "psr-0": {
-                "Cornford\\Bootstrapper": "src/"
-            }
-        },
-        "notification-url": "https://packagist.org/downloads/",
-        "license": [
-            "MIT"
-        ],
-        "authors": [
-            {
-                "name": "Bradley Cornford",
-                "email": "me@bradleycornford.co.uk"
-            }
-        ],
-        "description": "An easy way to intergrate Twitter Bootstrap with Laravel 4.",
-        "keywords": [
-            "alerts",
-            "bootstrap",
-            "form",
-            "laravel",
-            "templates",
-            "twitter",
-            "views"
-        ]
-    },
-    {
         "name": "nesbot/carbon",
         "version": "1.11.0",
         "version_normalized": "1.11.0.0",
@@ -1881,18 +1829,70 @@
         ]
     },
     {
-        "name": "barryvdh/laravel-debugbar",
-        "version": "v1.6.7",
-        "version_normalized": "1.6.7.0",
+        "name": "cornford/bootstrapper",
+        "version": "v1.2.1",
+        "version_normalized": "1.2.1.0",
         "source": {
             "type": "git",
-            "url": "https://github.com/barryvdh/laravel-debugbar.git",
-            "reference": "ccf9ababfb2b5ddbf8c3ece2ca3fc9989b11ec0d"
+            "url": "https://github.com/bradcornford/Bootstrapper.git",
+            "reference": "6fbd620c95224dad40638103a1c8744fe29260bd"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/barryvdh/laravel-debugbar/zipball/ccf9ababfb2b5ddbf8c3ece2ca3fc9989b11ec0d",
-            "reference": "ccf9ababfb2b5ddbf8c3ece2ca3fc9989b11ec0d",
+            "url": "https://api.github.com/repos/bradcornford/Bootstrapper/zipball/6fbd620c95224dad40638103a1c8744fe29260bd",
+            "reference": "6fbd620c95224dad40638103a1c8744fe29260bd",
+            "shasum": ""
+        },
+        "require": {
+            "illuminate/support": "4.2.*",
+            "php": ">=5.4.0"
+        },
+        "require-dev": {
+            "mockery/mockery": "~0.9.1",
+            "phpspec/phpspec": "2.0.*@dev"
+        },
+        "time": "2014-08-27 07:09:12",
+        "type": "library",
+        "installation-source": "dist",
+        "autoload": {
+            "psr-0": {
+                "Cornford\\Bootstrapper": "src/"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Bradley Cornford",
+                "email": "me@bradleycornford.co.uk"
+            }
+        ],
+        "description": "An easy way to intergrate Twitter Bootstrap with Laravel 4.",
+        "keywords": [
+            "alerts",
+            "bootstrap",
+            "form",
+            "laravel",
+            "templates",
+            "twitter",
+            "views"
+        ]
+    },
+    {
+        "name": "barryvdh/laravel-debugbar",
+        "version": "v1.6.8",
+        "version_normalized": "1.6.8.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/barryvdh/laravel-debugbar.git",
+            "reference": "6668cf335a7b6461debbedc9ed95f2f3784eb537"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/barryvdh/laravel-debugbar/zipball/6668cf335a7b6461debbedc9ed95f2f3784eb537",
+            "reference": "6668cf335a7b6461debbedc9ed95f2f3784eb537",
             "shasum": ""
         },
         "require": {
@@ -1901,7 +1901,7 @@
             "php": ">=5.3.0",
             "symfony/finder": "~2.3"
         },
-        "time": "2014-08-09 20:41:59",
+        "time": "2014-08-27 08:56:54",
         "type": "library",
         "extra": {
             "branch-alias": {

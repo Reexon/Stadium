@@ -13,7 +13,7 @@
 
 Route::get('/', function()
 {
-	return View::make('users.login');
+	return View::make('hello');
 });
 
 /*
@@ -35,7 +35,7 @@ Route::resource('tickets', 'TicketsController');
  */
 Route::post('users/login','UsersController@login');
 Route::get('users/login',function(){return View::make('users.login');});
-Route::post('users/logout','UsersController@logout');
+Route::get('users/logout','UsersController@logout');
 Route::get('users/register',function(){return View::make('users.register');});
 Route::post('users/search','UsersController@search');
 Route::resource('users', 'UsersController');

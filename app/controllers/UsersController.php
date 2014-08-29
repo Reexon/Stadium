@@ -39,6 +39,9 @@ class UsersController extends \BaseController {
 			return Redirect::back()->withErrors($validator)->withInput();
 		}
 
+        //dei dati validati, converto la password che deve essere in Hash
+        $data['password'] = Hash::make(Input::get('password'));
+
 		User::create($data);
 
 		return Redirect::route('users.index')->with('success','User Created Succesfully');
@@ -113,7 +116,6 @@ class UsersController extends \BaseController {
      * @return Response
      */
     public function login(){
-
         if (Auth::attempt(array('email'=>Input::get('email'), 'password'=>Input::get('password')))) {
             return Redirect::to('users/login')->with('message', 'You are now logged in!');
         } else {

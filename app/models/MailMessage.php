@@ -5,7 +5,8 @@ class MailMessage extends \Eloquent {
 	// Add your validation rules here
 	public static $rules = [
 		'title' => 'required',
-        'body' => 'requred',
+        'body' => 'required',
+        'subject' => 'required',
         'to' => 'required',
 	];
 
@@ -13,7 +14,8 @@ class MailMessage extends \Eloquent {
 	protected $fillable = [
         'title',
         'body',
-        'to'
+        'to',
+        'subject',
     ];
 
 }
