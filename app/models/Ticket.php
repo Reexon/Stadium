@@ -19,4 +19,5 @@ class Ticket extends \Eloquent {
         return $this->belongsTo('Match');
     }
 
+
 }

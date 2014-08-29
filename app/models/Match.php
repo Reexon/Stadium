@@ -6,7 +6,7 @@ class Match extends Eloquent {
 	public static $rules = [
 		   'home_team' => 'required',
            'guest_team' => 'required',
-           'date'  => 'required|date_format:d-m-Y',
+           'date'  => 'required',
            'stadium'   => 'required'
 	];
 
@@ -20,13 +20,6 @@ class Match extends Eloquent {
         return $this->hasMany('Ticket');
     }
 
-    protected $attributes = [
-        'id_match',
-        'home_team',
-        'guest_team',
-        'date',
-        'stadium',
-    ];
 
     protected $dates = ['date'];
 }
