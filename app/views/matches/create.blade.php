@@ -3,31 +3,27 @@
     @section('head')
         @parent
     <script>
-        $(document).on('click','.datepicker',function(){
-            $(this).datetimepicker({ pickTime: false, format: "DD-MM-YYYY" });
+
+        /* in default_tr memorizzo html dell'unica riga presente nella tabella,
+         questo mi permettera di fare 'aggiunta' di righe senza dover riscrivere l'intero html
+         */
+        var default_tr;
+        $(function(){
+            default_tr = $('table tbody:first').clone();
         });
 
         $(document).on('click','#addMatch',function(){
-            var tableBody = $('table tbody');//prendo il tbody
-            var home_team = '<input class="form-control" placeholder="Home Team" name="home_team[]" type="text"></div>';
-            var guest_team ='<input class="form-control" placeholder="Guest Team" name="guest_team[]" type="text">';
-            var date ='<div class="input-group date"><input class="form-control datepicker" placeholder="Select Date" name="date[]" type="text"><span class="input-group-addon">'
-                +'<span class="glyphicon-calendar glyphicon"></span>'+
-                '</span></div>';
-            var addMatch = '{{ Form::button(FA::icon('plus'), ['class' => 'btn btn-large btn-primary openbutton','id' => 'addMatch'])}}';
-            var deleteMatch ='{{ Form::button(FA::icon('times'), ['class' => 'btn btn-large btn-danger','id' => 'deleteMatch'])}}';
-            var stadium = '{{ Form::text('stadium[]', Input::old('stadium'), array('class' => 'form-control','placeholder' => 'Stadium')) }}';
-            //rimuovo il bottone (addMatch) dalla riga corrente (verrà aggiunto nella riga successiva
-            $(this).remove();
-            var index = $('table.table tbody tr').length+1;
-            tableBody.append('<tr><td>'+index+'</td><td>'+home_team+'</td><td>'+guest_team+'</td><td>'+stadium+'</td><td>'+date+'</td><td>'+addMatch+' '+deleteMatch+'</td></tr>');
+            var tableBody = $('table tbody:first');//prendo il tbody
 
+            //rimuovo il bottone (add) dalla riga corrente (verrà aggiunto nella riga successiva)
+            $(this).remove();
+
+            tableBody.append(default_tr.html());
         });
 
         $(document).on('click','#deleteMatch',function(){
             var current_tr = $(this).closest('tr');
             var last_tr = $('table.table tbody tr:last');
-
             var total_row = $('table.table tbody tr').length;
 
 
@@ -95,7 +91,7 @@
                         'placeholder' => 'Stadium')) }}
                     </td>
                     <td>
-                        {{Bootstrap::date('date[]', '', date('d-m-Y'), $errors, ['name'=>'date[]','class' => 'form-control datepicker'], ['format' => 'DD-MM-YYYY'])}}
+                        {{ Form::input('text','date[]',null,['class' => 'form-control datepicker','placeholder' =>'Date']) }}
                     </td>
                     <td>
                         {{ Form::button(FA::icon('plus'), ['class' => 'btn btn-large btn-primary openbutton','id' => 'addMatch'])}}

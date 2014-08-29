@@ -3,13 +3,14 @@
 @section('head')
 @parent
 <script>
+    /* in default_tr memorizzo html dell'unica riga presente nella tabella,
+        questo mi permettera di fare 'aggiunta' di righe senza dover riscrivere l'intero html
+    */
     var default_tr;
     $(function(){
         default_tr = $('table tbody:first').clone();
-    });
 
-    $(document).on('click','.datepicker',function(){
-        $(this).datetimepicker({ pickTime: false, format: "DD-MM-YYYY" });
+       loadTicketOption($('table select:first'));
     });
 
     $(document).on('click','#addOrder',function(){
@@ -48,8 +49,20 @@
 
     });
 
-    $(document).on('change','form select[id=selectMatch]',function(){
-        var selectOptionTicket = $(this).parent().parent().find('td select:last');
+    function clearTicketOption(selectOption){
+        $(selectOption).find('option').remove();
+    }
+
+    function loadTicketOption(optionMatch){
+        /*
+          se la chiamata avviene in seguito all'evento onChange, bisogna convertirlo.
+          se la chiamata avviene xk è appena stata caricata la pagina, il parametor passato è gia jquery
+         */
+        if(!(optionMatch instanceof $) )
+            optionMatch = $(optionMatch);
+
+            var selectOptionTicket = optionMatch.parent().parent().find('td select:last');
+
         $.post(
             "{{ URL::to('matches/findTicket')}}",
             {
@@ -58,7 +71,7 @@
                  dei tag del form, visto che il token non si trova all'interno del form, devo cercarlo sull'intera pagina.
                  */
                 "_token": $('input[name=_token]:first').val(),
-                "match_id": $(this).val() //match_id selezionato
+                "match_id": optionMatch.val() //match_id selezionato
             },
             function( ticketData ) {
                 clearTicketOption(selectOptionTicket);
@@ -68,11 +81,6 @@
             },
             'json'
         );
-
-    });
-
-    function clearTicketOption(selectOption){
-        $(selectOption).find('option').remove();
     }
 
     function addSelectOptionTo(selectOptionTicket,tickets){
@@ -92,12 +100,9 @@
 @section('content')
 <h1>Add Payment</h1>
 
-<!-- if there are creation errors, they will show here -->
-{{ HTML::ul($errors->all()) }}
-
 {{ Form::open(array('url' => 'payments','class' => 'form-inline')) }}
 <h4>User: {{ Form::select('user_id', $users) }}</h4>
-<h4>Date:  {{Bootstrap::date('pay_date', '', date('d-m-Y'), $errors, ['class' => 'form-control datepicker'], ['format' => 'DD-MM-YYYY'])}}</h4>
+<h4>Date:  {{ Bootstrap::date('date', '',null, $errors,['class' =>'form-control datepicker'])}}</h4>
 <table class="table">
     <thead>
     <tr>
@@ -112,7 +117,7 @@
     <tr>
         <td>1</td>
         <td>
-            {{ Form::select('match_id[]', $matches ,'', ['id' => 'selectMatch']) }}
+            {{ Form::select('match_id[]', $matches ,'', ['onChange' => 'loadTicketOption(this)']) }}
         </td>
         <td>
             {{ Form::select('ticket_id[]', array('' => '')) }}
@@ -127,13 +132,13 @@
     </tr>
     </tbody>
     <tfoot>
-    <tr>
-        <th>#</th>
-        <th>Match</th>
-        <th>Ticket</th>
-        <th>Quantity</th>
-        <th>Action</th>
-    </tr>
+        <tr>
+            <th>#</th>
+            <th>Match</th>
+            <th>Ticket</th>
+            <th>Quantity</th>
+            <th>Action</th>
+        </tr>
     </tfoot>
 </table>
 
