@@ -16,17 +16,39 @@ Route::get('/', function()
 	return View::make('users.login');
 });
 
+/*
+ * Matches
+ */
+
+//restituzione ticket per una determinata paritta (creazione payent)
+Route::post('matches/findTicket','MatchesController@findTicket');
 Route::resource('matches', 'MatchesController');
+
+/*
+ * Tickets
+ */
 Route::get('tickets/create/{id}', 'TicketsController@create');
 Route::resource('tickets', 'TicketsController');
+
+/*
+ * Users
+ */
 Route::post('users/login','UsersController@login');
-Route::get('users/login',function(){
-    return View::make('users.login');
-});
+Route::get('users/login',function(){return View::make('users.login');});
 Route::post('users/logout','UsersController@logout');
-Route::get('users/register',function(){
-    return View::make('users.register');
-});
+Route::get('users/register',function(){return View::make('users.register');});
 Route::post('users/search','UsersController@search');
-//not working ?
 Route::resource('users', 'UsersController');
+
+/*
+ * Payments
+ */
+Route::resource('payments', 'PaymentsController');
+
+/*
+ * MailMessage
+ */
+Route::resource('mails', 'MailMessageController',[
+                                            'only' => ['index', 'show','create']
+                                            ]
+);
