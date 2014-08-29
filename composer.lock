@@ -8,16 +8,16 @@
     "packages": [
         {
             "name": "barryvdh/laravel-debugbar",
-            "version": "v1.6.7",
+            "version": "v1.6.8",
             "source": {
                 "type": "git",
                 "url": "https://github.com/barryvdh/laravel-debugbar.git",
-                "reference": "ccf9ababfb2b5ddbf8c3ece2ca3fc9989b11ec0d"
+                "reference": "6668cf335a7b6461debbedc9ed95f2f3784eb537"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/barryvdh/laravel-debugbar/zipball/ccf9ababfb2b5ddbf8c3ece2ca3fc9989b11ec0d",
-                "reference": "ccf9ababfb2b5ddbf8c3ece2ca3fc9989b11ec0d",
+                "url": "https://api.github.com/repos/barryvdh/laravel-debugbar/zipball/6668cf335a7b6461debbedc9ed95f2f3784eb537",
+                "reference": "6668cf335a7b6461debbedc9ed95f2f3784eb537",
                 "shasum": ""
             },
             "require": {
@@ -55,7 +55,7 @@
                 "profiler",
                 "webprofiler"
             ],
-            "time": "2014-08-09 20:41:59"
+            "time": "2014-08-27 08:56:54"
         },
         {
             "name": "classpreloader/classpreloader",
@@ -106,16 +106,16 @@
         },
         {
             "name": "cornford/bootstrapper",
-            "version": "v1.2.0",
+            "version": "v1.2.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/bradcornford/Bootstrapper.git",
-                "reference": "4367bec0ba0a50a773614138a779476831ce43a9"
+                "reference": "6fbd620c95224dad40638103a1c8744fe29260bd"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/bradcornford/Bootstrapper/zipball/4367bec0ba0a50a773614138a779476831ce43a9",
-                "reference": "4367bec0ba0a50a773614138a779476831ce43a9",
+                "url": "https://api.github.com/repos/bradcornford/Bootstrapper/zipball/6fbd620c95224dad40638103a1c8744fe29260bd",
+                "reference": "6fbd620c95224dad40638103a1c8744fe29260bd",
                 "shasum": ""
             },
             "require": {
@@ -152,7 +152,7 @@
                 "twitter",
                 "views"
             ],
-            "time": "2014-06-06 08:15:25"
+            "time": "2014-08-27 07:09:12"
         },
         {
             "name": "d11wtq/boris",
