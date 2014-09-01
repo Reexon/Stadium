@@ -98,8 +98,7 @@
 
 @section('content')
 <h1>Add Payment</h1>
-
-{{ Form::open(array('url' => 'admin/payments/update','class' => 'form-inline')) }}
+{{ Form::open(array('route' => ['admin.payments.update',$payment->id_payment],'method' => 'PUT','class' => 'form-inline')) }}
 <h4>User: {{ Form::select('user_id', $users) }}</h4>
 <h4>Date:  {{ Bootstrap::date('pay_date', '',Input::old('pay_date'), $errors,['class' =>'form-control datepicker'])}}</h4>
 <table class="table">
