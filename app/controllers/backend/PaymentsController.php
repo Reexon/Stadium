@@ -13,7 +13,7 @@ use Validator;
 use Redirect;
 use Response;
 
-class PaymentsController extends \BaseController {
+class PaymentsController extends BaseController {
 
 	/**
 	 * Display a listing of payments
@@ -24,7 +24,7 @@ class PaymentsController extends \BaseController {
 	{
 		$payments = Payment::orderBy('pay_date','desc')->paginate(15);
 
-		return View::make('payments.index', compact('payments'));
+		return View::make($this->viewFolder.'payments.index', compact('payments'));
 	}
 
 	/**
@@ -40,7 +40,7 @@ class PaymentsController extends \BaseController {
 
         $users = User::select('id_user',DB::raw('CONCAT(firstname, " ", lastname) AS name'))->lists('name','id_user');
 
-		return View::make('payments.create',compact('matches','users'));
+		return View::make($this->viewFolder.'payments.create',compact('matches','users'));
 	}
 
 	/**
@@ -62,7 +62,7 @@ class PaymentsController extends \BaseController {
 
         $dataPayment =[
             'pay_date' => date('Y-m-d',strtotime($pay_date)),
-            'total' => '200'
+            'total' => 0 //default 0 , verrà fatto update + avanti
         ];
 
         $validatePayment =  Validator::make($data = $dataPayment, Payment::$rules);
@@ -99,13 +99,14 @@ class PaymentsController extends \BaseController {
              * All'ordine (che ancora non esiste) gli associo il ticket
              * All'ordine (che ancora non esiste) gli associo il pagamento
              * Salvo infine il pagamento inserendolo in relazione con i Payment
+             * Aggiorno il totale del pagamento e faccio update
              */
             $order = new Order($dataOrder);
             $ticket = Ticket::find($ticket_id[$i]);
             $order = $order->ticket()->associate($ticket);
             $order = $order->payment()->associate($payment);
             $payment->orders()->save($order);
-            $payment->total = $order->quantity * $ticket->price;
+            $payment->total += $order->quantity * $ticket->price;
             $payment->save();
         }
 
@@ -121,9 +122,9 @@ class PaymentsController extends \BaseController {
 	 */
 	public function show($id)
 	{
-		$payment = Payment::findOrFail($id);
-
-		return View::make('payments.show', compact('payment'));
+		//$payment = Payment::findOrFail($id);
+        $payment = Payment::with('user','orders.ticket.match')->findOrFail($id);
+		return View::make($this->viewFolder.'payments.show', compact('payment'));
 	}
 
 	/**
@@ -141,7 +142,7 @@ class PaymentsController extends \BaseController {
 
         $users = User::select('id_user',DB::raw('CONCAT(firstname, " ", lastname) AS name'))->lists('name','id_user');
 
-		return View::make('payments.edit', compact('payment','matches','users'));
+		return View::make($this->viewFolder.'payments.edit', compact('payment','matches','users'));
 	}
 
 	/**

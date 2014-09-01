@@ -9,7 +9,7 @@ use Input;
 use Validator;
 use Redirect;
 
-class TicketsController extends \BaseController {
+class TicketsController extends BaseController {
 
 	/**
 	 * Display a listing of tickets
@@ -19,7 +19,7 @@ class TicketsController extends \BaseController {
 	public function index()
 	{
 		$tickets = Ticket::all();
-		return View::make('tickets.index', compact('tickets'));
+		return View::make($this->viewFolder.'tickets.index', compact('tickets'));
 	}
 
 	/**
@@ -33,7 +33,7 @@ class TicketsController extends \BaseController {
         $matches = Match::select('id_match', DB::raw('CONCAT(home_team, " - ", guest_team) AS label_match'))->take(10)
         ->orderBy('date')
         ->lists('label_match', 'id_match');
-        return View::make('tickets.create', compact('matches','match_id'));
+        return View::make($this->viewFolder.'tickets.create', compact('matches','match_id'));
 	}
 
 	/**
@@ -97,9 +97,8 @@ class TicketsController extends \BaseController {
 	 */
 	public function show($id)
 	{
-		$ticket = Ticket::findOrFail($id);
-
-		return View::make('tickets.show', compact('ticket'));
+        $ticket = Ticket::with('match','orders.payment.user')->findOrFail($id);
+		return View::make($this->viewFolder.'tickets.show', compact('ticket'));
 	}
 
 	/**
@@ -116,7 +115,7 @@ class TicketsController extends \BaseController {
         $matches = Match::select('id_match', DB::raw('CONCAT(home_team, " - ", guest_team) AS label_match'))->take(10)
             ->orderBy('date')
             ->lists('label_match', 'id_match');
-		return View::make('tickets.edit', compact('ticket','matches'));
+		return View::make($this->viewFolder.'tickets.edit', compact('ticket','matches'));
 	}
 
 	/**
@@ -154,4 +153,17 @@ class TicketsController extends \BaseController {
 		return Redirect::route('admin.tickets.index');
 	}
 
+    public function selledForMatch($id_match){
+        $tickets = DB::select('SELECT label,ticket_id,price,
+        SUM(orders.quantity)as quantity,
+        SUM(orders.quantity * tickets.price)as total_price
+        FROM payments
+        INNER JOIN orders ON id_payment = payment_id
+        INNER JOIN tickets ON ticket_id = id_ticket
+        WHERE tickets.match_id = ?
+        GROUP BY ticket_id
+        ',[$id_match]);
+
+        return View::make($this->viewFolder.'tickets.selled',compact('tickets'));
+    }
 }

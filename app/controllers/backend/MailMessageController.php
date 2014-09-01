@@ -8,7 +8,7 @@ use Input;
 use Redirect;
 
 
-class MailMessageController extends \BaseController {
+class MailMessageController extends BaseController {
 
 	/**
 	 * Display a listing of mails
@@ -19,7 +19,7 @@ class MailMessageController extends \BaseController {
 	{
 		$mails = MailMessage::all();
 
-		return View::make('mails.index', compact('mails'));
+		return View::make($this->viewFolder.'mails.index', compact('mails'));
 	}
 
 	/**
@@ -29,7 +29,7 @@ class MailMessageController extends \BaseController {
 	 */
 	public function create()
 	{
-		return View::make('mails.create');
+		return View::make($this->viewFolder.'mails.create');
 	}
 
 	/**
@@ -48,7 +48,7 @@ class MailMessageController extends \BaseController {
 
 		Mail::create($data);
 
-		return Redirect::route('mails.index');
+		return Redirect::route('admin.mails.index');
 	}
 
 	/**
@@ -61,7 +61,7 @@ class MailMessageController extends \BaseController {
 	{
 		$mail = MailMessage::findOrFail($id);
 
-		return View::make('mails.show', compact('mail'));
+		return View::make($this->viewFolder.'mails.show', compact('mail'));
 	}
 
 	/**
@@ -74,7 +74,7 @@ class MailMessageController extends \BaseController {
 	{
 		$mail = MailMessage::find($id);
 
-		return View::make('mails.edit', compact('mail'));
+		return View::make($this->viewFolder.'mails.edit', compact('mail'));
 	}
 
 	/**
@@ -96,7 +96,7 @@ class MailMessageController extends \BaseController {
 
 		$mail->update($data);
 
-		return Redirect::route('mails.index');
+		return Redirect::route('admin.mails.index');
 	}
 
 	/**
@@ -109,7 +109,7 @@ class MailMessageController extends \BaseController {
 	{
         MailMessage::destroy($id);
 
-		return Redirect::route('mails.index');
+		return Redirect::route('admin.mails.index');
 	}
 
 }

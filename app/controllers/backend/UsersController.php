@@ -11,7 +11,8 @@ use Auth;
 use Session;
 use Response;
 
-class UsersController extends \BaseController {
+class UsersController extends BaseController {
+
 
 	/**
 	 * Display a listing of users
@@ -22,7 +23,7 @@ class UsersController extends \BaseController {
 	{
 		$users = User::all();
 
-		return View::make('users.index', compact('users'));
+		return View::make($this->viewFolder.'users.index', compact('users'));
 	}
 
 	/**
@@ -32,7 +33,7 @@ class UsersController extends \BaseController {
 	 */
 	public function create()
 	{
-		return View::make('users.create');
+		return View::make($this->viewFolder.'users.create');
 	}
 
 	/**
@@ -68,7 +69,7 @@ class UsersController extends \BaseController {
 	{
 		$user = User::findOrFail($id);
 
-		return View::make('users.show', compact('user'));
+		return View::make($this->viewFolder.'users.show', compact('user'));
 	}
 
 	/**
@@ -81,7 +82,7 @@ class UsersController extends \BaseController {
 	{
 		$user = User::find($id);
 
-		return View::make('users.edit', compact('user'));
+		return View::make($this->viewFolder.'users.edit', compact('user'));
 	}
 
 	/**
@@ -128,7 +129,7 @@ class UsersController extends \BaseController {
      */
     public function login(){
         if (Auth::attempt(array('email'=>Input::get('email'), 'password'=>Input::get('password')))) {
-            return Redirect::to('login')->with('message', 'You are now logged in!');
+            return Redirect::to('/')->with('message', 'You are now logged in!');
         } else {
             return Redirect::to('login')
                 ->with('message', 'Your username/password combination was incorrect')

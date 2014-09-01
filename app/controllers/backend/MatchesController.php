@@ -8,9 +8,9 @@ use Redirect;
 use Input;
 use Response;
 use Backend\Model\Match;
+use DB;
 
-
-class MatchesController extends \BaseController {
+class MatchesController extends BaseController {
 
 	/**
 	 * Display a listing of matches
@@ -23,7 +23,7 @@ class MatchesController extends \BaseController {
 		//$matches = Match::where('date','>',time())->paginate(15);
         $matches = Match::all();
 
-		return View::make('matches.index', compact('matches'));
+		return View::make($this->viewFolder.'matches.index', compact('matches'));
 
 	}
 
@@ -34,7 +34,7 @@ class MatchesController extends \BaseController {
 	 */
 	public function create()
 	{
-		return View::make('matches.create');
+		return View::make($this->viewFolder.'matches.create');
 	}
 
 	/**
@@ -114,7 +114,7 @@ class MatchesController extends \BaseController {
 	{
 		$match = Match::findOrFail($id);
 
-		return View::make('matches.show', compact('match'));
+		return View::make($this->viewFolder.'matches.show', compact('match'));
 	}
 
 	/**
@@ -127,7 +127,7 @@ class MatchesController extends \BaseController {
 	{
 		$match = Match::find($id);
 
-		return View::make('matches.edit', compact('match'));
+		return View::make($this->viewFolder.'matches.edit', compact('match'));
 	}
 
 	/**
@@ -175,4 +175,5 @@ class MatchesController extends \BaseController {
         $match = Match::find(Input::get('match_id'));
         return Response::json( $match->tickets );
     }
+
 }
