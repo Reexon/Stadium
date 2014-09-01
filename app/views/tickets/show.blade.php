@@ -1,1 +1,0 @@
-/Applications/AMPPS/www/Stadium/app/views/tickets/show.blade.php
