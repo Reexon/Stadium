@@ -6,6 +6,7 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
+    'Backend\\Controller\\BaseController' => $baseDir . '/app/controllers/backend/BaseController.php',
     'Backend\\Controller\\MailMessageController' => $baseDir . '/app/controllers/backend/MailMessageController.php',
     'Backend\\Controller\\MatchesController' => $baseDir . '/app/controllers/backend/MatchesController.php',
     'Backend\\Controller\\PaymentsController' => $baseDir . '/app/controllers/backend/PaymentsController.php',
@@ -38,7 +39,6 @@ return array(
     'Barryvdh\\Debugbar\\Twig\\Extension\\Stopwatch' => $vendorDir . '/barryvdh/laravel-debugbar/src/Barryvdh/Debugbar/Twig/Extension/Stopwatch.php',
     'Barryvdh\\Debugbar\\Twig\\Node\\StopwatchNode' => $vendorDir . '/barryvdh/laravel-debugbar/src/Barryvdh/Debugbar/Twig/Node/StopwatchNode.php',
     'Barryvdh\\Debugbar\\Twig\\TokenParser\\StopwatchTokenParser' => $vendorDir . '/barryvdh/laravel-debugbar/src/Barryvdh/Debugbar/Twig/TokenParser/StopwatchTokenParser.php',
-    'BaseController' => $baseDir . '/app/controllers/backend/BaseController.php',
     'Boris\\Boris' => $vendorDir . '/d11wtq/boris/lib/Boris/Boris.php',
     'Boris\\CLIOptionsHandler' => $vendorDir . '/d11wtq/boris/lib/Boris/CLIOptionsHandler.php',
     'Boris\\ColoredInspector' => $vendorDir . '/d11wtq/boris/lib/Boris/ColoredInspector.php',
@@ -128,7 +128,8 @@ return array(
     'File_ASN1' => $vendorDir . '/phpseclib/phpseclib/phpseclib/File/ASN1.php',
     'File_ASN1_Element' => $vendorDir . '/phpseclib/phpseclib/phpseclib/File/ASN1.php',
     'File_X509' => $vendorDir . '/phpseclib/phpseclib/phpseclib/File/X509.php',
-    'HomeController' => $baseDir . '/app/controllers/backend/HomeController.php',
+    'Frontend\\Controller\\BaseController' => $baseDir . '/app/controllers/frontend/BaseController.php',
+    'Frontend\\Controller\\MatchesController' => $baseDir . '/app/controllers/frontend/MatchesController.php',
     'IlluminateQueueClosure' => $vendorDir . '/laravel/framework/src/Illuminate/Queue/IlluminateQueueClosure.php',
     'Illuminate\\Auth\\AuthManager' => $vendorDir . '/laravel/framework/src/Illuminate/Auth/AuthManager.php',
     'Illuminate\\Auth\\AuthServiceProvider' => $vendorDir . '/laravel/framework/src/Illuminate/Auth/AuthServiceProvider.php',
