@@ -20,19 +20,24 @@ Route::get('/match/info/{id_match}','Frontend\Controller\MatchesController@info'
  */
 Route::post('cart/update',function(){
 
-
+    //carrello attuale utente
     $userCart = Session::get('cart');
 
-    $postData = ['ticket_id' => Input::get('ticket_id'),
-             'quantity' => Input::get('quantity')];
+    //valori dal form
+    $ticket_id = Input::get('ticket_id');
+    $quantity = Input::get('quantity');
+
+    $postData = [Input::get('ticket_id') => Input::get('quantity')];
 
     if($userCart != null){//se il carrello gia esiste
-        
-        if(array_key_exists($postData['ticket_id'],$userCart)){
-            $userCart[$postData['ticket_id']] += $postData['quantity'];
+
+        if(array_key_exists($ticket_id,$userCart)){
+            $userCart[$ticket_id] += $quantity;
+
         }else{ //ticket nuovo lo aggiungo
-            $userCart[$postData['ticket_id']] = $postData['quantity'];
+            $userCart[$ticket_id] = $quantity;
         }
+
     }else //il carrello non esiste
         $userCart = $postData;
 
@@ -41,7 +46,9 @@ Route::post('cart/update',function(){
 
     return Redirect::back();
 });
-Route::get('cart/info','CartController@show');
+
+Route::get('cart/clear','Frontend\Controller\CartController@clear');
+Route::get('cart/info','Frontend\Controller\CartController@info');
 Route::post('users/login','Backend\Controller\UsersController@login');
 Route::get('login',function(){return View::make('backend.users.login');});
 Route::post('login','Backend\Controller\UsersController@login');

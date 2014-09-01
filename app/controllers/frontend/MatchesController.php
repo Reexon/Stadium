@@ -11,7 +11,6 @@ namespace Frontend\Controller;
 
 use Backend\Model\Match;
 use View;
-
 class MatchesController extends BaseController{
 
     /**
@@ -24,6 +23,7 @@ class MatchesController extends BaseController{
     public function index(){
         //TODO: seleizonare solo i match prossimi, non tutti
         $matches = Match::all();
+
 
         return View::make('index',compact('matches'));
     }

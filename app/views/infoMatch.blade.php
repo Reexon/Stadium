@@ -32,7 +32,7 @@
         <td>{{$ticket->quantity }}</td>
         <td>
             @if($ticket->quantity == 0)
-             <span class="label label-danger">Sold Out</span>
+                <span class="label label-danger">Sold Out</span>
             @else
                 {{ Form::selectRange('quantity', 1, $ticket->quantity) }}
             @endif
