@@ -1,16 +1,15 @@
 <?php
 
-namespace Backend\Controller;
+namespace Frontend\Controller;
 
 class BaseController extends \Controller {
 
+    protected $viewFolder = 'frontend.';
 	/**
 	 * Setup the layout used by the controller.
 	 *
 	 * @return void
 	 */
-    protected $viewFolder = 'backend.';
-
 	protected function setupLayout()
 	{
 		if ( ! is_null($this->layout))
