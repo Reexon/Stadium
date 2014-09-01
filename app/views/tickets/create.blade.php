@@ -60,8 +60,6 @@
 @section('content')
 <h1>Add Match</h1>
 
-<!-- if there are creation errors, they will show here -->
-{{ HTML::ul($errors->all()) }}
 
 {{ Form::open(array('url' => 'admin/tickets','class' => 'form-inline')) }}
 

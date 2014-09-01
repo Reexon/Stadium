@@ -54,12 +54,8 @@
         @parent
     @stop
 
-
     @section('content')
         <h1>Add Match</h1>
-
-        <!-- if there are creation errors, they will show here -->
-        {{ HTML::ul($errors->all()) }}
 
         {{ Form::open(array('url' => 'admin/matches',
                             'class' => 'form-inline')) }}

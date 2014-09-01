@@ -14,9 +14,6 @@
 
     <h1>Edit {{ $match->home_team }} vs {{ $match->guest_team }}</h1>
 
-    <!-- if there are creation errors, they will show here -->
-
-
     {{ Form::model($match, array('route' => array('admin.matches.update', $match->id_match), 'method' => 'PUT','class'=>'form-horizontal', 'role' => 'form')) }}
 
     <div class="form-group">
