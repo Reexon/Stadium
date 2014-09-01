@@ -150,7 +150,7 @@
                 </li>
                 <li class="treeview">
                     <a href="#">
-                        {{FA::icon('user')}}<span>Payments</span>
+                        {{FA::icon('money')}}<span>Payments</span>
                         <i class="fa fa-angle-left pull-right"></i>
                     </a>
                     <ul class="treeview-menu">
@@ -180,7 +180,7 @@
                 </li>
                 <li class="treeview">
                     <a href="#">
-                        {{FA::icon('futbol-o')}}<span>Matches</span>
+                        {{FA::icon('soccer-ball-o')}}<span>Matches</span>
                         <i class="fa fa-angle-left pull-right"></i>
                     </a>
                     <ul class="treeview-menu">
@@ -211,7 +211,7 @@
         </section>
 
         <!-- Main content -->
-        <section class="content">
+        <section class="content" >
             <!-- will be used to show any messages -->
             @if (Session::has('message'))
             <div class="alert alert-info alert-dismissable">{{ Session::get('message') }}</div>
