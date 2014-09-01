@@ -8,9 +8,8 @@
     */
     var default_tr;
     $(function(){
-        default_tr = $('table tbody:first').clone();
-
        loadTicketOption($('table select:first'));
+        default_tr = $('table tbody:first').clone();
     });
 
     $(document).on('click','#addOrder',function(){
@@ -64,7 +63,7 @@
             var selectOptionTicket = optionMatch.parent().parent().find('td select:last');
 
         $.post(
-            "{{ URL::to('matches/findTicket')}}",
+            "{{ URL::to('admin/matches/findTicket')}}",
             {
                 /*
                  quando safari rendereizza il form stranamente lo chiude immediatamente, mettendo gli input al di fuori
@@ -100,9 +99,9 @@
 @section('content')
 <h1>Add Payment</h1>
 
-{{ Form::open(array('url' => 'payments','class' => 'form-inline')) }}
+{{ Form::open(array('url' => 'admin/payments','class' => 'form-inline')) }}
 <h4>User: {{ Form::select('user_id', $users) }}</h4>
-<h4>Date:  {{ Bootstrap::date('pay_date', '',null, $errors,['class' =>'form-control datepicker'])}}</h4>
+<h4>Date:  {{ Bootstrap::date('pay_date', '',Input::old('pay_date'), $errors,['class' =>'form-control datepicker'])}}</h4>
 <table class="table">
     <thead>
     <tr>

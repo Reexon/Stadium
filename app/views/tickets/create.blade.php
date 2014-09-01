@@ -63,7 +63,7 @@
 <!-- if there are creation errors, they will show here -->
 {{ HTML::ul($errors->all()) }}
 
-{{ Form::open(array('url' => 'tickets','class' => 'form-inline')) }}
+{{ Form::open(array('url' => 'admin/tickets','class' => 'form-inline')) }}
 
 <table class="table">
     <thead>

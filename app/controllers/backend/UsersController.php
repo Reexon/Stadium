@@ -1,4 +1,15 @@
 <?php
+namespace Backend\Controller;
+
+use View;
+use Validator;
+use Redirect;
+use Input;
+use Backend\Model\User;
+use Hash;
+use Auth;
+use Session;
+use Response;
 
 class UsersController extends \BaseController {
 
@@ -44,7 +55,7 @@ class UsersController extends \BaseController {
 
 		User::create($data);
 
-		return Redirect::route('users.index')->with('success','User Created Succesfully');
+		return Redirect::route('admin.users.index')->with('success','User Created Succesfully');
 	}
 
 	/**
@@ -94,7 +105,7 @@ class UsersController extends \BaseController {
 
 		$user->update($data);
 
-		return Redirect::route('users.index')->with('success','User Updated Succesfully');
+		return Redirect::route('admin.users.index')->with('success','User Updated Succesfully');
 	}
 
 	/**
@@ -107,7 +118,7 @@ class UsersController extends \BaseController {
 	{
 		User::destroy($id);
 
-		return Redirect::route('users.index');
+		return Redirect::route('admin.users.index');
 	}
 
     /**
@@ -117,9 +128,9 @@ class UsersController extends \BaseController {
      */
     public function login(){
         if (Auth::attempt(array('email'=>Input::get('email'), 'password'=>Input::get('password')))) {
-            return Redirect::to('users/login')->with('message', 'You are now logged in!');
+            return Redirect::to('login')->with('message', 'You are now logged in!');
         } else {
-            return Redirect::to('users/login')
+            return Redirect::to('login')
                 ->with('message', 'Your username/password combination was incorrect')
                 ->withInput();
         }
@@ -132,7 +143,7 @@ class UsersController extends \BaseController {
      */
     public function logout(){
         Auth::logout();
-        return Redirect::to('users/login')->with('message', 'Your are now logged out!');
+        return Redirect::to('login')->with('message', 'Your are now logged out!');
     }
 
     public function search(){

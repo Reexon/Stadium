@@ -1,4 +1,13 @@
 <?php
+namespace Backend\Controller;
+
+use Backend\Model\Ticket;
+use View;
+use Backend\Model\Match;
+use DB;
+use Input;
+use Validator;
+use Redirect;
 
 class TicketsController extends \BaseController {
 
@@ -77,7 +86,7 @@ class TicketsController extends \BaseController {
 		Ticket::create($data);
         */
 
-		return Redirect::route('tickets.index')->with('success','Ticket Created Succesfully');
+		return Redirect::route('admin.tickets.index')->with('success','Ticket Created Succesfully');
 	}
 
 	/**
@@ -129,7 +138,7 @@ class TicketsController extends \BaseController {
 
 		$ticket->update($data);
 
-		return Redirect::route('tickets.index');
+		return Redirect::route('admin.tickets.index');
 	}
 
 	/**
@@ -142,7 +151,7 @@ class TicketsController extends \BaseController {
 	{
 		Ticket::destroy($id);
 
-		return Redirect::route('tickets.index');
+		return Redirect::route('admin.tickets.index');
 	}
 
 }

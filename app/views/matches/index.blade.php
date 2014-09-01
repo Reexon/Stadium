@@ -34,13 +34,13 @@
 
             <td>
                 <!-- GET /nerds/{id} -->
-                <a class="btn btn-small btn-success" href="{{ URL::to('matches/' . $match->id_match) }}">{{ FA::icon('eye'); }}</a>
+                <a class="btn btn-small btn-success" href="{{ URL::to('admin/matches/' . $match->id_match) }}">{{ FA::icon('eye'); }}</a>
 
                 <!-- GET /nerds/{id}/edit -->
-                <a class="btn btn-small btn-info" href="{{ URL::to('matches/' . $match->id_match . '/edit') }}">{{ FA::icon('pencil'); }}</a>
+                <a class="btn btn-small btn-info" href="{{ URL::to('admin/matches/' . $match->id_match . '/edit') }}">{{ FA::icon('pencil'); }}</a>
 
                 <!-- TODO: Confirmation Before Delete -->
-                {{ Form::open(array('url' => 'matches/' . $match->id_match,'style' =>'display:inline-block')) }}
+                {{ Form::open(array('url' => 'admin/matches/' . $match->id_match,'style' =>'display:inline-block')) }}
                     {{ Form::hidden('_method', 'DELETE') }}
                     {{ Form::button(FA::icon('trash-o'), array('type' => 'submit', 'class' => 'btn btn-small btn-danger'))}}
                 {{ Form::close() }}

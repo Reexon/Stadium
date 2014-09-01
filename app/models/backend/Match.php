@@ -1,6 +1,9 @@
 <?php
+namespace Backend\Model;
 
-class Match extends Eloquent {
+
+
+class Match extends \Eloquent {
 
 	// Add your validation rules here
 	public static $rules = [
@@ -17,7 +20,7 @@ class Match extends Eloquent {
 
     public function tickets()
     {
-        return $this->hasMany('Ticket');
+        return $this->hasMany('Backend\Model\Ticket');
     }
 
 

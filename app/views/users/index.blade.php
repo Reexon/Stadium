@@ -27,7 +27,6 @@
                     return false;
                 }
 
-
                 function clearTableBody(body){
                     $(body+" tr").remove();
                 }
@@ -61,7 +60,7 @@
 <table class="table table-striped table-bordered">
     <thead>
         <tr>
-            {{ Form::open(array('url' => 'users/search','style' =>'display:inline-block','name' => 'searchUserForm','method'=>'POST')) }}
+            {{ Form::open(array('url' => 'admin.users.search','style' =>'display:inline-block','name' => 'searchUserForm','method'=>'POST')) }}
             <th></th>
             <th>{{ Form::text('firstname', null, array('class'=>'form-control', 'placeholder'=>'Search First Name','onChange' => 'searchUserRequest()')) }}</th>
             <th>{{ Form::text('lastname', null, array('class'=>'form-control', 'placeholder'=>'Search Last Name','onChange' => 'searchUserRequest()')) }}</th>
@@ -90,13 +89,13 @@
 
         <td>
             <!-- GET /nerds/{id} -->
-            <a class="btn btn-small btn-success" href="{{ URL::to('users/' . $user->id_user) }}">{{ FA::icon('eye'); }}</a>
+            <a class="btn btn-small btn-success" href="{{ URL::to('admin/users/' . $user->id_user) }}">{{ FA::icon('eye'); }}</a>
 
             <!-- GET /nerds/{id}/edit -->
-            <a class="btn btn-small btn-info" href="{{ URL::to('users/' . $user->id_user . '/edit') }}">{{ FA::icon('pencil'); }}</a>
+            <a class="btn btn-small btn-info" href="{{ URL::to('admin/users/' . $user->id_user . '/edit') }}">{{ FA::icon('pencil'); }}</a>
 
             <!-- TODO: Confirmation Before Delete -->
-            {{ Form::open(array('url' => 'users/' . $user->id_user,'style' =>'display:inline-block','method' => 'DELETE')) }}
+            {{ Form::open(array('url' => 'admin/users/' . $user->id_user,'style' =>'display:inline-block','method' => 'DELETE')) }}
             {{ Form::button(FA::icon('trash-o'), array('type' => 'submit', 'class' => 'btn btn-small btn-danger'))}}
             {{ Form::close() }}
         </td>

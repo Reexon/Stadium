@@ -15,7 +15,7 @@
 <h1>Edit {{ $user->firstname }} {{ $user->lastname}}</h1>
 
 
-{{ Form::model($user, array('route' => array('users.update', $user->id_user), 'method' => 'PUT','class'=>'form-horizontal', 'role' => 'form')) }}
+{{ Form::model($user, array('route' => array('admin.users.update', $user->id_user), 'method' => 'PUT','class'=>'form-horizontal', 'role' => 'form')) }}
 
 <div class="form-group">
     {{ Form::label('firstname','First Name',['class' => 'col-sm-2 control-label']) }}

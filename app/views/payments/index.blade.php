@@ -41,12 +41,12 @@
                 <td rowspan="{{ count($payment->orders) }}" style="vertical-align:middle;">{{ number_format($payment->total, 2, ',', '.') }}</td>
                 <td rowspan="{{ count($payment->orders) }}" style="vertical-align:middle;">
 
-                    <a class="btn btn-small btn-success" href="{{ URL::to('payments/' . $payment->id_payment) }}">{{ FA::icon('eye'); }}</a>
+                    <a class="btn btn-small btn-success" href="{{ URL::to('admin/payments/' . $payment->id_payment) }}">{{ FA::icon('eye'); }}</a>
 
-                    <a class="btn btn-small btn-info" href="{{ URL::to('payments/' . $payment->id_payment . '/edit') }}">{{ FA::icon('pencil'); }}</a>
+                    <a class="btn btn-small btn-info" href="{{ URL::to('admin/payments/' . $payment->id_payment . '/edit') }}">{{ FA::icon('pencil'); }}</a>
 
                     <!-- TODO: Confirmation Before Delete -->
-                    {{ Form::open(array('url' => 'payments/' . $payment->id_payment,'style' =>'display:inline-block','method'=>'DELETE')) }}
+                    {{ Form::open(array('url' => 'admin/payments/' . $payment->id_payment,'style' =>'display:inline-block','method'=>'DELETE')) }}
                     {{ Form::button(FA::icon('trash-o'), array('type' => 'submit', 'class' => 'btn btn-small btn-danger'))}}
                     {{ Form::close() }}
                 </td></tr>
@@ -62,5 +62,5 @@
     </tbody>
 </table>
 
-<?php //$payments->links(); ?>
+<?php echo $payments->links(); ?>
 @stop

@@ -15,7 +15,7 @@
 
 @section('content')
 
-<h1>{{ $user->firstname }} {{ $user->lastname }} <a class="btn btn-small btn-info" href="{{ URL::to('users/'.$user->id_user .'/edit')}}">{{FA::lg('pencil')}}</a> </h1>
+<h1>{{ $user->firstname }} {{ $user->lastname }} <a class="btn btn-small btn-info" href="{{ URL::to('admin/users/'.$user->id_user .'/edit')}}">{{FA::lg('pencil')}}</a> </h1>
 
 <div class="jumbotron ">
     <p class="text-left">
@@ -29,14 +29,14 @@
         </address>
     </p>
     <p class="text-right">
-        <a class="btn btn-primary btn-lg btn-block btn-success" href="{{URL::to('mails/create')}}">{{FA::icon('envelope-o')}} Contact User</a>
+        <a class="btn btn-primary btn-lg btn-block btn-success" href="{{URL::to('admin/mails/create')}}">{{FA::icon('envelope-o')}} Contact User</a>
     </p>
 </div>
 
 <div style="width:30%;">
     <table class="table table-bordered">
         <thead>
-            <tr>
+            <tr class="bg-green">
                 <th colspan="3" style="text-align:center;">Purchased Tickets</th>
             </tr>
             <tr>
@@ -57,11 +57,5 @@
         @endforeach
         </tbody>
     </table>
-</div>
-
-<div class="btn-group btn-group-justified">
-    <a class="btn btn-primary btn-lg btn-block btn-success" href="{{ URL::to('tickets/create/' . $user->id_match) }}">{{FA::icon('plus')}} Add Tickets</a>
-    <a class="btn btn-primary btn-lg btn-block btn-success" href="{{ URL::to('tickets/create/' . $user->id_match) }}">{{FA::icon('plus')}} Add Tickets</a>
-    <a class="btn btn-primary btn-lg btn-block btn-success" href="{{ URL::to('tickets/create/' . $user->id_match) }}">{{FA::icon('plus')}} Add Tickets</a>
 </div>
 @stop

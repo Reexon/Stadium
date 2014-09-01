@@ -1,11 +1,12 @@
 <?php
+namespace Backend\Model;
 
 class Payment extends \Eloquent {
 
 	// Add your validation rules here
 	public static $rules = [
          'total' => 'required',
-         'pay_date' => 'required'
+         'pay_date' => 'required|date'
 	];
 
     protected $primaryKey = 'id_payment';
@@ -18,10 +19,10 @@ class Payment extends \Eloquent {
 
 
     public function orders(){
-        return Payment::hasMany('Order');
+        return Payment::hasMany('Backend\Model\Order');
     }
 
     public function user(){
-        return Payment::belongsTo('User');
+        return Payment::belongsTo('Backend\Model\User');
     }
 }

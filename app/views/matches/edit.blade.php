@@ -17,7 +17,7 @@
     <!-- if there are creation errors, they will show here -->
 
 
-    {{ Form::model($match, array('route' => array('matches.update', $match->id_match), 'method' => 'PUT','class'=>'form-horizontal', 'role' => 'form')) }}
+    {{ Form::model($match, array('route' => array('admin.matches.update', $match->id_match), 'method' => 'PUT','class'=>'form-horizontal', 'role' => 'form')) }}
 
     <div class="form-group">
         {{ Form::label('home_team','Home Team',['class' => 'col-sm-2 control-label']) }}

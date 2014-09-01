@@ -1,4 +1,5 @@
 <?php
+namespace Backend\Model;
 
 class Ticket extends \Eloquent {
 
@@ -16,8 +17,10 @@ class Ticket extends \Eloquent {
 	protected $fillable = ['label','price','match_id','quantity'];
 
     public function match(){
-        return $this->belongsTo('Match');
+        return $this->belongsTo('Backend\Model\Match');
     }
-
+    public function orders(){
+        return $this->hasMany('Backend\Model\Order');
+    }
 
 }

@@ -1,10 +1,11 @@
 <?php
+namespace Backend\Model;
 
 class Order extends \Eloquent {
 
 	// Add your validation rules here
 	public static $rules = [
-		// 'title' => 'required'
+	    'quantity' => 'required'
 	];
 
 	// Don't forget to fill this array
@@ -13,11 +14,11 @@ class Order extends \Eloquent {
     protected $primaryKey = 'id_order';
 
     public function ticket(){
-        return $this->belongsTo('Ticket');
+        return $this->belongsTo('Backend\Model\Ticket');
     }
 
     public function payment(){
-        return $this->belongsTo('Payment');
+        return $this->belongsTo('Backend\Model\Payment');
     }
 
 }

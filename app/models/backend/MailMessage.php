@@ -1,4 +1,5 @@
 <?php
+namespace Backend\Model;
 
 class MailMessage extends \Eloquent {
 

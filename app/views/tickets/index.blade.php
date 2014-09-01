@@ -42,7 +42,7 @@
 
         <!-- TODO: Link ai dettagli del match -->
         <td>
-            <a href="{{ URL::to('matches/'.$ticket->match->id_match) }}"
+            <a href="{{ URL::to('admin/matches/'.$ticket->match->id_match) }}"
                data-trigger="hover"
                data-content="<b>When:</b> {{ $ticket->match->date->format('d-m-Y') }}<br>
                              <b>Where:</b> {{ $ticket->match->stadium}}"
@@ -60,13 +60,13 @@
 
         <td>
             <!--  GET /nerds/{id} -->
-            <a class="btn btn-small btn-success" href="{{ URL::to('tickets/' . $ticket->id_ticket) }}">{{ FA::icon('eye'); }}</a>
+            <a class="btn btn-small btn-success" href="{{ URL::to('admin/tickets/' . $ticket->id_ticket) }}">{{ FA::icon('eye'); }}</a>
 
             <!-- GET /nerds/{id}/edit -->
-            <a class="btn btn-small btn-info" href="{{ URL::to('tickets/' . $ticket->id_ticket . '/edit') }}">{{ FA::icon('pencil'); }}</a>
+            <a class="btn btn-small btn-info" href="{{ URL::to('admin/tickets/' . $ticket->id_ticket . '/edit') }}">{{ FA::icon('pencil'); }}</a>
 
             <!-- TODO: Confirmation Before Delete -->
-            {{ Form::open(array('url' => 'tickets/' . $ticket->id_ticket,'style' =>'display:inline-block')) }}
+            {{ Form::open(array('url' => 'admin/tickets/' . $ticket->id_ticket,'style' =>'display:inline-block')) }}
                 {{ Form::hidden('_method', 'DELETE') }}
                 {{ Form::button(FA::icon('trash-o'), array('type' => 'submit', 'class' => 'btn btn-small btn-danger'))}}
             {{ Form::close() }}

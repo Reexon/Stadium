@@ -1,5 +1,15 @@
 <?php
 
+namespace Backend\Controller;
+
+use View;
+use Validator;
+use Redirect;
+use Input;
+use Response;
+use Backend\Model\Match;
+
+
 class MatchesController extends \BaseController {
 
 	/**
@@ -65,7 +75,9 @@ class MatchesController extends \BaseController {
             Match::create($dataMatches);
         }
 
-       /* for($i = 0 ; $i < home_team)
+       /*
+
+       for($i = 0 ; $i < home_team)
         foreach($home_team as $key => $value )
         {
             $arrData[] = array(
@@ -86,9 +98,10 @@ class MatchesController extends \BaseController {
 			return Redirect::back()->withErrors($validator)->withInput();
 		}
 
-		Match::create($data);*/
+		Match::create($data);
+		*/
 
-		return Redirect::route('matches.index');
+		return Redirect::route('admin.matches.index');
 	}
 
 	/**
@@ -141,7 +154,7 @@ class MatchesController extends \BaseController {
 
 		$match->update($data);
 
-	    return Redirect::route('matches.index')->with('success','Match Updated Succesfully');
+	    return Redirect::route('admin.matches.index')->with('success','Match Updated Succesfully');
 	}
 
 	/**
@@ -154,7 +167,7 @@ class MatchesController extends \BaseController {
 	{
 		Match::destroy($id);
 
-		return Redirect::route('matches.index');
+		return Redirect::route('admin.matches.index');
 	}
 
     public function findTicket(){

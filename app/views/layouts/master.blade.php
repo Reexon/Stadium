@@ -113,7 +113,7 @@
                                 <a href="#" class="btn btn-default btn-flat">Profile</a>
                             </div>
                             <div class="pull-right">
-                                <a href="{{URL::to('users/logout')}}" class="btn btn-default btn-flat">Sign out</a>
+                                <a href="{{URL::to('admin/users/logout')}}" class="btn btn-default btn-flat">Sign out</a>
                             </div>
                         </li>
                     </ul>
@@ -154,8 +154,8 @@
                         <i class="fa fa-angle-left pull-right"></i>
                     </a>
                     <ul class="treeview-menu">
-                        <li><a href="{{ URL::to('payments') }}">{{FA::icon('eye')}}  Show All Payment</a></li>
-                        <li><a href="{{ URL::to('payments/create') }}">{{FA::icon('plus')}}  Add Payment</a></li>
+                        <li><a href="{{ URL::to('admin/payments') }}">{{FA::icon('eye')}}  Show All Payment</a></li>
+                        <li><a href="{{ URL::to('admin/payments/create') }}">{{FA::icon('plus')}}  Add Payment</a></li>
                     </ul>
                 </li>
                 <li class="treeview">
@@ -164,8 +164,8 @@
                         <i class="fa fa-angle-left pull-right"></i>
                     </a>
                     <ul class="treeview-menu">
-                        <li><a href="{{ URL::to('users') }}">{{FA::icon('eye')}}  Show All Users</a></li>
-                        <li><a href="{{ URL::to('users/create') }}">{{FA::icon('plus')}}  Add User</a></li>
+                        <li><a href="{{ URL::to('admin/users') }}">{{FA::icon('eye')}}  Show All Users</a></li>
+                        <li><a href="{{ URL::to('admin/users/create') }}">{{FA::icon('plus')}}  Add User</a></li>
                     </ul>
                 </li>
                 <li class="treeview">
@@ -174,8 +174,8 @@
                         <i class="fa fa-angle-left pull-right"></i>
                     </a>
                     <ul class="treeview-menu">
-                        <li><a href="{{ URL::to('tickets') }}">{{FA::icon('eye')}}  Show All Tickets</a></li>
-                        <li><a href="{{ URL::to('tickets/create') }}">{{FA::icon('plus')}}  Add Tickets</a></li>
+                        <li><a href="{{ URL::to('admin/tickets') }}">{{FA::icon('eye')}}  Show All Tickets</a></li>
+                        <li><a href="{{ URL::to('admin/tickets/create') }}">{{FA::icon('plus')}}  Add Tickets</a></li>
                     </ul>
                 </li>
                 <li class="treeview">
@@ -184,8 +184,8 @@
                         <i class="fa fa-angle-left pull-right"></i>
                     </a>
                     <ul class="treeview-menu">
-                        <li><a href="{{ URL::to('matches') }}">{{FA::icon('eye')}}  Show All Matches</a></li>
-                        <li><a href="{{ URL::to('matches/create') }}">{{FA::icon('plus')}}  Add Match</a></li>
+                        <li><a href="{{ URL::to('admin/matches') }}">{{FA::icon('eye')}}  Show All Matches</a></li>
+                        <li><a href="{{ URL::to('admin/matches/create') }}">{{FA::icon('plus')}}  Add Match</a></li>
                     </ul>
                 </li>
 

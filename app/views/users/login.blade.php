@@ -14,7 +14,7 @@
 
     <!--login modal-->
     @if(!Auth::check())
-        {{ Form::open(array('url'=>'users/login', 'class'=>'form col-md-12 center-block')) }}
+        {{ Form::open(array('url'=>'login', 'class'=>'form col-md-12 center-block')) }}
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">

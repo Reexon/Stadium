@@ -16,39 +16,56 @@ Route::get('/', function()
 	return View::make('hello');
 });
 
-/*
- * Matches
- */
+Route::post('users/login','Backend\Controller\UsersController@login');
+Route::get('login',function(){return View::make('users.login');});
+Route::post('login','Backend\Controller\UsersController@login');
+Route::get('logout','Backend\Controller\UsersController@logout');
+Route::get('register',function(){return View::make('users.register');});
 
-//restituzione ticket per una determinata paritta (creazione payent)
-Route::post('matches/findTicket','MatchesController@findTicket');
-Route::resource('matches', 'MatchesController');
 
-/*
- * Tickets
- */
-Route::get('tickets/create/{id}', 'TicketsController@create');
-Route::resource('tickets', 'TicketsController');
+Route::group(array('prefix' => 'admin', 'before' => 'auth','namespace' => 'Backend\Controller'), function() {
+    /*
+     *
+     */
 
-/*
- * Users
- */
-Route::post('users/login','UsersController@login');
-Route::get('users/login',function(){return View::make('users.login');});
-Route::get('users/logout','UsersController@logout');
-Route::get('users/register',function(){return View::make('users.register');});
-Route::post('users/search','UsersController@search');
-Route::resource('users', 'UsersController');
+    Route::get('/',function(){
+        return View::make('users.login');
+    });
 
-/*
- * Payments
- */
-Route::resource('payments', 'PaymentsController');
+    /*
+     * Matches
+     */
 
-/*
- * MailMessage
- */
-Route::resource('mails', 'MailMessageController',[
-                                            'only' => ['index', 'show','create']
-                                            ]
-);
+    //restituzione ticket per una determinata paritta (creazione payent)
+    Route::post('matches/findTicket','MatchesController@findTicket');
+    Route::resource('matches', 'MatchesController');
+
+    /*
+     * Tickets
+     */
+
+    Route::get('tickets/create/{id}', 'TicketsController@create');
+    Route::resource('tickets', 'TicketsController');
+
+    /*
+     * Users
+     */
+
+    Route::post('users/search','UsersController@search');
+    Route::resource('users', 'UsersController');
+
+    /*
+     * Payments
+     */
+
+    Route::resource('payments', 'PaymentsController');
+
+    /*
+     * MailMessage
+     */
+
+    Route::resource('mails', 'MailMessageController',[
+                                                'only' => ['index', 'show','create']
+                                                ]
+    );
+});

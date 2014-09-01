@@ -14,7 +14,7 @@
 
 <h1>{{ $ticket->match->home_team}} vs {{ $ticket->match->guest_team }} ({{ $ticket->label }}) - {{ $ticket->match->date->format('d.m.Y') }}</h1>
 
-{{ Form::model($ticket, array('route' => array('tickets.update', $ticket->id_ticket), 'method' => 'PUT','class'=>'form-horizontal', 'role' => 'form')) }}
+{{ Form::model($ticket, array('route' => array('admin.tickets.update', $ticket->id_ticket), 'method' => 'PUT','class'=>'form-horizontal', 'role' => 'form')) }}
 
 <div class="form-group">
     {{ Form::label('label','Ticket Type',['class' => 'col-sm-2 control-label']) }}

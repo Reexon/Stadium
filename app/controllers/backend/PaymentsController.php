@@ -1,4 +1,17 @@
 <?php
+namespace Backend\Controller;
+
+use Backend\Model\Payment;
+use View;
+use Backend\Model\User;
+use Backend\Model\Match;
+use Backend\Model\Ticket;
+use Backend\Model\Order;
+use DB;
+use Input;
+use Validator;
+use Redirect;
+use Response;
 
 class PaymentsController extends \BaseController {
 
@@ -9,7 +22,7 @@ class PaymentsController extends \BaseController {
 	 */
 	public function index()
 	{
-		$payments = Payment::all();
+		$payments = Payment::orderBy('pay_date','desc')->paginate(15);
 
 		return View::make('payments.index', compact('payments'));
 	}
@@ -97,7 +110,7 @@ class PaymentsController extends \BaseController {
         }
 
 
-		return Redirect::route('payments.index');
+		return Redirect::route('admin.payments.index');
 	}
 
 	/**
@@ -122,8 +135,13 @@ class PaymentsController extends \BaseController {
 	public function edit($id)
 	{
 		$payment = Payment::find($id);
+        $matches = Match::select('id_match', DB::raw('CONCAT(home_team, " - ", guest_team, " (", DATE_FORMAT(date,"%d/%m/%Y") ," )") AS label_match'))->take(10)
+            ->orderBy('date')
+            ->lists('label_match', 'id_match');
 
-		return View::make('payments.edit', compact('payment'));
+        $users = User::select('id_user',DB::raw('CONCAT(firstname, " ", lastname) AS name'))->lists('name','id_user');
+
+		return View::make('payments.edit', compact('payment','matches','users'));
 	}
 
 	/**
@@ -145,7 +163,7 @@ class PaymentsController extends \BaseController {
 
 		$payment->update($data);
 
-		return Redirect::route('payments.index');
+		return Redirect::route('admin.payments.index');
 	}
 
 	/**
@@ -158,7 +176,7 @@ class PaymentsController extends \BaseController {
 	{
 		Payment::destroy($id);
 
-		return Redirect::route('payments.index');
+		return Redirect::route('admin.payments.index');
 	}
 
 }

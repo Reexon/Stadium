@@ -1,4 +1,12 @@
 <?php
+namespace Backend\Controller;
+
+use Backend\Model\MailMessage;
+use View;
+use Validator;
+use Input;
+use Redirect;
+
 
 class MailMessageController extends \BaseController {
 

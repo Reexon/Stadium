@@ -61,7 +61,7 @@
         <!-- if there are creation errors, they will show here -->
         {{ HTML::ul($errors->all()) }}
 
-        {{ Form::open(array('url' => 'matches',
+        {{ Form::open(array('url' => 'admin/matches',
                             'class' => 'form-inline')) }}
 
         <table class="table">
