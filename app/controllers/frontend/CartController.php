@@ -23,7 +23,7 @@ class CartController extends BaseController{
     }
 
     public function clear(){
-        Session::flush(); // removes all session data
+        Session::forget('cart');
         return \Redirect::back();
     }
 
