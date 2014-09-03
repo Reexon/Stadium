@@ -1882,36 +1882,36 @@
     },
     {
         "name": "barryvdh/laravel-debugbar",
-        "version": "v1.6.8",
-        "version_normalized": "1.6.8.0",
+        "version": "v1.7.0",
+        "version_normalized": "1.7.0.0",
         "source": {
             "type": "git",
             "url": "https://github.com/barryvdh/laravel-debugbar.git",
-            "reference": "6668cf335a7b6461debbedc9ed95f2f3784eb537"
+            "reference": "fc9cdb53f657c978f3a17bbac84035b83e47baf0"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/barryvdh/laravel-debugbar/zipball/6668cf335a7b6461debbedc9ed95f2f3784eb537",
-            "reference": "6668cf335a7b6461debbedc9ed95f2f3784eb537",
+            "url": "https://api.github.com/repos/barryvdh/laravel-debugbar/zipball/fc9cdb53f657c978f3a17bbac84035b83e47baf0",
+            "reference": "fc9cdb53f657c978f3a17bbac84035b83e47baf0",
             "shasum": ""
         },
         "require": {
             "laravel/framework": "~4.0",
-            "maximebf/debugbar": "~1.9",
+            "maximebf/debugbar": "~1.9.15",
             "php": ">=5.3.0",
             "symfony/finder": "~2.3"
         },
-        "time": "2014-08-27 08:56:54",
+        "time": "2014-09-03 09:22:14",
         "type": "library",
         "extra": {
             "branch-alias": {
-                "dev-master": "1.6-dev"
+                "dev-master": "1.7-dev"
             }
         },
         "installation-source": "dist",
         "autoload": {
-            "psr-0": {
-                "Barryvdh\\Debugbar": "src/"
+            "psr-4": {
+                "Barryvdh\\Debugbar\\": "src/"
             }
         },
         "notification-url": "https://packagist.org/downloads/",
