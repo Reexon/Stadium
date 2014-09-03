@@ -1,4 +1,4 @@
-@extends('layouts.frontend')
+@extends('layouts.master')
 
 @section('head')
 @parent
@@ -12,7 +12,7 @@
 
 @section('content')
 
-<table class="table ">
+<table class="table" style="width:800px;">
     <thead>
         <tr>
             <th>Match</th>
