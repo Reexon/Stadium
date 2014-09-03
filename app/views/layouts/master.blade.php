@@ -85,8 +85,10 @@
             @endif
             @if(Auth::check() && Auth::id() == 1 )
                  @include('layouts.menu.admin')
-            @else
+            @elseif(Auth::check())
                 @include('layouts.menu.user')
+            @else
+                @include('layouts.menu.guest')
             @endif
         </section>
         <!-- /.sidebar -->
