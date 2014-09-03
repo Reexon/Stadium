@@ -23,6 +23,9 @@ class Match extends \Eloquent {
         return $this->hasMany('Backend\Model\Ticket');
     }
 
+    public function subscribers(){
+        return $this->hasMany('Frontend\Model\MatchSubscription');
+    }
 
     protected $dates = ['date'];
 }
