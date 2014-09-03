@@ -47,13 +47,26 @@ Route::post('cart/update',function(){
     return Redirect::back();
 });
 
+/*
+ * Cart Manager
+ */
 Route::get('cart/clear','Frontend\Controller\CartController@clear');
 Route::get('cart/info','Frontend\Controller\CartController@info');
+
 Route::post('users/login','Backend\Controller\UsersController@login');
+
+/*
+ * Registration manager
+ */
+Route::get('register',function(){ return View::make('backend.users.register');});
+Route::post('register','Backend\Controller\UsersController@store');
+
+/*
+ * Login / Logout
+ */
 Route::get('login',function(){return View::make('backend.users.login');});
 Route::post('login','Backend\Controller\UsersController@login');
 Route::get('logout','Backend\Controller\UsersController@logout');
-Route::get('register',function(){return View::make('users.register');});
 
 
 /*

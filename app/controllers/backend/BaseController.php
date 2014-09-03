@@ -2,6 +2,8 @@
 
 namespace Backend\Controller;
 
+use View;
+
 class BaseController extends \Controller {
 
 	/**

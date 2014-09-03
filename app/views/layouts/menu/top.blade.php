@@ -46,11 +46,11 @@
                 <a href="#" class="btn btn-default btn-flat">Profile</a>
             </div>
             <div class="pull-right">
-                <a href="{{URL::to('logout')}}" class="btn btn-default btn-flat">Sign out</a>
+                <a href="{{URL::to('logout')}}" class="btn btn-default btn-flat">{{FA::icon('sign-out')}} Sign out</a>
             </div>
         </li>
     </ul>
     @else
-    <a href="{{URL::to('login')}}">Login</a>
+    <a href="{{URL::to('login')}}">{{FA::icon('sign-in')}} Login</a>
     @endif
 </li>

@@ -29,16 +29,11 @@
                         {{ Form::password('password', array('class'=>'form-control input-lg', 'placeholder'=>'Password')) }}
                     </div>
                     <div class="form-group">
-                        <span class="pull-right"><a href="{{ URL::to('users/create') }}">Register</a></span><span><a href="#">Forgot Password?</a></span>
+                        <span class="pull-right"><a href="{{ URL::to('register') }}">Register</a></span><span><a href="#">Forgot Password?</a></span>
 
                         {{ Form::submit('Login', array('class'=>'btn btn-lg btn-primary btn-block'))}}
                     </div>
 
-                </div>
-                <div class="modal-footer">
-                    <div class="col-md-12">
-                        <button class="btn" data-dismiss="modal" aria-hidden="true">Cancel</button>
-                    </div>
                 </div>
             </div>
         </div>
