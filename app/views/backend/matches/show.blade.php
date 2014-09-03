@@ -21,7 +21,8 @@
             <strong>City:</strong> {{ $match->city }} <br>
         </p>
     </div>
-    <div class="col-md-3">
+<!-- Visualizzazione Di tutti i ticket -->
+<div class="col-md-3">
         @if(count($match->tickets)>0)
             <table class="table table-bordered">
                 <thead>
@@ -49,11 +50,16 @@
             <a class="btn btn-primary btn-lg btn-block btn-success" href="{{ URL::to('admin/tickets/create/' . $match->id_match) }}">{{FA::icon('plus')}} Add Tickets</a>
         </div>
         @else
-            <h2>No Tickets Found !</h2>
+            <h2>No Tickets !</h2>
             <a class="btn btn-primary btn-lg btn-block btn-success" href="{{ URL::to('admin/tickets/create/' . $match->id_match) }}">Create Tickets</a>
         @endif
 </div>
+
+<!-- Visualizzazione di tutti gli acquisti -->
 <div class="col-md-4">
+
+    <!-- questo controllo serve per gestire i casi in cui non siano presenti pagamenti -->
+    @if(is_object($match->tickets->first()) && count($match->tickets->first()->orders)> 0)
     <table class="table table-bordered">
         <thead>
         <tr class="bg-yellow">
@@ -79,8 +85,43 @@
         @endforeach
         </tbody>
     </table>
+    @else
+    <h2>No Purchases !</h2>
+    @endif
     <div class="clearfix">
-    <a class="btn btn-primary btn-lg btn-block btn-warning" href="{{ URL::to('admin/payments/create') }}">{{FA::icon('plus')}} Add Payment</a>
+        <a class="btn btn-primary btn-lg btn-block btn-warning" href="{{ URL::to('admin/payments/create') }}">{{FA::icon('plus')}} Add Payment</a>
     </div>
     </div>
+
+<!-- Visualizzazione di tutti i subscriber -->
+<div class="col-md-4">
+    @if(count($match->subscribers)>0)
+    <table class="table table-bordered">
+        <thead>
+        <tr class="bg-red">
+            <th colspan="3" style="text-align:center;">Tickets</th>
+        </tr>
+        <tr>
+            <th>Email</th>
+            <th>Date</th>
+        </tr>
+        </thead>
+        <tbody>
+        @foreach($match->subscribers as $subscriber)
+        <tr>
+            <!-- TODO: Link to ticket -->
+            <td>{{ $subscriber->email }}</td>
+            <td>{{ $subscriber->created_at->format('d.m.Y')}}</td>
+        </tr>
+        @endforeach
+        </tbody>
+    </table>
+    @else
+        <h2>No Subscribers !</h2>
+    @endif
+    <div class="clearfix">
+        <!--TODO:Link to page for adding new sub-->
+        <a class="btn btn-primary btn-lg btn-block btn-danger" href="">{{FA::icon('plus')}} Add Subscribers</a>
+    </div>
+</div>
 @stop
