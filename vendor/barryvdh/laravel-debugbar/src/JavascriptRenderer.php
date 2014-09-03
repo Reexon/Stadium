@@ -65,15 +65,18 @@ class JavascriptRenderer extends BaseJavascriptRenderer
     /**
      * Return assets as a string
      *
-     * @param array $files
+     * @param string $type 'js' or 'css'
      * @return string
      */
-    public function dumpAssetsToString($files)
+    public function dumpAssetsToString($type)
     {
+        $files = $this->getAssets($type);
+
         $content = '';
         foreach ($files as $file) {
             $content .= file_get_contents($file) . "\n";
         }
+
         return $content;
     }
     
@@ -95,6 +98,33 @@ class JavascriptRenderer extends BaseJavascriptRenderer
             }
         }
         return $latest;
+    }
+    
+    /**
+     * Makes a URI relative to another
+     *
+     * @param string|array $uri
+     * @param string $root
+     * @return string
+     */
+    protected function makeUriRelativeTo($uri, $root)
+    {
+        if (!$root) {
+            return $uri;
+        }
+
+        if (is_array($uri)) {
+            $uris = array();
+            foreach ($uri as $u) {
+                $uris[] = $this->makeUriRelativeTo($u, $root);
+            }
+            return $uris;
+        }
+
+        if (substr($uri, 0, 1) === '/' || preg_match('/^([a-zA-Z]+:\/\/|[a-zA-Z]:\/|[a-zA-Z]:\\\)/', $uri)) {
+            return $uri;
+        }
+        return rtrim($root, '/') . "/$uri";
     }
 
 }
