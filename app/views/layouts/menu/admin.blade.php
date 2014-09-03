@@ -1,8 +1,8 @@
 <!-- sidebar menu: : style can be found in sidebar.less -->
 <ul class="sidebar-menu">
     <li class="active">
-        <a href="index.html">
-            <i class="fa fa-dashboard"></i> <span>Dashboard</span>
+        <a href="{{URL::to('admin/dashboard')}}">
+            {{FA::icon('dashboard')}} <span>Dashboard</span>
         </a>
     </li>
     <li class="treeview">

@@ -9,14 +9,14 @@
     </li>
 
     <li class="active">
-        <a href="user/payments">
+        <a href="{{URL::to('user/payments')}}">
             {{FA::icon('money')}}
             <span>My Payments</span>
         </a>
     </li>
 
     <li>
-        <a href="user/profile">
+        <a href="{{URL::to('user/profile')}}">
             {{FA::icon('info-circle')}}
             <span>My Information</span>
 

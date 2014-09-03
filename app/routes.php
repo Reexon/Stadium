@@ -82,9 +82,7 @@ Route::group(array('prefix' => 'admin', 'before' => 'auth|admin','namespace' => 
      *
      */
 
-    Route::get('/',function(){
-        return View::make('backend.users.login');
-    });
+    Route::get('dashboard','DashboardController@index');
 
     /*
      * Matches
@@ -126,4 +124,6 @@ Route::group(array('prefix' => 'admin', 'before' => 'auth|admin','namespace' => 
 
 Route::group(array('prefix' => 'user', 'before' => 'auth','namespace' => 'Frontend\Controller'), function() {
     Route::get('payments','UsersController@payments');
+    Route::get('profile','UsersController@profile');
+    Route::post('profile/update','UsersController@update');
 });

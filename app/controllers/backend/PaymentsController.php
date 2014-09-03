@@ -63,10 +63,14 @@ class PaymentsController extends BaseController {
         $ticket_id = Input::get('ticket_id');
         $quantity = Input::get('quantity');
 
-        $dataPayment =[
-            'pay_date' => date('Y-m-d',strtotime($pay_date)),
-            'total' => 0 //default 0 , verrà fatto update + avanti
-        ];
+        if(!strtotime($pay_date))
+            return Redirect::back()->withErrors('Date Error');
+
+            $dataPayment =[
+                'pay_date' => date('Y-m-d',strtotime($pay_date)),
+                'total' => 0 //default 0 , verrà fatto update + avanti
+            ];
+
 
         $validatePayment =  Validator::make($data = $dataPayment, Payment::$rules);
         if ($validatePayment->fails())

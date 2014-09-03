@@ -12,6 +12,9 @@ namespace Frontend\Controller;
 use Backend\Model\User;
 use Auth;
 use View;
+use Validator;
+use Redirect;
+use Input;
 
 class UsersController extends BaseController{
 
@@ -19,6 +22,37 @@ class UsersController extends BaseController{
 
         $userInfo = User::with('payments.orders.ticket')->findOrFail(Auth::id());
         return View::make($this->viewFolder."payments",compact('userInfo'));
+    }
+
+    public function profile(){
+        $userInfo = Auth::user();
+        return View::make($this->viewFolder."profile",compact('userInfo'));
+    }
+
+    public function update(){
+
+        $validator = Validator::make(
+            $data = Input::all(),
+            [
+                'firstname' => 'required',
+                'lastname'  => 'required',
+                'email'     => 'required|email',
+                'address'   => 'required',
+                'city'      => 'required',
+                'cap'       => 'required',
+                'cell'      => 'required'
+            ]
+        );
+
+        if ($validator->fails())
+        {
+            return Redirect::back()->withErrors($validator)->withInput();
+        }
+
+        $user = User::find(Auth::id());
+        $user->fill($data);
+        $user->save();
+        return Redirect::back()->with('message','Information edited succesfully');
     }
 
 } 
