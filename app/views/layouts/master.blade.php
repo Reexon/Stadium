@@ -59,66 +59,9 @@
         </a>
         <div class="navbar-right">
             <ul class="nav navbar-nav">
-                <!-- Messages: style can be found in dropdown.less-->
-                <li class="dropdown">
-                    <a href="ddd" class="dropdown-toggle">
-                        <i class="fa fa-envelope"></i>
-                    </a>
-                </li>
-                <!-- Notifications: style can be found in dropdown.less -->
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle">
-                        <i class="fa fa-warning"></i>
-                        <!--<span class="label label-warning">10</span>-->
-                    </a>
-                </li>
-                <!-- Tasks: style can be found in dropdown.less -->
-                <li class="dropdown tasks-menu">
-                    <a href="#" class="dropdown-toggle" >
-                        <i class="fa fa-tasks"></i>
-                        <span class="label label-danger">9</span>
-                    </a>
-                </li>
-                <!-- User Account: style can be found in dropdown.less -->
-                @if(Auth::check())
-                <li class="dropdown user user-menu">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                        <i class="glyphicon glyphicon-user"></i>
-                        <span>{{Auth::user()->firstname}} {{Auth::user()->lastname}} <i class="caret"></i></span>
-                    </a>
-                    <ul class="dropdown-menu">
-                        <!-- User image -->
-                        <li class="user-header bg-light-blue">
-                           <!-- <img src="img/avatar3.png" class="img-circle" alt="User Image" />-_>
-                            <p>
-                                {{Auth::user()->firstname}} {{Auth::user()->lastname}}
-                                <small>Member since {{Auth::user()->created_at->format('d-m-Y')}}</small>
-                            </p>
-                        </li>
-                        <!-- Menu Body -->
-                        <li class="user-body">
-                            <div class="col-xs-4 text-center">
-                                <a href="#">Followers</a>
-                            </div>
-                            <div class="col-xs-4 text-center">
-                                <a href="#">Sales</a>
-                            </div>
-                            <div class="col-xs-4 text-center">
-                                <a href="#">Friends</a>
-                            </div>
-                        </li>
-                        <!-- Menu Footer-->
-                        <li class="user-footer">
-                            <div class="pull-left">
-                                <a href="#" class="btn btn-default btn-flat">Profile</a>
-                            </div>
-                            <div class="pull-right">
-                                <a href="{{URL::to('admin/users/logout')}}" class="btn btn-default btn-flat">Sign out</a>
-                            </div>
-                        </li>
-                    </ul>
-                </li>
-                @endif
+
+                @include('layouts.menu.top')
+
             </ul>
         </div>
     </nav>
@@ -141,56 +84,9 @@
             </div>
             @endif
             @if(Auth::check() && Auth::id() == 1 )
-            <!-- sidebar menu: : style can be found in sidebar.less -->
-            <ul class="sidebar-menu">
-                <li class="active">
-                    <a href="index.html">
-                        <i class="fa fa-dashboard"></i> <span>Dashboard</span>
-                    </a>
-                </li>
-                <li class="treeview">
-                    <a href="#">
-                        {{FA::icon('money')}}<span>Payments</span>
-                        <i class="fa fa-angle-left pull-right"></i>
-                    </a>
-                    <ul class="treeview-menu">
-                        <li><a href="{{ URL::to('admin/payments') }}">{{FA::icon('eye')}}  Show All Payment</a></li>
-                        <li><a href="{{ URL::to('admin/payments/create') }}">{{FA::icon('plus')}}  Add Payment</a></li>
-                    </ul>
-                </li>
-                <li class="treeview">
-                    <a href="#">
-                        {{FA::icon('user')}}<span>Users</span>
-                        <i class="fa fa-angle-left pull-right"></i>
-                    </a>
-                    <ul class="treeview-menu">
-                        <li><a href="{{ URL::to('admin/users') }}">{{FA::icon('eye')}}  Show All Users</a></li>
-                        <li><a href="{{ URL::to('admin/users/create') }}">{{FA::icon('plus')}}  Add User</a></li>
-                    </ul>
-                </li>
-                <li class="treeview">
-                    <a href="#">
-                        {{FA::icon('ticket')}}<span>Tickets</span>
-                        <i class="fa fa-angle-left pull-right"></i>
-                    </a>
-                    <ul class="treeview-menu">
-                        <li><a href="{{ URL::to('admin/tickets') }}">{{FA::icon('eye')}}  Show All Tickets</a></li>
-                        <li><a href="{{ URL::to('admin/tickets/create') }}">{{FA::icon('plus')}}  Add Tickets</a></li>
-                    </ul>
-                </li>
-                <li class="treeview">
-                    <a href="#">
-                        {{FA::icon('soccer-ball-o')}}<span>Matches</span>
-                        <i class="fa fa-angle-left pull-right"></i>
-                    </a>
-                    <ul class="treeview-menu">
-                        <li><a href="{{ URL::to('admin/matches') }}">{{FA::icon('eye')}}  Show All Matches</a></li>
-                        <li><a href="{{ URL::to('admin/matches/create') }}">{{FA::icon('plus')}}  Add Match</a></li>
-                    </ul>
-                </li>
-
-            </ul>
+                 @include('layouts.menu.admin')
             @else
+                @include('layouts.menu.user')
             @endif
         </section>
         <!-- /.sidebar -->
@@ -203,7 +99,7 @@
         <!-- Content Header (Page header) -->
         <section class="content-header">
             <h1>
-
+                Admin
                 <small>Control panel</small>
             </h1>
             <ol class="breadcrumb">
