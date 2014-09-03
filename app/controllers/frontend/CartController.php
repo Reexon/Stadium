@@ -27,4 +27,8 @@ class CartController extends BaseController{
         return \Redirect::back();
     }
 
+    public function checkout(){
+
+    }
+
 } 
