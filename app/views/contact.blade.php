@@ -12,17 +12,13 @@
 
 @section('content')
 
-<div class="panel panel-danger">
-    <div class="panel-heading">Panel heading without title</div>
-    <div class="panel-body">asd
-    </div>
-</div>
+
 {{ Form::open(array('url'=>'backend/mails/send')) }}
 <h4>Title</h4>
 {{Form::text('title',Input::old('title'),['placeholder' => 'title', 'class' =>'form-control input-lg'])}}
 
-<h4>To</h4>
-{{Form::text('to',Input::old('to'),['placeholder' => 'To', 'class' =>'form-control input-lg'])}}
+<h4>Your Email</h4>
+{{Form::text('email',Input::old('email'),['placeholder' => 'email', 'class' =>'form-control input-lg'])}}
 
 <h4>Subject</h4>
 {{Form::text('subject',Input::old('subject'),['placeholder' => 'Subject', 'class' =>'form-control input-lg'])}}

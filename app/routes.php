@@ -68,6 +68,11 @@ Route::get('login',function(){return View::make('backend.users.login');});
 Route::post('login','Backend\Controller\UsersController@login');
 Route::get('logout','Backend\Controller\UsersController@logout');
 
+/*
+ * Invio Mail (contact us)
+ */
+
+Route::post('contact/send','Backend\Controller\MailMessageController@contactus');
 
 /*
  * Gestisco tutti i route per l'admin, che hanno il prefisso /admin/*
@@ -117,4 +122,8 @@ Route::group(array('prefix' => 'admin', 'before' => 'auth|admin','namespace' => 
                                                 'only' => ['index', 'show','create']
                                                 ]
     );
+});
+
+Route::group(array('prefix' => 'user', 'before' => 'auth','namespace' => 'Frontend\Controller'), function() {
+    Route::get('payments','UsersController@payments');
 });

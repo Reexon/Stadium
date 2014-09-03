@@ -6,6 +6,7 @@ use View;
 use Validator;
 use Input;
 use Redirect;
+use Mail;
 
 
 class MailMessageController extends BaseController {
@@ -65,41 +66,6 @@ class MailMessageController extends BaseController {
 	}
 
 	/**
-	 * Show the form for editing the specified mail.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function edit($id)
-	{
-		$mail = MailMessage::find($id);
-
-		return View::make($this->viewFolder.'mails.edit', compact('mail'));
-	}
-
-	/**
-	 * Update the specified mail in storage.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function update($id)
-	{
-		$mail = MailMessage::findOrFail($id);
-
-		$validator = Validator::make($data = Input::all(), MailMessage::$rules);
-
-		if ($validator->fails())
-		{
-			return Redirect::back()->withErrors($validator)->withInput();
-		}
-
-		$mail->update($data);
-
-		return Redirect::route('admin.mails.index');
-	}
-
-	/**
 	 * Remove the specified mail from storage.
 	 *
 	 * @param  int  $id
@@ -112,4 +78,7 @@ class MailMessageController extends BaseController {
 		return Redirect::route('admin.mails.index');
 	}
 
+    public function contactus(){
+
+    }
 }
