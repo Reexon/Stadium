@@ -12,7 +12,7 @@
 
 @section('content')
 
-{{ Form::open(array('url'=>'users', 'class'=>'form-horizontal', 'role' => 'form')) }}
+{{ Form::open(array('url'=>'admin/users', 'class'=>'form-horizontal', 'role' => 'form')) }}
 
 <h2 class="form-signup-heading">Add new User</h2>
     <div class="form-group">
