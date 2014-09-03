@@ -2,20 +2,25 @@
 <ul class="sidebar-menu">
 
     <li class="active">
-        <a href="index.html">
-            <i class="fa fa-dashboard"></i> <span>Dashboard</span>
+        <a href="/">
+            {{FA::icon('home')}}
+             <span>Event</span>
         </a>
     </li>
 
-    <li class="treeview">
-        <a href="#">
-            {{FA::icon('money')}}<span>Payments</span>
-            <i class="fa fa-angle-left pull-right"></i>
+    <li class="active">
+        <a href="user/payments">
+            {{FA::icon('money')}}
+            <span>My Payments</span>
         </a>
-        <ul class="treeview-menu">
-            <li><a href="{{ URL::to('admin/payments') }}">{{FA::icon('eye')}}  Show All Payment</a></li>
-            <li><a href="{{ URL::to('admin/payments/create') }}">{{FA::icon('plus')}}  Add Payment</a></li>
-        </ul>
+    </li>
+
+    <li>
+        <a href="user/profile">
+            {{FA::icon('info-circle')}}
+            <span>My Information</span>
+
+        </a>
     </li>
 
 
