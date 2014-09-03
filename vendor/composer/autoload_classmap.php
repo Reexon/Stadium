@@ -131,6 +131,7 @@ return array(
     'Frontend\\Controller\\BaseController' => $baseDir . '/app/controllers/frontend/BaseController.php',
     'Frontend\\Controller\\CartController' => $baseDir . '/app/controllers/frontend/CartController.php',
     'Frontend\\Controller\\MatchesController' => $baseDir . '/app/controllers/frontend/MatchesController.php',
+    'Frontend\\Model\\MatchSubscription' => $baseDir . '/app/models/frontend/MatchSubscription.php',
     'IlluminateQueueClosure' => $vendorDir . '/laravel/framework/src/Illuminate/Queue/IlluminateQueueClosure.php',
     'Illuminate\\Auth\\AuthManager' => $vendorDir . '/laravel/framework/src/Illuminate/Auth/AuthManager.php',
     'Illuminate\\Auth\\AuthServiceProvider' => $vendorDir . '/laravel/framework/src/Illuminate/Auth/AuthServiceProvider.php',

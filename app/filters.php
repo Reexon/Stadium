@@ -88,3 +88,19 @@ Route::filter('csrf', function()
 		throw new Illuminate\Session\TokenMismatchException;
 	}
 });
+
+/*
+|--------------------------------------------------------------------------
+| Admin Check Session
+|--------------------------------------------------------------------------
+|
+| This filter is used to check if the user is Site Admin.
+|
+*/
+
+Route::filter('admin', function()
+{
+    if (Auth::guest() || Auth::user()->id_user != 1)
+        return Response::make('Unauthorized', 401);
+
+});

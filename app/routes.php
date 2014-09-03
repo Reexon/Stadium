@@ -14,7 +14,7 @@
 Route::get('/','Frontend\Controller\MatchesController@index');
 Route::get('contact',function(){return View::make('contact');});
 Route::get('/match/info/{id_match}','Frontend\Controller\MatchesController@info');
-
+Route::post('match/signup/{id_match}','Frontend\Controller\MatchesController@signup');
 /*
  * Gestione del carrello dei ticket
  */
@@ -59,7 +59,7 @@ Route::get('register',function(){return View::make('users.register');});
 /*
  * Gestisco tutti i route per l'admin, che hanno il prefisso /admin/*
  */
-Route::group(array('prefix' => 'admin', 'before' => 'auth','namespace' => 'Backend\Controller'), function() {
+Route::group(array('prefix' => 'admin', 'before' => 'auth|admin','namespace' => 'Backend\Controller'), function() {
     /*
      *
      */
