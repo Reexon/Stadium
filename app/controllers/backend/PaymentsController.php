@@ -34,7 +34,10 @@ class PaymentsController extends BaseController {
 	 */
 	public function create()
 	{
-        $matches = Match::select('id_match', DB::raw('CONCAT(home_team, " - ", guest_team, " (", DATE_FORMAT(date,"%d/%m/%Y") ," )") AS label_match'))->take(10)
+        //seleziono solo i match dove è stato creato almeno 1 ticket
+        $matches = Match::join('tickets','match_id','=','id_match')
+            ->select('id_match', DB::raw('CONCAT(home_team, " - ", guest_team, " (", DATE_FORMAT(date,"%d/%m/%Y") ," )") AS label_match'))
+            ->take(10)
             ->orderBy('date')
             ->lists('label_match', 'id_match');
 
