@@ -33,30 +33,55 @@
         <a class="btn btn-primary btn-lg btn-block btn-success" href="{{URL::to('admin/mails/create')}}">{{FA::icon('envelope-o')}} Contact User</a>
     </p>
 </div>
-
-<div style="width:30%;">
-    <table class="table table-bordered">
-        <thead>
-            <tr class="bg-green">
-                <th colspan="3" style="text-align:center;">Purchased Tickets</th>
+<div class="row">
+    <div class="col-md-4">
+        <table class="table table-bordered">
+            <thead>
+                <tr class="bg-green">
+                    <th colspan="3" style="text-align:center;">Purchased Tickets</th>
+                </tr>
+                <tr>
+                    <th>#</th>
+                    <th>Type</th>
+                    <th>Quantity</th>
+                </tr>
+            </thead>
+            <tbody>
+            @foreach($user->payments as $payment)
+                @foreach($payment->orders as $order)
+                <tr>
+                    <td>{{ $order->id_order }}</td>
+                    <td>{{ $order->ticket->label }}</td>
+                    <td>{{ $order->quantity }}</td>
+                </tr>
+                @endforeach
+            @endforeach
+            </tbody>
+        </table>
+    </div>
+    <div class="col-md-4">
+        <table class="table table-bordered">
+            <thead>
+            <tr class="bg-yellow">
+                <th colspan="3" style="text-align:center;">Payment</th>
             </tr>
             <tr>
                 <th>#</th>
-                <th>Type</th>
-                <th>Quantity</th>
+                <th>Date</th>
+                <th>Total</th>
             </tr>
-        </thead>
-        <tbody>
-        @foreach($user->payments as $payment)
-            @foreach($payment->orders as $order)
+            </thead>
+            <tbody>
+            @foreach($user->payments as $payment)
             <tr>
-                <td>{{ $order->id_order }}</td>
-                <td>{{ $order->ticket->label }}</td>
-                <td>{{ $order->quantity }}</td>
+                <td><a href="{{URL::to('admin/payments/'.$payment->id_payment)}}">#{{ $payment->id_payment }}</a></td>
+                <td>{{ $payment->pay_date->format('d.m.Y')}}</td>
+                <td>{{ $payment->total }}</td>
             </tr>
+
             @endforeach
-        @endforeach
-        </tbody>
-    </table>
+            </tbody>
+        </table>
+    </div>
 </div>
 @stop

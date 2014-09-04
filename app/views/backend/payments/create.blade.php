@@ -60,7 +60,7 @@
         if(!(optionMatch instanceof $) )
             optionMatch = $(optionMatch);
 
-            var selectOptionTicket = optionMatch.parent().parent().find('td select:last');
+            var selectOptionTicket = optionMatch.parent().parent().find('td select:eq(-2)');
 
         $.post(
             "{{ URL::to('admin/matches/findTicket')}}",
@@ -82,6 +82,12 @@
         );
     }
 
+    function loadTicketQuantity(optionTicket){
+        if(!(optionTicket instanceof $) )
+            optionTicket = $(optionTicket);
+
+        alert(optionTicket.val());
+    }
     function addSelectOptionTo(selectOptionTicket,tickets){
         tickets.forEach(function(ticket){
             $(selectOptionTicket).append("<option value='"+ticket.id_ticket+"'>"+ticket.label+"</option>");
@@ -117,13 +123,13 @@
     <tr>
         <td>1</td>
         <td>
-            {{ Form::select('match_id[]', $matches ,'', ['onChange' => 'loadTicketOption(this)']) }}
+            {{ Form::select('match_id[]', $matches ,'', ['onChange' => 'loadTicketOption(this)', 'class' => 'form-control']) }}
         </td>
         <td>
-            {{ Form::select('ticket_id[]', array('' => '')) }}
+            {{ Form::select('ticket_id[]', array('' => ''),null,['class' => 'form-control','onChange' => 'loadTicketQuantity(this)']) }}
         </td>
         <td>
-            {{ Form::text('quantity[]', Input::old('quantity'), array('class' => 'form-control','placeholder' => 'Quantity')) }}
+            {{ Form::selectRange('quantity[]', 1, 10,1,['class' => 'form-control',]) }}
         </td>
         <td>
             {{ Form::button(FA::icon('plus'), ['class' => 'btn btn-large btn-primary openbutton','id' => 'addOrder'])}}

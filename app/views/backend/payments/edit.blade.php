@@ -60,7 +60,7 @@
         if(!(optionMatch instanceof $) )
             optionMatch = $(optionMatch);
 
-        var selectOptionTicket = optionMatch.parent().parent().find('td select:last');
+        var selectOptionTicket = optionMatch.parent().parent().find('td select:eq(-2)');
 
         $.post(
             "{{ URL::to('admin/matches/findTicket')}}",
@@ -117,13 +117,13 @@
 
         <td>#</td>
         <td>
-            {{ Form::select('match_id[]', $matches ,$order->ticket->match_id, ['onChange' => 'loadTicketOption(this)']) }}
+            {{ Form::select('match_id[]', $matches ,$order->ticket->match_id, ['onChange' => 'loadTicketOption(this)','class' => 'form-control']) }}
         </td>
         <td>
-            {{ Form::select('ticket_id[]', $order->ticket) }}
+            {{ Form::select('ticket_id[]', $order->ticket,null,['class' => 'form-control']) }}
         </td>
         <td>
-            {{ Form::text('quantity[]', $order->quantity, array('class' => 'form-control','placeholder' => 'Quantity')) }}
+            {{ Form::selectRange('quantity[]', $order->ticket->quantity,1,$order->quantity,['class' => 'form-control']) }}
         </td>
         <td>
             {{ Form::button(FA::icon('plus'), ['class' => 'btn btn-large btn-primary openbutton','id' => 'addOrder'])}}

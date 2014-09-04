@@ -99,7 +99,7 @@
     <table class="table table-bordered">
         <thead>
         <tr class="bg-red">
-            <th colspan="3" style="text-align:center;">Tickets</th>
+            <th colspan="3" style="text-align:center;">Subscribers</th>
         </tr>
         <tr>
             <th>Email</th>
