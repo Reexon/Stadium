@@ -109,7 +109,7 @@ Route::group(array('prefix' => 'admin', 'before' => 'auth|admin','namespace' => 
     /*
      * Payments
      */
-
+    Route::get('payments/search','PaymentsController@search');
     Route::resource('payments', 'PaymentsController');
 
     /*
@@ -120,6 +120,14 @@ Route::group(array('prefix' => 'admin', 'before' => 'auth|admin','namespace' => 
                                                 'only' => ['index', 'show','create']
                                                 ]
     );
+
+
+    Route::resource('teams', 'TeamsController');
+
+    /*
+     * Richeista ajax , che restituisce numero di ticket disponibili in base al ticket_id
+     */
+    Route::post('tickets/findQuantity','TicketsController@findQuantity');
 });
 
 Route::group(array('prefix' => 'user', 'before' => 'auth','namespace' => 'Frontend\Controller'), function() {
