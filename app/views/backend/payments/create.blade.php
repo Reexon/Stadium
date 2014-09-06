@@ -6,18 +6,21 @@
     /* in default_tr memorizzo html dell'unica riga presente nella tabella,
         questo mi permettera di fare 'aggiunta' di righe senza dover riscrivere l'intero html
     */
-    var default_tr;
-    $(function(){
+    var default_tr = null;
+    window.onload=function(){
        loadTicketOption($('table select:first'));
-        default_tr = $('table tbody:first').clone();
-    });
+
+    };
 
     $(document).on('click','#addOrder',function(){
-        var tableBody = $('table tbody:first');//prendo il tbody
 
-        //rimuovo il bottone (add) dalla riga corrente (verrà aggiunto nella riga successiva)
+        //body della tabella
+        var tableBody = $('table tbody:first');
+
+        //rimuovo il bottone (add)
         $(this).remove();
 
+        //aggiunto riga alla tabella
         tableBody.append(default_tr.html());
 
     });
@@ -77,17 +80,55 @@
 
                 if(ticketData.length > 0 )
                     addSelectOptionTo(selectOptionTicket,ticketData);
+                loadTicketQuantity(selectOptionTicket);
             },
             'json'
         );
     }
 
     function loadTicketQuantity(optionTicket){
+
         if(!(optionTicket instanceof $) )
             optionTicket = $(optionTicket);
 
-        alert(optionTicket.val());
+        var selectQuantityTicket = optionTicket.parent().parent().find('td select:last');
+
+        $.post(
+            "{{ URL::to('admin/tickets/findQuantity')}}",
+            {
+                /*
+                 quando safari rendereizza il form stranamente lo chiude immediatamente, mettendo gli input al di fuori
+                 dei tag del form, visto che il token non si trova all'interno del form, devo cercarlo sull'intera pagina.
+                 */
+                "_token": $('input[name=_token]:first').val(),
+                "ticket_id": optionTicket.val() //match_id selezionato
+            },
+            function( ticketQuantity ) {
+
+                clearTicketOption(selectQuantityTicket);
+                addSelectOptionToQuantity(selectQuantityTicket,ticketQuantity);
+            },
+            'json'
+        );
     }
+
+    /*
+        Riempe la quantità di ticket disponibili
+     */
+    function addSelectOptionToQuantity(selectQuantityTicket,tickets){
+
+            for(var i=1 ; i < Math.round(tickets)+1 ;i++){
+
+                selectQuantityTicket.append("<option value='"+i+"'>"+i+"</option>");
+            }
+
+        if(default_tr == null)
+            default_tr = $('table tbody:first').clone();
+    }
+
+    /*
+        Popola la select dei ticket
+     */
     function addSelectOptionTo(selectOptionTicket,tickets){
         tickets.forEach(function(ticket){
             $(selectOptionTicket).append("<option value='"+ticket.id_ticket+"'>"+ticket.label+"</option>");
@@ -107,7 +148,7 @@
 
 {{ Form::open(array('url' => 'admin/payments','class' => 'form-inline')) }}
 
-<h4>User: {{ Form::select('user_id', $users) }}</h4>
+<h4>User: {{ Form::select('user_id', $users , null, ['class' => 'form-control']) }}</h4>
 <h4>Date:  {{ Bootstrap::date('pay_date', '',Input::old('pay_date'), $errors,['class' =>'form-control datepicker'])}}</h4>
 <table class="table">
     <thead>
