@@ -22,7 +22,7 @@ class PaymentsController extends BaseController {
 	 */
 	public function index()
 	{
-		$payments = Payment::orderBy('pay_date','desc')->paginate(15);
+		$payments = Payment::with('orders','user')->orderBy('pay_date','desc')->paginate();
 
 		return View::make($this->viewFolder.'payments.index', compact('payments'));
 	}
@@ -35,11 +35,20 @@ class PaymentsController extends BaseController {
 	public function create()
 	{
         //seleziono solo i match dove è stato creato almeno 1 ticket
-        $matches = Match::join('tickets','match_id','=','id_match')
-            ->select('id_match', DB::raw('CONCAT(home_team, " - ", guest_team, " (", DATE_FORMAT(date,"%d/%m/%Y") ," )") AS label_match'))
+       /*$matches = Match::join('tickets','match_id','=','id_match')
+            ->select('id_match', DB::raw('CONCAT(teams.name, " - ", guest_team, " (", DATE_FORMAT(date,"%d/%m/%Y") ," )") AS label_match'))
             ->take(10)
-            ->orderBy('date')
-            ->lists('label_match', 'id_match');
+            ->orderBy('date','desc')
+
+            ->lists('label_match', 'id_match');*/
+        $matches = DB::table('matches as m')
+            ->select('id_match',DB::raw('CONCAT(t1.name," - ",t2.name," (",DATE_FORMAT(date,"%d/%m/%Y"),")") AS label_match'))
+            ->join('teams as t1','t1.id_team','=','m.home_id') //prelevo nome squadra in casa
+            ->join('teams as t2','t2.id_team','=','m.guest_id') //prelevo nome squadra ospite
+            ->join('tickets','id_match','=','match_id')//solo match che hanno qualche ticket nella tabella ticket
+            ->where('quantity','>',0) //i ticket presenti nella tabella devono essere di quantita >0
+            ->orderBy('date','desc')
+            ->lists('label_match','id_match');
 
         $users = User::select('id_user',DB::raw('CONCAT(firstname, " ", lastname) AS name'))->lists('name','id_user');
 
@@ -106,15 +115,18 @@ class PaymentsController extends BaseController {
              * All'ordine (che ancora non esiste) gli associo il ticket
              * All'ordine (che ancora non esiste) gli associo il pagamento
              * Salvo infine il pagamento inserendolo in relazione con i Payment
-             * Aggiorno il totale del pagamento e faccio update
+             * Aggiorno il totale del pagamento e faccio
+             * Aggiorno quantità di ticket disponibili
              */
             $order = new Order($dataOrder);
             $ticket = Ticket::find($ticket_id[$i]);
             $order = $order->ticket()->associate($ticket);
             $order = $order->payment()->associate($payment);
+
             $payment->orders()->save($order);
             $payment->total += $order->quantity * $ticket->price;
             $payment->save();
+            $ticket->decrement('quantity', $order->quantity);
         }
 
 
@@ -143,9 +155,12 @@ class PaymentsController extends BaseController {
 	public function edit($id)
 	{
 		$payment = Payment::find($id);
-        $matches = Match::select('id_match', DB::raw('CONCAT(home_team, " - ", guest_team, " (", DATE_FORMAT(date,"%d/%m/%Y") ," )") AS label_match'))->take(10)
-            ->orderBy('date')
-            ->lists('label_match', 'id_match');
+        $matches = DB::table('matches as m')
+            ->select('id_match',DB::raw('CONCAT(t1.name," - ",t2.name," (",DATE_FORMAT(date,"%d/%m/%Y"),")") AS label_match'))
+            ->join('teams as t1','t1.id_team','=','m.home_id')
+            ->join('teams as t2','t2.id_team','=','m.guest_id')
+            ->orderBy('date','desc')
+            ->lists('label_match','id_match');
 
         $users = User::select('id_user',DB::raw('CONCAT(firstname, " ", lastname) AS name'))->lists('name','id_user');
 
@@ -187,4 +202,8 @@ class PaymentsController extends BaseController {
 		return Redirect::route('admin.payments.index');
 	}
 
+    public function search(){
+        //$payments = Payment::orderBy('pay_date','desc')->with('orders','user')->where('firstname','LIKE','%'.Input::get('firstname').'$')->paginate(3);
+        return View::make($this->viewFolder.'payments.index', compact('payments'));
+    }
 }

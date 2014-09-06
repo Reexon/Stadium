@@ -30,14 +30,18 @@ class DashboardController extends BaseController{
 
 
         $tickets =
-            Order::select('tickets.*','matches.*',DB::raw('SUM(orders.quantity) as qty_selled'))
+            Order::select('tickets.*','m.*',DB::raw('SUM(orders.quantity) as qty_selled'),DB::raw('CONCAT(t1.name," - ",t2.name) as label_match'))
             ->join('tickets','ticket_id','=','id_ticket')
-            ->join('matches','match_id','=','id_match')
+            ->join('matches as m','match_id','=','id_match')
+            ->join('teams as t1','t1.id_team','=','m.home_id')
+            ->join('teams as t2','t2.id_team','=','m.guest_id')
             ->groupBy('ticket_id')
             ->get();
 
-        $subscriptions = MatchSubscription::select('matches.*',DB::raw('COUNT(*) as qty'))
-            ->join('matches','match_id','=','id_match')
+        $subscriptions = MatchSubscription::select('m.*',DB::raw('COUNT(*) as qty'),DB::raw('CONCAT(t1.name," - ",t2.name) as label_match'))
+            ->join('matches as m','match_id','=','id_match')
+            ->join('teams as t1','t1.id_team','=','m.home_id')
+            ->join('teams as t2','t2.id_team','=','m.guest_id')
             ->groupBy('match_id')
             ->get();
 

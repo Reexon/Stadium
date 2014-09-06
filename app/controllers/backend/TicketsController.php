@@ -8,6 +8,7 @@ use DB;
 use Input;
 use Validator;
 use Redirect;
+use Response;
 
 class TicketsController extends BaseController {
 
@@ -18,7 +19,7 @@ class TicketsController extends BaseController {
 	 */
 	public function index()
 	{
-		$tickets = Ticket::all();
+		$tickets = Ticket::paginate();
 		return View::make($this->viewFolder.'tickets.index', compact('tickets'));
 	}
 
@@ -30,9 +31,14 @@ class TicketsController extends BaseController {
 	 */
 	public function create($match_id = 0)
 	{
-        $matches = Match::select('id_match', DB::raw('CONCAT(home_team, " - ", guest_team) AS label_match'))->take(10)
-        ->orderBy('date')
-        ->lists('label_match', 'id_match');
+
+        $matches = DB::table('matches as m')
+            ->select('id_match',DB::raw('CONCAT(t1.name," - ",t2.name," (",DATE_FORMAT(date,"%d/%m/%Y"),")") AS label_match'))
+            ->join('teams as t1','t1.id_team','=','m.home_id')
+            ->join('teams as t2','t2.id_team','=','m.guest_id')
+            ->orderBy('date','desc')
+            ->lists('label_match','id_match');
+
         return View::make($this->viewFolder.'tickets.create', compact('matches','match_id'));
 	}
 
@@ -112,9 +118,13 @@ class TicketsController extends BaseController {
 		$ticket = Ticket::find($id);
 
         //TODO:selezionare solo i match prossimi
-        $matches = Match::select('id_match', DB::raw('CONCAT(home_team, " - ", guest_team) AS label_match'))->take(10)
-            ->orderBy('date')
-            ->lists('label_match', 'id_match');
+        $matches = DB::table('matches as m')
+            ->select('id_match',DB::raw('CONCAT(t1.name," - ",t2.name," (",DATE_FORMAT(date,"%d/%m/%Y"),")") AS label_match'))
+            ->join('teams as t1','t1.id_team','=','m.home_id')
+            ->join('teams as t2','t2.id_team','=','m.guest_id')
+            ->orderBy('date','desc')
+            ->lists('label_match','id_match');
+
 		return View::make($this->viewFolder.'tickets.edit', compact('ticket','matches'));
 	}
 
@@ -165,5 +175,13 @@ class TicketsController extends BaseController {
         ',[$id_match]);
 
         return View::make($this->viewFolder.'tickets.selled',compact('tickets'));
+    }
+
+    /*
+     * Richiesta ajax tramite POST durante creazione pagamento
+     */
+    public function findQuantity(){
+        $ticket = Ticket::find(Input::get('ticket_id'));
+        return Response::json( $ticket->quantity );
     }
 }

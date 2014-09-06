@@ -132,7 +132,7 @@
                 <tbody>
                 @foreach($tickets as $ticket)
                 <tr>
-                    <td><a href="{{URL::to('admin/matches/'.$ticket->id_match)}}">{{$ticket->home_team}} - {{$ticket->guest_team}}</a></td>
+                    <td><a href="{{URL::to('admin/matches/'.$ticket->id_match)}}">{{$ticket->label_match}}</a></td>
                     <td><a href="{{URL::to('admin/tickets/'.$ticket->id_ticket)}}">{{$ticket->label}}</a></td>
                     <td>{{$ticket->qty_selled}}</td>
                 </tr>
@@ -182,7 +182,7 @@
                 @foreach($subscriptions as $subscription)
                 <tr>
                     <td>#</td>
-                    <td><a href="{{URL::to('admin/matches/'.$subscription->id_match)}}">{{$subscription->home_team}} - {{$subscription->guest_team}}</a></td>
+                    <td><a href="{{URL::to('admin/matches/'.$subscription->id_match)}}">{{$subscription->label_match}}</a></td>
                     <td><a href="#">{{$subscription->qty}}</a></td>
                 </tr>
                 @endforeach
