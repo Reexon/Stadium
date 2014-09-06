@@ -11,7 +11,7 @@
 
 @section('content')
 
-<h1>All Ticket Selled For : {{$ticket->match->home_team}} vs {{$ticket->match->guest_team}} ({{ $ticket->match->date->format('d-m-Y')}})</h1>
+<h1>All Ticket Selled For : {{$ticket->match->homeTeam->name}} vs {{$ticket->match->guestTeam->name}} ({{ $ticket->match->date->format('d-m-Y')}})</h1>
 
 <table class="table table-striped table-bordered">
     <thead>

@@ -87,7 +87,7 @@
             {{ Form::text('quantity[]', Input::old('quantity'), array('class' => 'form-control','placeholder' => 'Quantity')) }}
         </td>
         <td>
-            {{ Form::select('match_id[]', $matches,$match_id) }}
+            {{ Form::select('match_id[]', $matches,$match_id,['class' => 'form-control']) }}
         </td>
         <td>
             {{ Form::button(FA::icon('plus'), ['class' => 'btn btn-large btn-primary openbutton','id' => 'addTicket'])}}

@@ -97,9 +97,9 @@
 
 
 @section('content')
-<h1>Add Payment</h1>
+<h1>Edit Payment <small>#{{$payment->id_payment}}</small></h1>
 {{ Form::open(array('route' => ['admin.payments.update',$payment->id_payment],'method' => 'PUT','class' => 'form-inline')) }}
-<h4>User: {{ Form::select('user_id', $users) }}</h4>
+<h4>User: {{ Form::select('user_id', $users,null,['class' => 'form-control']) }}</h4>
 <h4>Date:  {{ Bootstrap::date('pay_date', '',Input::old('pay_date'), $errors,['class' =>'form-control datepicker'])}}</h4>
 <table class="table">
     <thead>
