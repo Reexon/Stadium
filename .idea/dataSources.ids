@@ -17,17 +17,34 @@
       <column name="updated_at" sqlType="TIMESTAMP" length="19" precision="0" nullable="true" jdbcType="93" def="Q1VSUkVOVF9USU1FU1RBTVA=" version="true"/>
       <primary-key name="PRIMARY" columns="id_message"/>
     </table>
+    <table name="match_subscriptions" schema="" catalog="stadium" type="TABLE">
+      <column name="id_subscription" sqlType="INT" length="10" precision="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="email" sqlType="VARCHAR" length="45" precision="0" nullable="false" jdbcType="12"/>
+      <column name="match_id" sqlType="INT" length="10" precision="0" nullable="false" jdbcType="4"/>
+      <column name="subscription_date" sqlType="TIMESTAMP" length="19" precision="0" nullable="true" jdbcType="93" def="Q1VSUkVOVF9USU1FU1RBTVA="/>
+      <column name="updated_at" sqlType="TIMESTAMP" length="19" precision="0" nullable="true" jdbcType="93" def="Q1VSUkVOVF9USU1FU1RBTVA=" version="true"/>
+      <column name="created_at" sqlType="TIMESTAMP" length="19" precision="0" nullable="true" jdbcType="93" def="Q1VSUkVOVF9USU1FU1RBTVA="/>
+      <primary-key name="PRIMARY" columns="id_subscription"/>
+      <foreign-key name="FK_match" columns="match_id" ref-table="matches" ref-schema="" ref-catalog="stadium" ref-columns="id_match" update-rule="3" delete-rule="3" deferrability="2"/>
+      <index name="email_UNIQUE" unique="true" columns="email"/>
+      <index name="FK_match_idx" unique="false" columns="match_id"/>
+    </table>
     <table name="matches" schema="" catalog="stadium" type="TABLE">
       <column name="id_match" sqlType="INT" length="10" precision="0" nullable="false" jdbcType="4" autoIncrement="true"/>
-      <column name="home_team" sqlType="VARCHAR" length="45" precision="0" nullable="false" jdbcType="12"/>
-      <column name="guest_team" sqlType="VARCHAR" length="45" precision="0" nullable="false" jdbcType="12"/>
+      <column name="home_id" sqlType="INT" length="10" precision="0" nullable="false" jdbcType="4"/>
+      <column name="guest_id" sqlType="INT" length="10" precision="0" nullable="false" jdbcType="4"/>
       <column name="date" sqlType="TIMESTAMP" length="19" precision="0" nullable="true" jdbcType="93" def="Q1VSUkVOVF9USU1FU1RBTVA="/>
       <column name="stadium" sqlType="VARCHAR" length="45" precision="0" nullable="true" jdbcType="12"/>
       <column name="city" sqlType="VARCHAR" length="45" precision="0" nullable="true" jdbcType="12"/>
       <column name="updated_at" sqlType="TIMESTAMP" length="19" precision="0" nullable="true" jdbcType="93" def="Q1VSUkVOVF9USU1FU1RBTVA=" version="true"/>
       <column name="created_at" sqlType="TIMESTAMP" length="19" precision="0" nullable="true" jdbcType="93" def="Q1VSUkVOVF9USU1FU1RBTVA="/>
       <primary-key name="PRIMARY" columns="id_match"/>
+      <foreign-key name="FK_home" columns="home_id" ref-table="teams" ref-schema="" ref-catalog="stadium" ref-columns="id_team" update-rule="3" delete-rule="3" deferrability="2"/>
+      <foreign-key name="FK_guest" columns="guest_id" ref-table="teams" ref-schema="" ref-catalog="stadium" ref-columns="id_team" update-rule="3" delete-rule="3" deferrability="2"/>
+      <exported-key name="FK_match" table="match_subscriptions" schema="" catalog="stadium" columns="match_id"/>
       <exported-key name="FKmatch_id" table="tickets" schema="" catalog="stadium" columns="match_id"/>
+      <index name="FK_guest_idx" unique="false" columns="guest_id"/>
+      <index name="FK_home_idx" unique="false" columns="home_id"/>
     </table>
     <table name="orders" schema="" catalog="stadium" type="TABLE">
       <column name="id_order" sqlType="INT" length="10" precision="0" nullable="false" jdbcType="4" autoIncrement="true"/>
@@ -54,6 +71,14 @@
       <exported-key name="fk_orders_payments1" table="orders" schema="" catalog="stadium" columns="payment_id"/>
       <index name="fk_payments_users_idx" unique="false" columns="user_id"/>
     </table>
+    <table name="teams" schema="" catalog="stadium" type="TABLE">
+      <column name="id_team" sqlType="INT" length="10" precision="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="name" sqlType="VARCHAR" length="45" precision="0" nullable="true" jdbcType="12"/>
+      <column name="img" sqlType="VARCHAR" length="45" precision="0" nullable="true" jdbcType="12"/>
+      <primary-key name="PRIMARY" columns="id_team"/>
+      <exported-key name="FK_home" table="matches" schema="" catalog="stadium" columns="home_id"/>
+      <exported-key name="FK_guest" table="matches" schema="" catalog="stadium" columns="guest_id"/>
+    </table>
     <table name="tickets" schema="" catalog="stadium" type="TABLE">
       <column name="id_ticket" sqlType="INT" length="10" precision="0" nullable="false" jdbcType="4" autoIncrement="true"/>
       <column name="label" sqlType="VARCHAR" length="45" precision="0" nullable="false" jdbcType="12"/>
@@ -75,7 +100,9 @@
       <column name="email" sqlType="VARCHAR" length="45" precision="0" nullable="true" jdbcType="12"/>
       <column name="city" sqlType="VARCHAR" length="45" precision="0" nullable="true" jdbcType="12"/>
       <column name="cap" sqlType="VARCHAR" length="45" precision="0" nullable="true" jdbcType="12"/>
-      <column name="cell" sqlType="VARCHAR" length="45" precision="0" nullable="true" jdbcType="12"/>
+      <column name="mobile" sqlType="VARCHAR" length="45" precision="0" nullable="true" jdbcType="12"/>
+      <column name="alt_mobile" sqlType="VARCHAR" length="45" precision="0" nullable="true" jdbcType="12"/>
+      <column name="birth_date" sqlType="TIMESTAMP" length="19" precision="0" nullable="true" jdbcType="93"/>
       <column name="password" sqlType="VARCHAR" length="60" precision="0" nullable="false" jdbcType="12"/>
       <column name="password_confirmation" sqlType="VARCHAR" length="45" precision="0" nullable="true" jdbcType="12"/>
       <column name="remember_token" sqlType="VARCHAR" length="100" precision="0" nullable="true" jdbcType="12"/>

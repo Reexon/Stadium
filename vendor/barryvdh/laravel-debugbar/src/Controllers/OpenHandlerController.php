@@ -1,23 +1,9 @@
 <?php namespace Barryvdh\Debugbar\Controllers;
 
 use DebugBar\OpenHandler;
-use Illuminate\Foundation\Application;
 use Illuminate\Http\Response;
-use Illuminate\Routing\Controller;
 
-class OpenHandlerController extends Controller {
-
-    /**
-     * The application instance.
-     *
-     * @var \Illuminate\Foundation\Application
-     */
-    protected $app;
-
-    public function __construct(Application $app)
-    {
-        $this->app = $app;
-    }
+class OpenHandlerController extends BaseController {
 
     public function handle()
     {
@@ -38,5 +24,4 @@ class OpenHandlerController extends Controller {
                 'Content-Type' => 'application/json'
             ));
     }
-
 }
