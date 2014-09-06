@@ -45,5 +45,15 @@
             <li><a href="{{ URL::to('admin/matches/create') }}">{{FA::icon('plus')}}  Add Match</a></li>
         </ul>
     </li>
+    <li class="treeview">
+        <a href="#">
+            {{FA::icon('flag-checkered')}}<span>Teams</span>
+            <i class="fa fa-angle-left pull-right"></i>
+        </a>
+        <ul class="treeview-menu">
+            <li><a href="{{ URL::to('admin/teams') }}">{{FA::icon('eye')}}  Show All Teams</a></li>
+            <li><a href="{{ URL::to('admin/teams/create') }}">{{FA::icon('plus')}}  Add Team</a></li>
+        </ul>
+    </li>
 
 </ul>
