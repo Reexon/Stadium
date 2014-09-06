@@ -8,7 +8,7 @@ use Redirect;
 use Input;
 use Response;
 use Backend\Model\Match;
-use DB;
+use Backend\Model\Team;
 
 class MatchesController extends BaseController {
 
@@ -21,7 +21,7 @@ class MatchesController extends BaseController {
 	{
         //prendo i match che non sono scaduti
 		//$matches = Match::where('date','>',time())->paginate(15);
-        $matches = Match::all();
+        $matches = Match::with('homeTeam','guestTeam')->paginate();
 
 		return View::make($this->viewFolder.'matches.index', compact('matches'));
 
@@ -34,7 +34,8 @@ class MatchesController extends BaseController {
 	 */
 	public function create()
 	{
-		return View::make($this->viewFolder.'matches.create');
+        $teams = Team::all()->lists('name', 'id_team');
+		return View::make($this->viewFolder.'matches.create',compact('teams'));
 	}
 
 	/**
@@ -50,16 +51,16 @@ class MatchesController extends BaseController {
          * @see  http://laravel.io/forum/08-26-2014-inputold-with-array-of-input
          */
 
-        $home_team = Input::get('home_team');
-        $guest_team = Input::get('guest_team');
+        $home_id = Input::get('home_id');
+        $guest_id = Input::get('guest_id');
         $stadium = Input::get('stadium');
         $date = Input::get('date');
 
-        for($i = 0 ; $i < count($guest_team); $i++){
+        for($i = 0 ; $i < count($guest_id); $i++){
             $dataMatches = [
                 '_token' => Input::get('_token'),
-                'home_team'     =>  $home_team[$i],
-                'guest_team'    =>  $guest_team[$i],
+                'home_id'     =>  $home_id[$i],
+                'guest_id'    =>  $guest_id[$i],
                 'stadium'       =>  $stadium[$i],
                 'date'          => date('Y-m-d',strtotime($date[$i]))
             ];
@@ -74,32 +75,6 @@ class MatchesController extends BaseController {
             //TODO: Bisogna Validare i dati prima di creare il match
             Match::create($dataMatches);
         }
-
-       /*
-
-       for($i = 0 ; $i < home_team)
-        foreach($home_team as $key => $value )
-        {
-            $arrData[] = array(
-                "order_id"      => Input::get('order_id'),
-                "user_id"       => $user_id[$key],
-                "item_id"       => $item_id[$key],
-                "item_price"    => $item->price,
-                "item_currency" => $item->currency,
-                "quantity"      => 1
-            );
-
-        }*/
-
-		/*$validator = Validator::make($data = Input::all(), Match::$rules);
-
-		if ($validator->fails())
-		{
-			return Redirect::back()->withErrors($validator)->withInput();
-		}
-
-		Match::create($data);
-		*/
 
 		return Redirect::route('admin.matches.index');
 	}
@@ -126,8 +101,8 @@ class MatchesController extends BaseController {
 	public function edit($id)
 	{
 		$match = Match::find($id);
-
-		return View::make($this->viewFolder.'matches.edit', compact('match'));
+        $teams = Team::all()->lists('name', 'id_team');
+		return View::make($this->viewFolder.'matches.edit', compact('match','teams'));
 	}
 
 	/**
@@ -172,8 +147,17 @@ class MatchesController extends BaseController {
 
     public function findTicket(){
 
-        $match = Match::find(Input::get('match_id'));
+        $match = Match::join('tickets','match_id','=','id_match')->where('quantity','>',0)->find(Input::get('match_id'));
         return Response::json( $match->tickets );
+    }
+
+    /*
+     * Visualizza tutte le partite di una certa squadra
+     */
+    public function findMatchesFromTeam($id_team){
+        $matches = Match::where('guest_id','=',$id_team)->orWhere('home_id','=',$id_team)->paginate();
+
+        return View::make($this->viewFolder."matches.team",compact('matches'));
     }
 
 }
