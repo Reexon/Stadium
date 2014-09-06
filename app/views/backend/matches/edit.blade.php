@@ -12,20 +12,20 @@
 
 @section('content')
 
-    <h1>Edit {{ $match->home_team }} vs {{ $match->guest_team }}</h1>
+    <h1>Edit {{ $match->homeTeam->name }} vs {{ $match->guestTeam->name }}</h1>
 
     {{ Form::model($match, array('route' => array('admin.matches.update', $match->id_match), 'method' => 'PUT','class'=>'form-horizontal', 'role' => 'form')) }}
 
     <div class="form-group">
         {{ Form::label('home_team','Home Team',['class' => 'col-sm-2 control-label']) }}
         <div class="col-sm-10">
-            {{ Form::text('home_team', Input::old('home_team'), array('class' => 'form-control')) }}
+            {{ Form::select('home_id',$teams,Input::old('home_id'),['class' => 'form-control']) }}
         </div>
     </div>
     <div class="form-group">
         {{ Form::label('guest_team','Guest Team',['class' => 'col-sm-2 control-label']) }}
         <div class="col-sm-10">
-            {{ Form::text('guest_team', Input::old('guest_team'), array('class' => 'form-control')) }}
+            {{ Form::select('guest_id',$teams,Input::old('guest_id'),['class' => 'form-control']) }}
         </div>
     </div>
     <div class="form-group">

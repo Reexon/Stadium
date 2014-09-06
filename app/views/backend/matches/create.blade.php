@@ -75,12 +75,11 @@
                 <tr>
                     <td>1</td>
                     <td>
-                        {{ Form::text('home_team[]', Input::old('home_team'), array('class' => 'form-control',
-                        'placeholder' => 'Home Team')) }}
+
+                        {{ Form::select('home_id[]',$teams,null,['class' => 'form-control']) }}
                     </td>
                     <td>
-                        {{ Form::text('guest_team[]', Input::old('guest_team'), array('class' => 'form-control',
-                        'placeholder' => 'Guest Team')) }}
+                        {{ Form::select('guest_id[]',$teams,null,['class' => 'form-control']) }}
                     </td>
                     <td>
                         {{ Form::text('stadium[]', Input::old('stadium'), array('class' => 'form-control',

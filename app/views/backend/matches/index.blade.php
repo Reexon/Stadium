@@ -15,20 +15,20 @@
     <table class="table table-striped table-bordered">
         <thead>
         <tr>
-            <td>ID</td>
-            <td>Home</td>
-            <td>Guest</td>
-            <td>Stadium</td>
-            <td>Date</td>
-            <td>Actions</td>
+            <th>ID</th>
+            <th>Home</th>
+            <th>Guest</th>
+            <th>Stadium</th>
+            <th>Date</th>
+            <th>Actions</th>
         </tr>
         </thead>
         <tbody>
         @foreach($matches as $match)
         <tr>
             <td>{{ $match->id_match }}</td>
-            <td>{{ $match->home_team }}</td>
-            <td>{{ $match->guest_team }}</td>
+            <td><a href="{{ URL::to('admin/teams/'.$match->homeTeam->id_team)}}">{{ $match->homeTeam->name }}</a></td>
+            <td><a href="{{ URL::to('admin/teams/'.$match->guestTeam->id_team)}}">{{ $match->guestTeam->name }}</a></td>
             <td>{{ $match->stadium }}</td>
             <td>{{ $match->date->format('d-m-Y') }}</td>
 
@@ -50,5 +50,5 @@
         </tbody>
     </table>
 
-<?php //$matches->links(); ?>
+    {{ $matches->links() }}
 @stop

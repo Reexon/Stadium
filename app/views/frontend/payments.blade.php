@@ -36,7 +36,7 @@
             @foreach($payment->orders as $order)
                 <tr>
                     <td>#</td>
-                    <td>{{$order->ticket->match->home_team}} - {{$order->ticket->match->guest_team}} ({{$order->ticket->match->date->format('d.m.Y')}})</td>
+                    <td>{{$order->ticket->match->homeTeam->name}} - {{$order->ticket->match->guestTeam->name}} ({{$order->ticket->match->date->format('d.m.Y')}})</td>
                     <td>{{$order->ticket->label}}</td>
                     <td>{{$order->quantity}}</td>
                     <td>{{$order->quantity * $order->ticket->price}}</td>

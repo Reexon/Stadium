@@ -15,6 +15,28 @@
 <table class="table table-bordered">
     <thead>
         <tr>
+            {{ Form::open(['url' => 'admin/payments/search','method' => 'GET']) }}
+                <td>
+                    {{ Form::text('id_payment', Input::old('id_payment'), ['class' => 'form-control','placeholder' => '# Payment']) }}
+                </td>
+                <td>
+                    {{ Form::text('firstname', Input::old('firstname'), ['class' => 'form-control','placeholder' => 'user']) }}
+                </td>
+            <td>
+                {{ Form::text('label', Input::old('label'), ['class' => 'form-control','placeholder' => 'Ticket Type']) }}
+            </td>
+            <td>
+                {{ Form::text('match', Input::old('match'), ['class' => 'form-control','placeholder' => 'Match']) }}
+            </td>
+            <td></td>
+            <td>
+                {{ Form::text('data', Input::old('data'), ['class' => 'form-control','placeholder' => 'data']) }}
+            </td>
+            <td></td>
+            <td></td>
+            {{ Form::close() }}
+        </tr>
+        <tr>
             <th>ID</th>
             <th>User</th>
             <th>Ticket</th>
@@ -29,12 +51,20 @@
     @foreach($payments as $payment)
     <tr>
         <td rowspan="{{ count($payment->orders)+1 }}" style="vertical-align:middle;">{{ $payment->id_payment }}</td>
-        <td rowspan="{{ count($payment->orders)+1 }}" style="vertical-align:middle;">{{ $payment->user->firstname }} {{ $payment->user->lastname }}</td>
+        <td rowspan="{{ count($payment->orders)+1 }}" style="kvertical-align:middle;">
+            <a href="{{URL::to('admin/users/'.$payment->user->id_user)}}">
+                {{ $payment->user->firstname }} {{ $payment->user->lastname }}
+            </a>
+        </td>
         <?php $firstLoop = true;?>
         @foreach($payment->orders as $order)
         <tr>
             <td>{{ $order->ticket->label }}</td>
-            <td>{{ $order->ticket->match->home_team }} vs {{ $order->ticket->match->guest_team }}</td>
+            <td>
+                <a href="{{URL::to('admin/matches/'.$order->ticket->match->id_match)}}">
+                    {{ $order->ticket->match->homeTeam->name }} vs {{ $order->ticket->match->guestTeam->name }}
+                </a>
+            </td>
             <td style="vertical-align:middle;">{{ $order->quantity }}</td>
             @if($firstLoop)
                 <td rowspan="{{ count($payment->orders) }}" style="vertical-align:middle;">{{ $payment->pay_date->format('d-m-Y') }}</td>
@@ -62,5 +92,5 @@
     </tbody>
 </table>
 
-<?php echo $payments->links(); ?>
+{{ $payments->links() }}
 @stop

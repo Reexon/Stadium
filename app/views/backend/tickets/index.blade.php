@@ -26,12 +26,12 @@
 <table class="table table-striped table-bordered">
     <thead>
     <tr>
-        <td>ID</td>
-        <td>Match</td>
-        <td>Type</td>
-        <td>Quantity</td>
-        <td>Price</td>
-        <td>Actions</td>
+        <th>ID</th>
+        <th>Match</th>
+        <th>Type</th>
+        <th>Quantity</th>
+        <th>Price</th>
+        <th>Actions</th>
     </tr>
     </thead>
     <tbody>
@@ -47,7 +47,7 @@
                data-content="<b>When:</b> {{ $ticket->match->date->format('d-m-Y') }}<br>
                              <b>Where:</b> {{ $ticket->match->stadium}}"
                data-placement="right"
-               data-toggle="popover">{{ $ticket->match->home_team }} vs {{ $ticket->match->guest_team }}</a>
+               data-toggle="popover">{{ $ticket->match->homeTeam->name }} vs {{ $ticket->match->guestTeam->name }}</a>
         </td>
 
         <td>{{ $ticket->label }}</td>
@@ -75,4 +75,6 @@
     @endforeach
     </tbody>
 </table>
+
+{{ $tickets->links()}}
 @stop

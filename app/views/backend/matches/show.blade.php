@@ -12,7 +12,7 @@
 
 @section('content')
 
-    <h1>Showing {{ $match->home_team }} vs {{ $match->guest_team }}</h1>
+    <h1>Showing {{ $match->homeTeam->name }} vs {{ $match->guestTeam->name }}</h1>
 
     <div class="jumbotron text-left">
         <p>
@@ -109,7 +109,6 @@
         <tbody>
         @foreach($match->subscribers as $subscriber)
         <tr>
-            <!-- TODO: Link to ticket -->
             <td>{{ $subscriber->email }}</td>
             <td>{{ $subscriber->created_at->format('d.m.Y')}}</td>
         </tr>
