@@ -11,6 +11,8 @@ class Ticket extends \Eloquent {
          'quantity' => 'required'
 	];
 
+    protected $perPage = 10;
+
     protected $primaryKey = 'id_ticket';
 
 	// Don't forget to fill this array

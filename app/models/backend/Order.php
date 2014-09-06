@@ -10,7 +10,7 @@ class Order extends \Eloquent {
 
 	// Don't forget to fill this array
 	protected $fillable = ['quantity'];
-
+    protected $perPage = 10;
     protected $primaryKey = 'id_order';
 
     public function ticket(){

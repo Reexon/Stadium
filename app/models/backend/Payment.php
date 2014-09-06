@@ -17,6 +17,7 @@ class Payment extends \Eloquent {
     //campi in formato data
     protected $dates = ['pay_date'];
 
+    protected $perPage = 10;
 
     public function orders(){
         return Payment::hasMany('Backend\Model\Order');
