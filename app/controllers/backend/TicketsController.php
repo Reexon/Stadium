@@ -2,6 +2,8 @@
 namespace Backend\Controller;
 
 use Backend\Model\Ticket;
+use Frontend\Model\MatchSubscription;
+use Illuminate\Events\Subscriber;
 use View;
 use Backend\Model\Match;
 use DB;
@@ -9,6 +11,7 @@ use Input;
 use Validator;
 use Redirect;
 use Response;
+use Mail;
 
 class TicketsController extends BaseController {
 
@@ -32,6 +35,8 @@ class TicketsController extends BaseController {
 	public function create($match_id = 0)
 	{
 
+        $match = Match::find($match_id);
+
         $matches = DB::table('matches as m')
             ->select('id_match',DB::raw('CONCAT(t1.name," - ",t2.name," (",DATE_FORMAT(date,"%d/%m/%Y"),")") AS label_match'))
             ->join('teams as t1','t1.id_team','=','m.home_id')
@@ -39,7 +44,7 @@ class TicketsController extends BaseController {
             ->orderBy('date','desc')
             ->lists('label_match','id_match');
 
-        return View::make($this->viewFolder.'tickets.create', compact('matches','match_id'));
+        return View::make($this->viewFolder.'tickets.create', compact('matches','match','match_id'));
 	}
 
 	/**
@@ -72,7 +77,6 @@ class TicketsController extends BaseController {
 
            $validator = Validator::make($data = $dataTicket, Ticket::$rules);
 
-
             if ($validator->fails())
             {
                 return Redirect::back()->withErrors($validator);
@@ -81,16 +85,16 @@ class TicketsController extends BaseController {
             Ticket::create($dataTicket);
         }
 
-        /*
-		$validator = Validator::make($data = Input::all(), Ticket::$rules);
+        if(Input::get('send_notifications') == "yes" ){
+            $subscribers = MatchSubscription::select('email')->where('match_id','=',$ticket_matchID[0])->get();
 
-		if ($validator->fails())
-		{
-			return Redirect::back()->withErrors($validator)->withInput();
-		}
-
-		Ticket::create($data);
-        */
+            $match = Match::find($ticket_matchID[0]);
+            Mail::send('emails.newticket', compact('match'), function($message) use ($subscribers,$match)
+            {
+                foreach ($subscribers as $subscriber)
+                    $message->to($subscriber->email)->subject('New Tickets Avvailable for '.$match->homeTeam->name ." vs ". $match->guestTeam->name);
+            });
+        }
 
 		return Redirect::route('admin.tickets.index')->with('success','Ticket Created Succesfully');
 	}

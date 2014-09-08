@@ -56,10 +56,12 @@
 @parent
 @stop
 
-
+@section('header-title')
+<h1>Add New Ticket
+    <small></small>
+</h1>
+@stop
 @section('content')
-<h1>Add Match</h1>
-
 
 {{ Form::open(array('url' => 'admin/tickets','class' => 'form-inline')) }}
 
@@ -96,6 +98,11 @@
     </tr>
     </tbody>
 </table>
+@if(is_object($match))
+    @if (count($match->subscribers) > 0)
+        {{ Form::checkbox('send_notifications', 'yes')}} Send Notification to subscribers
+    @endif
+@endif
 
 {{ Form::submit('Create Tickets!', array('class' => 'btn btn-primary')) }}
 
