@@ -37,6 +37,8 @@ class User extends \Eloquent implements UserInterface, RemindableInterface {
 
     protected $fillable = ['firstname','lastname','email','password'];
 
+    protected $dates = ['birth_date'];
+
     public function payments(){
         return $this->hasMany('Backend\Model\Payment');
     }

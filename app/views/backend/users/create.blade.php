@@ -11,7 +11,7 @@
 
 @section('header-title')
 <h1>Create User
-    <small>#{{$ticket->id_ticket}}</small>
+    <small></small>
 </h1>
 @stop
 
@@ -19,7 +19,7 @@
 
 {{ Form::open(array('url'=>'admin/users', 'class'=>'form-horizontal', 'role' => 'form')) }}
 <div class="row">
-    <div class="col-md-5">
+    <div class="col-md-4">
         <div class="box box-primary">
             <div class="box-header">
                 {{FA::icon('info')}}
@@ -59,7 +59,7 @@
         </div>
     </div><!-- ./Box General Info -->
 
-    <div class="col-md-5">
+    <div class="col-md-4">
         <div class="box box-warning">
             <div class="box-header">
                 {{FA::icon('phone')}}
