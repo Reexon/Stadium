@@ -43,7 +43,7 @@
         <!-- Menu Footer-->
         <li class="user-footer">
             <div class="pull-left">
-                <a href="#" class="btn btn-default btn-flat">Profile</a>
+                <a href="{{URL::to('user/profile')}}" class="btn btn-default btn-flat">Profile</a>
             </div>
             <div class="pull-right">
                 <a href="{{URL::to('logout')}}" class="btn btn-default btn-flat">{{FA::icon('sign-out')}} Sign out</a>
