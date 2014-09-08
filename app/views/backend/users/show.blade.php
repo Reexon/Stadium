@@ -13,9 +13,13 @@
 @stop
 
 
+@section('header-title')
+<h1>{{ $user->firstname }} {{ $user->lastname }} <a class="btn btn-small btn-info" href="{{ URL::to('admin/users/'.$user->id_user .'/edit')}}">{{FA::lg('pencil')}}</a>
+    <small></small>
+</h1>
+@stop
 @section('content')
 
-<h1>{{ $user->firstname }} {{ $user->lastname }} <a class="btn btn-small btn-info" href="{{ URL::to('admin/users/'.$user->id_user .'/edit')}}">{{FA::lg('pencil')}}</a> </h1>
 
 <div class="jumbotron ">
     <p class="text-left">

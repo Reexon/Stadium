@@ -55,8 +55,13 @@
 @parent
 @stop
 
+@section('header-title')
+<h1>Add New Team
+    <small></small>
+</h1>
+@stop
+
 @section('content')
-<h1>Add Team</h1>
 
 {{ Form::open(array('url' => 'admin/teams','class' => 'form-inline')) }}
 

@@ -142,9 +142,13 @@
 @parent
 @stop
 
+@section('header-title')
+<h1>Add New Payment
+    <small></small>
+</h1>
+@stop
 
 @section('content')
-<h1>Add Payment</h1>
 
 {{ Form::open(array('url' => 'admin/payments','class' => 'form-inline')) }}
 

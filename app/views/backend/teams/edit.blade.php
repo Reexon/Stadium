@@ -10,6 +10,11 @@
     @stop
 
 
+    @section('header-title')
+    <h1>Edit Team
+        <small></small>
+    </h1>
+    @stop
     @section('content')
 
     @stop

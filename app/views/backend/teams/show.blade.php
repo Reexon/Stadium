@@ -9,12 +9,13 @@
         @parent
     @stop
 
+    @section('header-title')
+    <h1>All Matches of {{ $team->name }}
+        <small>#{{$team->id_team}}</small>
+    </h1>
+    @stop
 
     @section('content')
-
-
-<h1>All Matches of {{ $team->name }}</h1>
-
 
 <table class="table table-striped table-bordered">
     <thead>

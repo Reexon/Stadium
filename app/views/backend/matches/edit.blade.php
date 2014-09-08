@@ -9,10 +9,13 @@
 @parent
 @stop
 
+@section('header-title')
+<h1>Edit {{ $match->homeTeam->name }} vs {{ $match->guestTeam->name }} - ({{$match->date->format('d-m-Y')}})
+    <small>#{{$match->id_match}}</small>
+</h1>
+@stop
 
 @section('content')
-
-    <h1>Edit {{ $match->homeTeam->name }} vs {{ $match->guestTeam->name }}</h1>
 
     {{ Form::model($match, array('route' => array('admin.matches.update', $match->id_match), 'method' => 'PUT','class'=>'form-horizontal', 'role' => 'form')) }}
 

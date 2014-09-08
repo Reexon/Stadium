@@ -9,9 +9,14 @@
 @parent
 @stop
 
+@section('header-title')
+<h1>All Ticket Selled For : {{$ticket->match->homeTeam->name}} vs {{$ticket->match->guestTeam->name}} ({{ $ticket->match->date->format('d-m-Y')}})
+<small>#{{$ticket->id_ticket}}</small>
+</h1>
+@stop
+
 @section('content')
 
-<h1>All Ticket Selled For : {{$ticket->match->homeTeam->name}} vs {{$ticket->match->guestTeam->name}} ({{ $ticket->match->date->format('d-m-Y')}})</h1>
 
 <table class="table table-striped table-bordered">
     <thead>
@@ -26,9 +31,9 @@
     @foreach($ticket->orders as $order)
     <tr>
         <td><a href="{{URL::to('admin/payments/'.$order->payment->id_payment)}}">#{{ $order->payment->id_payment }}</a></td>
-        <td><a href="{{URL::to('admin/users/'.$order->payment->user->id_user)}}">{{ $order->payment->user->firstname }}</a></td>
+        <td><a href="{{URL::to('admin/users/'.$order->payment->user->id_user)}}">{{ $order->payment->user->firstname }} {{$order->payment->user->lastname}}</a></td>
         <td>{{ $order->quantity }}</td>
-        <td>{{ $order->quantity * $ticket->price}}</td>
+        <td>{{ number_format($order->quantity * $ticket->price,2,',','.')}} €</td>
     </tr>
     @endforeach
     </tbody>

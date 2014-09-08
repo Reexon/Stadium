@@ -10,9 +10,13 @@
     @stop
 
 
+@section('header-title')
+<h1>Payments Details
+    <small>#{{$payment->id_payment}}</small>
+</h1>
+@stop
+
     @section('content')
-
-
 
 <div class="box box-info">
     <div class="box-header">
@@ -20,6 +24,7 @@
     </div>
     <div class="box-body">
         <?php $user = $payment->user; ?>
+        <!-- TODO: Sistemare visualizzazione delle informazioni buyer -->
         Name: {{$user->firstname}} {{$user->lastname}}<br>
         Payment Date: {{$payment->pay_date->format('d.m.Y')}}<br>
         Address: {{$user->address}},{{$user->city}},{{$user->cap}}<br>
@@ -52,7 +57,7 @@
         <tfoot>
             <tr>
                 <th colspan="3"></th>
-                <th>{{$payment->total}}</th>
+                <th>{{ number_format($payment->total,2,',','.')}} €</th>
             </tr>
         </tfoot>
     </table>

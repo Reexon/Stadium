@@ -9,10 +9,13 @@
 @parent
 @stop
 
+@section('header-title')
+<h1>Detail {{ $match->homeTeam->name }} vs {{ $match->guestTeam->name }} - ({{$match->date->format('d-m-Y')}})
+    <small>#{{$match->id_match}}</small>
+</h1>
+@stop
 
 @section('content')
-
-    <h1>Showing {{ $match->homeTeam->name }} vs {{ $match->guestTeam->name }}</h1>
 
     <div class="jumbotron text-left">
         <p>

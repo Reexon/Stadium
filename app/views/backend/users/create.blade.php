@@ -9,6 +9,11 @@
 @parent
 @stop
 
+@section('header-title')
+<h1>Create User
+    <small>#{{$ticket->id_ticket}}</small>
+</h1>
+@stop
 
 @section('content')
 

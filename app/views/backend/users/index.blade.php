@@ -54,9 +54,14 @@
     @stop
 
 
+    @section('header-title')
+    <h1>All Registered Users
+        <small></small>
+    </h1>
+    @stop
+
     @section('content')
 
-<h1>Users</h1>
 <table class="table table-striped table-bordered">
     <thead>
         <tr>

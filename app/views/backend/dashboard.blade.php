@@ -9,6 +9,12 @@
 @parent
 @stop
 
+@section('header-title')
+<h1>
+    Dashboard
+    <small>Overview</small>
+</h1>
+@stop
 
 @section('content')
 <div class="row">
@@ -144,23 +150,28 @@
     <div class="col-lg-3">
         <div class="panel panel-warning">
             <div class="panel-heading bg-yellow">
-                <b>Not Avvailable</b>
+                <b>Total Gain</b>
             </div>
             <table class="table">
                 <thead>
                 <tr>
-                    <th>---</th>
-                    <th>---</th>
-                    <th>---</th>
+                    <th>#</th>
+                    <th>Match</th>
+                    <th>Total-</th>
                 </tr>
                 </thead>
                 <tbody>
-                <tr>
-                    <td>--</td>
-                    <td>--</td>
-                    <td>--</td>
-                </tr>
 
+                @foreach($totalArray as $singleMatch)
+
+                    <tr>
+                        <td>#</td>
+                        <td>
+                            <a href="{{URL::to('admin/matches/'.$singleMatch->id_match)}}">{{$singleMatch->label_match}}</a>
+                        </td>
+                        <td>{{number_format($singleMatch->total,2,',','.')}} €</td>
+                    </tr>
+                @endforeach
                 </tbody>
             </table>
         </div>

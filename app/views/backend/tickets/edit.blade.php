@@ -9,10 +9,13 @@
 @parent
 @stop
 
+@section('header-title')
+<h1>{{ $ticket->match->homeTeam->name}} vs {{ $ticket->match->guestTeam->name }} ({{ $ticket->label }}) - {{ $ticket->match->date->format('d.m.Y') }}
+    <small>#{{$ticket->id_ticket}}</small>
+</h1>
+@stop
 
 @section('content')
-
-<h1>{{ $ticket->match->homeTeam->name}} vs {{ $ticket->match->guestTeam->name }} ({{ $ticket->label }}) - {{ $ticket->match->date->format('d.m.Y') }}</h1>
 
 {{ Form::model($ticket, array('route' => array('admin.tickets.update', $ticket->id_ticket), 'method' => 'PUT','class'=>'form-horizontal', 'role' => 'form')) }}
 

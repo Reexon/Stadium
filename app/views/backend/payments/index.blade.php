@@ -8,9 +8,13 @@
 @parent
 @stop
 
+@section('header-title')
+<h1>
+    All Payments
+    <small>Overview</small>
+</h1>
+@stop
 @section('content')
-
-<h1>All Payments</h1>
 
 <table class="table table-bordered">
     <thead>
@@ -50,7 +54,9 @@
     <tbody>
     @foreach($payments as $payment)
     <tr>
-        <td rowspan="{{ count($payment->orders)+1 }}" style="vertical-align:middle;">{{ $payment->id_payment }}</td>
+        <td rowspan="{{ count($payment->orders)+1 }}" style="vertical-align:middle;">
+            <a href="{{URL::to('admin/payments/'.$payment->id_payment)}}">{{ $payment->id_payment }}</a>
+        </td>
         <td rowspan="{{ count($payment->orders)+1 }}" style="kvertical-align:middle;">
             <a href="{{URL::to('admin/users/'.$payment->user->id_user)}}">
                 {{ $payment->user->firstname }} {{ $payment->user->lastname }}

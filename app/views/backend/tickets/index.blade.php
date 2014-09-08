@@ -19,9 +19,13 @@
 @parent
 @stop
 
-@section('content')
+@section('header-title')
+<h1>All Tickets
+    <small></small>
+</h1>
+@stop
 
-<h1>All Tickets</h1>
+@section('content')
 
 <table class="table table-striped table-bordered">
     <thead>
@@ -59,10 +63,8 @@
 
 
         <td>
-            <!--  GET /nerds/{id} -->
             <a class="btn btn-small btn-success" href="{{ URL::to('admin/tickets/' . $ticket->id_ticket) }}">{{ FA::icon('eye'); }}</a>
 
-            <!-- GET /nerds/{id}/edit -->
             <a class="btn btn-small btn-info" href="{{ URL::to('admin/tickets/' . $ticket->id_ticket . '/edit') }}">{{ FA::icon('pencil'); }}</a>
 
             <!-- TODO: Confirmation Before Delete -->

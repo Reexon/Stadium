@@ -9,6 +9,11 @@
 @parent
 @stop
 
+@section('header-title')
+<h1>Login Form
+    <small></small>
+</h1>
+@stop
 
 @section('content')
 

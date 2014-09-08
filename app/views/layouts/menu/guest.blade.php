@@ -8,7 +8,7 @@
     </li>
 
     <li class="active">
-        <a href="user/payments">
+        <a href="/">
             {{FA::icon('soccer-ball-o')}}<span>Football</span>
             <i class="fa fa-angle-left pull-right"></i>
         </a>

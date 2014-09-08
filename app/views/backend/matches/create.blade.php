@@ -54,8 +54,12 @@
         @parent
     @stop
 
+    @section('header-title')
+    <h1>Add New Match
+        <small></small>
+    </h1>
+    @stop
     @section('content')
-        <h1>Add Match</h1>
 
         {{ Form::open(array('url' => 'admin/matches',
                             'class' => 'form-inline')) }}

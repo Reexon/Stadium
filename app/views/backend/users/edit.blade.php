@@ -9,11 +9,13 @@
 @parent
 @stop
 
+@section('header-title')
+<h1>Edit {{ $user->firstname }} {{ $user->lastname}}
+    <small>#{{$user->id_user}}</small>
+</h1>
+@stop
 
 @section('content')
-
-<h1>Edit {{ $user->firstname }} {{ $user->lastname}}</h1>
-
 
 {{ Form::model($user, array('route' => array('admin.users.update', $user->id_user), 'method' => 'PUT','class'=>'form-horizontal', 'role' => 'form')) }}
 

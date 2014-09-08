@@ -7,10 +7,12 @@
 @section('navigation')
 @parent
 @stop
-
+@section('header-title')
+<h1>Display All Matches
+    <small></small>
+</h1>
+@stop
 @section('content')
-
-    <h1>All Matches</h1>
 
     <table class="table table-striped table-bordered">
         <thead>
