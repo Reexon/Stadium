@@ -74,6 +74,8 @@ Route::get('logout','Backend\Controller\UsersController@logout');
 
 Route::post('contact/send','Backend\Controller\MailMessageController@contactus');
 
+Route::get('feedbacks/create','Frontend\Controller\FeedbacksController@create');
+Route::post('feedbacks','Frontend\Controller\FeedbacksController@submit');
 /*
  * Gestisco tutti i route per l'admin, che hanno il prefisso /admin/*
  */
@@ -95,7 +97,7 @@ Route::group(array('prefix' => 'admin', 'before' => 'auth|admin','namespace' => 
     /*
      * Tickets
      */
-    Route::get('tickets/selled/{id_match}', 'TicketsController@selledForMatch');
+
     Route::get('tickets/create/{id}', 'TicketsController@create');
     Route::resource('tickets', 'TicketsController');
 

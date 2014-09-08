@@ -26,4 +26,8 @@ class Payment extends \Eloquent {
     public function user(){
         return Payment::belongsTo('Backend\Model\User');
     }
+
+    public function feedback(){
+        return $this->belongsTo('Backend\Model\Feedback');
+    }
 }
