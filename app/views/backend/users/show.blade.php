@@ -20,22 +20,87 @@
 @stop
 @section('content')
 
+<div class="row">
 
-<div class="jumbotron ">
-    <p class="text-left">
-        <strong>Register Date:</strong> {{ $user->created_at->format('m-d-Y H:i:s') }}<br>
-        <strong>Address:</strong>
-        <address>
-            {{$user->city}}<br/>
-            {{$user->address}}<br/>
-            {{$user->cap}}<br/>
-            {{$user->cell}}
-        </address>
-        <strong>Email:</strong> {{ $user->email }}<br>
-    </p>
-    <p class="text-right">
-        <a class="btn btn-primary btn-lg btn-block btn-success" href="{{URL::to('admin/mails/create')}}">{{FA::icon('envelope-o')}} Contact User</a>
-    </p>
+    <div class="col-md-4"><!-- Personal Information -->
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                Personal Information
+            </div>
+            <div class="panel-body">
+                <p>
+                <div class="form-group">
+                    <label class="control-label">First Name</label>
+                    {{$user->firstname}}
+                </div>
+                <div class="form-group">
+                    <label class="control-label">Lastname</label>
+                    {{$user->lastname}}
+                </div>
+                <div class="form-group">
+                    <label class="control-label">Birth Date</label>
+                    {{$user->birth_date->format('d.m.Y')}}
+                </div>
+                <div class="form-group">
+                    <label class="control-label">Register Date</label>
+                    {{$user->created_at->format('d.m.Y')}}
+                </div>
+                </p>
+            </div>
+        </div>
+    </div><!--./ Personal Information -->
+
+    <div class="col-md-4"><!-- Contact Information -->
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                Contact Information
+            </div>
+            <div class="panel-body">
+                <p>
+                <div class="form-group">
+                    <label class="control-label">Mobile</label>
+                    {{$user->mobile}}
+                </div>
+                <div class="form-group">
+                    <label class="control-label">Alt. Mobile</label>
+                    {{$user->alt_mobile}}
+                </div>
+                <div class="form-group">
+                    <label class="control-label">Email</label>
+                    {{$user->email}}
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label">City</label>
+                    {{$user->city}}
+                </div>
+                </p>
+            </div>
+        </div>
+    </div><!-- ./ Contact Information -->
+    <div class="col-md-4"><!-- Shipping Information -->
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                Shipping Information
+            </div>
+            <div class="panel-body">
+                <p>
+                    <div class="form-group">
+                        <label class="control-label">City</label>
+                        {{$user->city}}
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label">CAP</label>
+                        {{$user->cap}}
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label">Address</label>
+                        {{$user->address}}
+                    </div>
+                </p>
+            </div>
+        </div>
+    </div><!-- ./ Contact Information -->
 </div>
 <div class="row">
     <div class="col-md-4">
