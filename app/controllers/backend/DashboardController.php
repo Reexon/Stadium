@@ -13,16 +13,17 @@ use Backend\Model\Payment;
 use DB;
 use Frontend\Model\MatchSubscription;
 use View;
+use Paginator;
 
 class DashboardController extends BaseController{
 
     public function index(){
 
-        $from = time()-(60*60*24*7);
-        $order_count = Payment::where('pay_date','>',$from)->count();
-        $ticket_sell = Order::where('created_at','>',$from)->sum('quantity');
-        $total_amount = Payment::where('pay_date','>',$from)->sum('total');
+        $order_count = Payment::where('pay_date','>',DB::raw('DATE_SUB(curdate(), INTERVAL 1 WEEK)'))->count();
+        $ticket_sell = Order::where('created_at','>',DB::raw('DATE_SUB(curdate(), INTERVAL 1 WEEK)'))->sum('quantity');
+        $total_amount = Payment::where('pay_date','>',DB::raw('DATE_SUB(curdate(), INTERVAL 1 WEEK)'))->sum('total');
 
+        //TODO: Pagination dei amount
         $totalArray = DB::select('SELECT id_match,CONCAT(home," - ",guest) as label_match,SUM(total) as total
                                     FROM (
                                         SELECT t1.name as home,t2.name as guest,id_match,total FROM payments
@@ -36,27 +37,30 @@ class DashboardController extends BaseController{
                                     GROUP BY id_match');
 
 
-        $payments = Payment::orderBy('pay_date','desc')->take(10)->get();
+        Paginator::setPageName('ppayments');
+        $payments = Payment::orderBy('pay_date','desc')->paginate(1);
+
         $data = ['orderCount' => $order_count,
                 'ticketCount'   => $ticket_sell,
                 'total_amount'  => $total_amount];
 
 
+        Paginator::setPageName('ptickets');
         $tickets =
             Order::select('tickets.*','m.*',DB::raw('SUM(orders.quantity) as qty_selled'),DB::raw('CONCAT(t1.name," - ",t2.name) as label_match'))
             ->join('tickets','ticket_id','=','id_ticket')
             ->join('matches as m','match_id','=','id_match')
             ->join('teams as t1','t1.id_team','=','m.home_id')
             ->join('teams as t2','t2.id_team','=','m.guest_id')
-            ->groupBy('ticket_id')
-            ->get();
+            ->groupBy('ticket_id')->paginate(1);
 
+        Paginator::setPageName('psubscribers');
         $subscriptions = MatchSubscription::select('m.*',DB::raw('COUNT(*) as qty'),DB::raw('CONCAT(t1.name," - ",t2.name) as label_match'))
             ->join('matches as m','match_id','=','id_match')
             ->join('teams as t1','t1.id_team','=','m.home_id')
             ->join('teams as t2','t2.id_team','=','m.guest_id')
             ->groupBy('match_id')
-            ->get();
+            ->paginate(1);
 
         return View::make($this->viewFolder.'dashboard',compact('data','payments','tickets','subscriptions','totalArray'));
     }

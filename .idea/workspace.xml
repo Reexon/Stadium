@@ -23,10 +23,10 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="dashboard.blade.php" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="dashboard.blade.php" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/views/backend/dashboard.blade.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="154" column="62" selection-start="4886" selection-end="4886" vertical-scroll-proportion="-23.571428" vertical-offset="0" max-vertical-offset="1710">
+            <state line="154" column="62" selection-start="4886" selection-end="4886" vertical-scroll-proportion="1.8841761" vertical-offset="0" max-vertical-offset="1710">
               <folding>
                 <element signature="tag#div#0" expanded="false" />
                 <element signature="tag#div#2;tag#div#1" expanded="false" />
@@ -35,10 +35,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="DashboardController.php" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="DashboardController.php" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/controllers/backend/DashboardController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="20" column="0" selection-start="322" selection-end="322" vertical-scroll-proportion="0.24469821" vertical-offset="0" max-vertical-offset="930">
+            <state line="54" column="46" selection-start="2326" selection-end="2326" vertical-scroll-proportion="-7.0" vertical-offset="317" max-vertical-offset="930">
               <folding>
                 <marker date="1410169558000" expanded="true" signature="746:1553" placeholder="SELECT id_ma..name..." />
                 <marker date="1410169558000" expanded="true" signature="905:1453" placeholder="SELECT t1.na..payments..." />
@@ -831,22 +831,22 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/views/backend/dashboard.blade.php">
+    <entry file="file://$PROJECT_DIR$/app/controllers/backend/DashboardController.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="154" column="62" selection-start="4886" selection-end="4886" vertical-scroll-proportion="-23.571428" vertical-offset="0" max-vertical-offset="1710">
+        <state line="54" column="46" selection-start="2326" selection-end="2326" vertical-scroll-proportion="-7.0" vertical-offset="317" max-vertical-offset="930">
           <folding>
-            <element signature="tag#div#0" expanded="false" />
-            <element signature="tag#div#2;tag#div#1" expanded="false" />
+            <marker date="1410169558000" expanded="true" signature="746:1553" placeholder="SELECT id_ma..name..." />
+            <marker date="1410169558000" expanded="true" signature="905:1453" placeholder="SELECT t1.na..payments..." />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/controllers/backend/DashboardController.php">
+    <entry file="file://$PROJECT_DIR$/app/views/backend/dashboard.blade.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="20" column="0" selection-start="322" selection-end="322" vertical-scroll-proportion="0.24469821" vertical-offset="0" max-vertical-offset="930">
+        <state line="154" column="62" selection-start="4886" selection-end="4886" vertical-scroll-proportion="1.8841761" vertical-offset="0" max-vertical-offset="1710">
           <folding>
-            <marker date="1410169558000" expanded="true" signature="746:1553" placeholder="SELECT id_ma..name..." />
-            <marker date="1410169558000" expanded="true" signature="905:1453" placeholder="SELECT t1.na..payments..." />
+            <element signature="tag#div#0" expanded="false" />
+            <element signature="tag#div#2;tag#div#1" expanded="false" />
           </folding>
         </state>
       </provider>

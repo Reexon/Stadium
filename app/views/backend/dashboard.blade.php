@@ -111,16 +111,19 @@
                     </tr>
                 </thead>
                 <tbody>
+                <?php Paginator::setPageName('ppayments'); ?>
                 @foreach($payments as $payment)
                     <tr>
                         <td><a href="{{URL::to('admin/payments/'.$payment->id_payment)}}">{{$payment->id_payment}}</a></td>
-                        <td><a href="{{URL::to('admin/users/'.$payment->user->id_user)}}">{{$payment->user->firstname}}</a></td>
+                        <td><a href="{{URL::to('admin/users/'. $payment->user->id_user)}}">{{$payment->user->firstname}}</a></td>
                         <td>{{ number_format($payment->total,0,',','.') }} €</td>
                     </tr>
                 @endforeach
                 </tbody>
             </table>
         </div>
+        {{$payments->appends(['ptickets' => Input::get('ptickets',1),
+                                'psubscribers' => Input::get('psubscribers',1)])->links()}}
     </div><!-- ./col -->
     <div class="col-lg-3">
         <div class="panel panel-success">
@@ -136,6 +139,7 @@
                 </tr>
                 </thead>
                 <tbody>
+                <?php Paginator::setPageName('ptickets'); ?>
                 @foreach($tickets as $ticket)
                 <tr>
                     <td><a href="{{URL::to('admin/matches/'.$ticket->id_match)}}">{{$ticket->label_match}}</a></td>
@@ -145,7 +149,11 @@
                 @endforeach
                 </tbody>
             </table>
+
         </div>
+        {{$tickets->appends(
+                    ['ppayments' => Input::get('ppayments',1),
+                    'psubscribers' => Input::get('psubscribers',1)])->links()}}
     </div><!-- ./col -->
     <div class="col-lg-3">
         <div class="panel panel-warning">
@@ -161,7 +169,6 @@
                 </tr>
                 </thead>
                 <tbody>
-
                 @foreach($totalArray as $singleMatch)
 
                     <tr>
@@ -190,6 +197,7 @@
                 </tr>
                 </thead>
                 <tbody>
+                <?php Paginator::setPageName('psubscribers'); ?>
                 @foreach($subscriptions as $subscription)
                 <tr>
                     <td>#</td>
