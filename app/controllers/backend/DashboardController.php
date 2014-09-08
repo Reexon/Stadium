@@ -23,6 +23,19 @@ class DashboardController extends BaseController{
         $ticket_sell = Order::where('created_at','>',$from)->sum('quantity');
         $total_amount = Payment::where('pay_date','>',$from)->sum('total');
 
+        $totalArray = DB::select('SELECT id_match,CONCAT(home," - ",guest) as label_match,SUM(total) as total
+                                    FROM (
+                                        SELECT t1.name as home,t2.name as guest,id_match,total FROM payments
+                                        INNER JOIN orders ON payment_id = id_payment
+                                        INNER JOIN tickets ON id_ticket = ticket_id
+                                        INNER JOIN matches ON match_id = id_match
+                                        INNER JOIN teams t1 ON t1.id_team = home_id
+                                        INNER JOIN teams t2 ON t2.id_team = guest_id
+                                        GROUP BY id_payment
+                                        )as t
+                                    GROUP BY id_match');
+
+
         $payments = Payment::orderBy('pay_date','desc')->take(10)->get();
         $data = ['orderCount' => $order_count,
                 'ticketCount'   => $ticket_sell,
@@ -45,6 +58,6 @@ class DashboardController extends BaseController{
             ->groupBy('match_id')
             ->get();
 
-        return View::make($this->viewFolder.'dashboard',compact('data','payments','tickets','subscriptions'));
+        return View::make($this->viewFolder.'dashboard',compact('data','payments','tickets','subscriptions','totalArray'));
     }
 } 
