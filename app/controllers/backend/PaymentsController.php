@@ -1,10 +1,11 @@
 <?php
 namespace Backend\Controller;
 
+use Backend\Model\Feedback;
 use Backend\Model\Payment;
 use View;
 use Backend\Model\User;
-use Backend\Model\Match;
+use Str;
 use Backend\Model\Ticket;
 use Backend\Model\Order;
 use DB;
@@ -92,11 +93,13 @@ class PaymentsController extends BaseController {
          * Creo un oggetto payment e lo inizializzo
          * Cerco l'user da associare al payment
          * Salvo la relazione
+         * Genero l'uuid del feedback e lo salvo
          */
         $payment = new Payment($dataPayment);
         $user = User::find($user_id);
         $payment = $user->payments()->save($payment);
-
+        $feedback = new Feedback(['uuid' => Str::random(32)]);
+        $feedback->save();
         for($i = 0; $i < count($ticket_id); $i++){
 
             $dataOrder = [
@@ -122,12 +125,13 @@ class PaymentsController extends BaseController {
             $ticket = Ticket::find($ticket_id[$i]);
             $order = $order->ticket()->associate($ticket);
             $order = $order->payment()->associate($payment);
-
+            $payment->feedback()->associate($feedback);
             $payment->orders()->save($order);
             $payment->total += $order->quantity * $ticket->price;
             $payment->save();
             $ticket->decrement('quantity', $order->quantity);
         }
+
 
 
 		return Redirect::route('admin.payments.index');
