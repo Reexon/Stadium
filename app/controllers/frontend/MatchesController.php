@@ -15,6 +15,7 @@ use View;
 use Input;
 use Mail;
 use Redirect;
+use DB;
 class MatchesController extends BaseController{
 
     /**
@@ -26,7 +27,11 @@ class MatchesController extends BaseController{
      */
     public function index(){
         //TODO: seleizonare solo i match prossimi, non tutti
-        $matches = Match::all();
+
+        $matches = Match::where('date','>',DB::raw('CURDATE()'))
+                        ->orderBy('date')
+                        ->take(10)
+                        ->get();
 
 
         return View::make('index',compact('matches'));

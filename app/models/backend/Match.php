@@ -1,8 +1,6 @@
 <?php
 namespace Backend\Model;
 
-
-
 class Match extends \Eloquent {
 
 	// Add your validation rules here
@@ -30,10 +28,9 @@ class Match extends \Eloquent {
     }
 
     public function homeTeam(){
-
         return $this->belongsTo('Backend\Model\Team','home_id');
-
     }
+
     public function guestTeam(){
         return $this->belongsTo('Backend\Model\Team','guest_id');
     }
