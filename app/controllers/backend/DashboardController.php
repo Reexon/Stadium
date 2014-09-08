@@ -24,6 +24,7 @@ class DashboardController extends BaseController{
         $total_amount = Payment::where('pay_date','>',DB::raw('DATE_SUB(curdate(), INTERVAL 1 WEEK)'))->sum('total');
 
         //TODO: Pagination dei amount
+        //TODO: bisogna selezionare solo i amount dell'ultima settimana o mese
         $totalArray = DB::select('SELECT id_match,CONCAT(home," - ",guest) as label_match,SUM(total) as total
                                     FROM (
                                         SELECT t1.name as home,t2.name as guest,id_match,total FROM payments

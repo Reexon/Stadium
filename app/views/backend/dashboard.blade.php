@@ -152,8 +152,10 @@
 
         </div>
         {{$tickets->appends(
-                    ['ppayments' => Input::get('ppayments',1),
-                    'psubscribers' => Input::get('psubscribers',1)])->links()}}
+                    [
+                    'ppayments' => Input::get('ppayments',1),
+                    'psubscribers' => Input::get('psubscribers',1),
+                    ])->links()}}
     </div><!-- ./col -->
     <div class="col-lg-3">
         <div class="panel panel-warning">
@@ -208,6 +210,11 @@
                 </tbody>
             </table>
         </div>
+        {{$subscriptions->appends(
+        [
+        'ptickets'      => Input::get('ptickets',1),
+        'ppayments'     => Input::get('ppayments',1)
+        ])->links()}}
     </div><!-- ./col -->
 </div>
 @stop
