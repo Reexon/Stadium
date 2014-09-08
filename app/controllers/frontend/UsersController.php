@@ -15,13 +15,19 @@ use View;
 use Validator;
 use Redirect;
 use Input;
+use Backend\Model\Payment;
 
 class UsersController extends BaseController{
 
     public function payments(){
 
-        $userInfo = User::with('payments.orders.ticket')->findOrFail(Auth::id());
-        return View::make($this->viewFolder."payments",compact('userInfo'));
+        $userInfo = User::with('payments')->findOrFail(Auth::id());
+        return View::make($this->viewFolder."payments.index",compact('userInfo'));
+    }
+    public function paymentDetail($id_payment){
+
+        $payment = Payment::with('user')->where('user_id','=',Auth::id())->findOrFail($id_payment);
+        return View::make($this->viewFolder."payments.details",compact('payment'));
     }
 
     public function profile(){

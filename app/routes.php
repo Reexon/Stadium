@@ -134,6 +134,7 @@ Route::group(array('prefix' => 'admin', 'before' => 'auth|admin','namespace' => 
 
 Route::group(array('prefix' => 'user', 'before' => 'auth','namespace' => 'Frontend\Controller'), function() {
     Route::get('payments','UsersController@payments');
+    Route::get('payments/{id_payment}','UsersController@paymentDetail');
     Route::get('profile','UsersController@profile');
     Route::post('profile/update','UsersController@update');
 });
