@@ -9,6 +9,11 @@
 @parent
 @stop
 
+@section('header-title')
+<h1>Your Cart
+    <small></small>
+</h1>
+@stop
 
 @section('content')
 @if(count($cartItems)>0)

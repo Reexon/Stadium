@@ -10,9 +10,20 @@
 @stop
 
 
+@section('header-title')
+<h1>
+    @if(count($match->tickets) > 0 )
+        Match Information - {{$match->homeTeam->name}} vs {{$match->guestTeam->name}}
+    @else
+        No Tickets Available !
+    @endif
+    <small>#{{$match->id_match}}</small>
+</h1>
+@stop
+
 @section('content')
 
-@if(count($match->tickets) >0 ) //se son presenti ticket
+@if(count($match->tickets) >0 )
 <table class="table ">
     <thead>
     <tr>

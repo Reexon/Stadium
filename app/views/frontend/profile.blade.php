@@ -9,6 +9,11 @@
 @parent
 @stop
 
+@section('header-title')
+<h1>Edit Profile
+    <small>{{$userInfo->firstname. " ".$userInfo->lastname}}</small>
+</h1>
+@stop
 
 @section('content')
 <div class="nav-tabs-custom">
@@ -16,7 +21,6 @@
     <ul class="nav nav-tabs">
         <li class="pull-left header">{{FA::icon('info')}} My Profile</li>
         <li class="active"><a href="#general-info" data-toggle="tab">General Info</a></li>
-        <li class=""><a href="#shipping-info" data-toggle="tab">Shipping Address</a></li>
 
     </ul>
     <div class="tab-content">
@@ -109,34 +113,6 @@
                 {{ Form::close() }}
             </div>
 
-        </div>
-
-        <div class="tab-pane" id="shipping-info" style="position: relative; height: 300px;">
-            {{Form::model($userInfo,['url' => 'user/profile/update','class'=>'form-horizontal', 'role' => 'form'])}}
-            <div class="form-group">
-                <label class="col-sm-2 control-label">Address</label>
-                <div class="col-sm-3">
-                    {{ Form::text('address', Input::old('address'), array('class'=>'form-control', 'placeholder'=>'Address')) }}
-                </div>
-            </div>
-            <div class="form-group">
-                <label class="col-sm-2 control-label">City</label>
-                <div class="col-sm-3">
-                    {{ Form::text('city', Input::old('city'), array('class'=>'form-control', 'placeholder'=>'City')) }}
-                </div>
-            </div>
-            <div class="form-group">
-                <label class="col-sm-2 control-label">CAP</label>
-                <div class="col-sm-3">
-                    {{ Form::text('cap', Input::old('cap'), array('class'=>'form-control', 'placeholder'=>'cap')) }}
-                </div>
-            </div>
-            <div class="form-group">
-                <div class="col-sm-offset-2 col-sm-3">
-                    {{ Form::button(FA::icon('refresh').'  Save', ['class'=>'btn btn-block btn-success','type' => 'submit'])}}
-                </div>
-            </div>
-            {{Form::close()}}
         </div>
 
     </div>
