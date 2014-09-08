@@ -8,16 +8,16 @@
     "packages": [
         {
             "name": "barryvdh/laravel-debugbar",
-            "version": "v1.7.2",
+            "version": "v1.7.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/barryvdh/laravel-debugbar.git",
-                "reference": "c092d6a79be56280935a57170cce1e626f5e8105"
+                "reference": "ab1afe09d35d59fb81d470e21c91a21b846e9c32"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/barryvdh/laravel-debugbar/zipball/c092d6a79be56280935a57170cce1e626f5e8105",
-                "reference": "c092d6a79be56280935a57170cce1e626f5e8105",
+                "url": "https://api.github.com/repos/barryvdh/laravel-debugbar/zipball/ab1afe09d35d59fb81d470e21c91a21b846e9c32",
+                "reference": "ab1afe09d35d59fb81d470e21c91a21b846e9c32",
                 "shasum": ""
             },
             "require": {
@@ -35,7 +35,10 @@
             "autoload": {
                 "psr-4": {
                     "Barryvdh\\Debugbar\\": "src/"
-                }
+                },
+                "files": [
+                    "src/helpers.php"
+                ]
             },
             "notification-url": "https://packagist.org/downloads/",
             "license": [
@@ -55,7 +58,7 @@
                 "profiler",
                 "webprofiler"
             ],
-            "time": "2014-09-04 12:50:52"
+            "time": "2014-09-05 15:08:45"
         },
         {
             "name": "classpreloader/classpreloader",

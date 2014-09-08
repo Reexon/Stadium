@@ -1,5 +1,10 @@
 # Changelog for Laravel Debugbar
 
+## 1.7.3 (2014-09-05)
+
+- Add helper functions (debug(), add/start/stop_measure() and measure()
+- Collect data on responses that are not redirect/ajax/html also.
+
 ## 1.7.2 (2014-09-04)
 
 - Fix 4.0 compatibility (problem with Controller namespace)
