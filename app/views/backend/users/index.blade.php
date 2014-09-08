@@ -40,11 +40,34 @@
                             '<td>'+dataUser.lastname+'</td>' +
                             '<td>'+dataUser.email+'</td>' +
                             '<td>'+dataUser.created_at+'</td>' +
-                            '<td>N/A</td>' +
+                            '<td>'+showButton(dataUser.id_user)+
+                                    editButton(dataUser.id_user)+
+                                    deleteButton(dataUser.id_user)+
+                            '</td>' +
                             '</tr>');
                     });
 
                 }
+
+            function showButton(id_user){
+
+                return "<a class='btn btn-small btn-success' href=\"<?=URL::to('admin/users/')?>/"+id_user+"\">" +
+                    "<i class=\"fa fa-eye\"></i>" +
+                    "</a>";
+            }
+            function editButton(id_user){
+
+                return "<a class='btn btn-small btn-info' href=\"<?=URL::to('admin/users/')?>/"+id_user+"/edit\">" +
+                    "<i class=\"fa fa-pencil\"></i>" +
+                    "</a>";
+            }
+                //TODO:bisogna inserire il form qua
+            function deleteButton(id_user){
+                return "<a class='btn btn-small btn-danger' href=\"<?=URL::to('admin/users/')?>/"+id_user+"\">" +
+                    "<i class=\"fa fa-trash-o\"></i>" +
+                    "</a>";
+            }
+
         </script>
     @stop
 
@@ -65,7 +88,7 @@
 <table class="table table-striped table-bordered">
     <thead>
         <tr>
-            {{ Form::open(array('url' => 'admin.users.search','style' =>'display:inline-block','name' => 'searchUserForm','method'=>'POST')) }}
+            {{ Form::open(array('url' => 'admin/users/search','style' =>'display:inline-block','name' => 'searchUserForm','method'=>'POST')) }}
             <th></th>
             <th>{{ Form::text('firstname', null, array('class'=>'form-control', 'placeholder'=>'Search First Name','onChange' => 'searchUserRequest()')) }}</th>
             <th>{{ Form::text('lastname', null, array('class'=>'form-control', 'placeholder'=>'Search Last Name','onChange' => 'searchUserRequest()')) }}</th>
