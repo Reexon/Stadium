@@ -74,7 +74,7 @@ Route::get('logout','Backend\Controller\UsersController@logout');
 
 Route::post('contact/send','Backend\Controller\MailMessageController@contactus');
 
-Route::get('feedbacks/create','Frontend\Controller\FeedbacksController@create');
+Route::get('feedbacks/create/{UUID}','Frontend\Controller\FeedbacksController@create');
 Route::post('feedbacks','Frontend\Controller\FeedbacksController@submit');
 /*
  * Gestisco tutti i route per l'admin, che hanno il prefisso /admin/*

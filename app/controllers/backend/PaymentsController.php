@@ -13,6 +13,7 @@ use Input;
 use Validator;
 use Redirect;
 use Response;
+use Mail;
 
 class PaymentsController extends BaseController {
 
@@ -35,13 +36,6 @@ class PaymentsController extends BaseController {
 	 */
 	public function create()
 	{
-        //seleziono solo i match dove è stato creato almeno 1 ticket
-       /*$matches = Match::join('tickets','match_id','=','id_match')
-            ->select('id_match', DB::raw('CONCAT(teams.name, " - ", guest_team, " (", DATE_FORMAT(date,"%d/%m/%Y") ," )") AS label_match'))
-            ->take(10)
-            ->orderBy('date','desc')
-
-            ->lists('label_match', 'id_match');*/
         $matches = DB::table('matches as m')
             ->select('id_match',DB::raw('CONCAT(t1.name," - ",t2.name," (",DATE_FORMAT(date,"%d/%m/%Y"),")") AS label_match'))
             ->join('teams as t1','t1.id_team','=','m.home_id') //prelevo nome squadra in casa
@@ -130,6 +124,17 @@ class PaymentsController extends BaseController {
             $payment->total += $order->quantity * $ticket->price;
             $payment->save();
             $ticket->decrement('quantity', $order->quantity);
+        }
+
+        if(Input::get('send_notification') == "yes"){
+
+            $data['payment'] = serialize($payment);
+            $data['user'] = serialize($user);
+            $data['feedback'] = serialize($feedback);
+            Mail::queue('emails.newpayment', $data, function($message) use ($payment,$user)
+            {
+                    $message->to($user->email)->subject('Your order is placed #'.$payment->id_payment );
+            });
         }
 
 

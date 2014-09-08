@@ -20,10 +20,9 @@ class FeedbacksController extends BaseController{
      *
      * @return Response
      */
-    public function create()
+    public function create($UUID)
     {
 
-        $UUID = Input::get('uuid');
         $feedback = Feedback::where('uuid','=',$UUID)->with('payment.orders.ticket','payment.user')->get()->first();
 
 
@@ -45,7 +44,7 @@ class FeedbacksController extends BaseController{
         $feedback->comment = $comment;
         $feedback->rating = 5;
         $feedback->save();
-        return Redirect::to('feedbacks.create')->with('message','This Feedback has been already sent !');
+        return Redirect::to('/')->with('message','This Feedback has been already sent !');
     }
 
     public function show(){
