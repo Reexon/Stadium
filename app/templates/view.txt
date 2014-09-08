@@ -10,6 +10,13 @@
     @stop
 
 
+    @section('header-title')
+    <h1>
+        Title
+        <small></small>
+    </h1>
+    @stop
+
     @section('content')
 
     @stop

@@ -130,6 +130,8 @@ Route::group(array('prefix' => 'admin', 'before' => 'auth|admin','namespace' => 
      * Richeista ajax , che restituisce numero di ticket disponibili in base al ticket_id
      */
     Route::post('tickets/findQuantity','TicketsController@findQuantity');
+
+    Route::resource('MatchSubscriptions', 'MatchSubscriptionsController');
 });
 
 Route::group(array('prefix' => 'user', 'before' => 'auth','namespace' => 'Frontend\Controller'), function() {
