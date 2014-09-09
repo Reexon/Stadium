@@ -54,7 +54,8 @@ return array(
 
 		'mysql' => array(
 			'driver'    => 'mysql',
-			'host'      => 'localhost',
+            //Su Unix bisogna usare 127.0.0.1 , localhost non viene riconosciuto
+			'host'      => '127.0.0.1',
 			'database'  => 'stadium',
 			'username'  => 'root',
 			'password'  => 'root',
