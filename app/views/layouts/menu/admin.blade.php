@@ -57,13 +57,18 @@
     </li>
     <li class="treeview">
         <a href="#">
-            {{FA::icon('flag-checkered')}}<span>Subscriptions</span>
+            {{FA::icon('envelope-o')}}<span>Subscriptions</span>
             <i class="fa fa-angle-left pull-right"></i>
         </a>
         <ul class="treeview-menu">
             <li><a href="{{ URL::to('admin/MatchSubscriptions') }}">{{FA::icon('eye')}}  Match</a></li>
             <li><a href="{{ URL::to('admin/MatchSubscriptions/create') }}">{{FA::icon('plus')}} Add Subscription Match</a></li>
         </ul>
+    </li>
+    <li>
+        <a href="{{URL::to('admin/gain')}}">
+            {{FA::icon('euro')}} <span>Gain</span>
+        </a>
     </li>
 
 </ul>
