@@ -192,7 +192,8 @@
         </tr>
     </tfoot>
 </table>
-<p>{{ Form::checkbox('send_notification','yes',true)}}Send Mail to User</p>
+<p>{{ Form::checkbox('send_notification','yes',false)}} Send Mail to User</p>
+<p>{{ Form::checkbox('remove_ticket','yes',true)}} Remove quantity from available Tickets</p>
 {{ Form::submit('Create Tickets!', array('class' => 'btn btn-primary')) }}
 
 {{ Form::close() }}
