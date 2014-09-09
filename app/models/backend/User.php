@@ -35,7 +35,7 @@ class User extends \Eloquent implements UserInterface, RemindableInterface {
         'password_confirmation'=>'required|alpha_num|between:6,12',
     ];
 
-    protected $fillable = ['firstname','lastname','email','password'];
+    protected $fillable = ['firstname','lastname','email','city','address','mobile','alt_mobile','birth_date'];
 
     protected $dates = ['birth_date'];
 

@@ -46,7 +46,7 @@ class UsersController extends BaseController{
                 'address'   => 'required',
                 'city'      => 'required',
                 'cap'       => 'required',
-                'cell'      => 'required'
+                'mobile'    => 'required'
             ]
         );
 
@@ -58,7 +58,7 @@ class UsersController extends BaseController{
         $user = User::find(Auth::id());
         $user->fill($data);
         $user->save();
-        return Redirect::back()->with('message','Information edited succesfully');
+        return Redirect::to('user/profile')->with('message','Information edited succesfully');
     }
 
 } 
