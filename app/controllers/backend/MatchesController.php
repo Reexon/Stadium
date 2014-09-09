@@ -147,7 +147,7 @@ class MatchesController extends BaseController {
 
     public function findTicket(){
 
-        $match = Match::join('tickets','match_id','=','id_match')->where('quantity','>',0)->find(Input::get('match_id'));
+        $match = Match::join('tickets','match_id','=','id_match')->find(Input::get('match_id'));
         if(!is_object($match))
             return -1;
         return Response::json( $match->tickets );

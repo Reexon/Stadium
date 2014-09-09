@@ -73,8 +73,11 @@
                 "match_id": optionMatch.val() //match_id selezionato
             },
             function( ticketData ) {
+                clearTicketOption(selectOptionTicket);
+
                 if(ticketData == -1)//problema ( o record vuoto)
-                    clearTicketOption(selectOptionTicket);
+                    alert("Match With No Tickets");
+
                 if(ticketData.length > 0 )
                     addSelectOptionTo(selectOptionTicket,ticketData);
             },
@@ -125,7 +128,7 @@
             {{ Form::select('match_id[]', $matches ,$order->ticket->match_id, ['onChange' => 'loadTicketOption(this)','class' => 'form-control']) }}
         </td>
         <td>
-            {{ Form::select('ticket_id[]', [''=>''],$order->ticket->id_ticket,['class' => 'form-control']) }}
+            {{ Form::select('ticket_id[]', [],$order->ticket->id_ticket,['class' => 'form-control']) }}
         </td>
         <td>
             {{ Form::selectRange('quantity[]', $order->ticket->quantity+$order->quantity,1,$order->quantity,['class' => 'form-control']) }}
