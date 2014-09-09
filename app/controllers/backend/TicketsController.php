@@ -89,7 +89,8 @@ class TicketsController extends BaseController {
             $subscribers = MatchSubscription::select('email')->where('match_id','=',$ticket_matchID[0])->get();
 
             $match = Match::find($ticket_matchID[0]);
-            Mail::send('emails.newticket', compact('match'), function($message) use ($subscribers,$match)
+            $data['match'] = serialize($match);//lo serializzo per utilizzarlo nel template mail
+            Mail::queue('emails.newticket', $data, function($message) use ($subscribers,$match)
             {
                 foreach ($subscribers as $subscriber)
                     $message->to($subscriber->email)->subject('New Tickets Avvailable for '.$match->homeTeam->name ." vs ". $match->guestTeam->name);
