@@ -57,10 +57,40 @@
                 </div>
             </div>
         </div>
-    </div><!-- ./Box General Info -->
+    </div><!-- ./ col-md-4 -->
 
-    <div class="col-md-4">
+    <div class="col-md-4"><!-- Box Address Info -->
         <div class="box box-warning">
+            <div class="box-header">
+                {{FA::icon('map-marker')}}
+                <h2 class="box-title">Address Info</h2>
+            </div>
+            <div class="box-body">
+                <div class="form-group">
+                    <label class="col-sm-4 control-label">Address</label>
+                    <div class="col-sm-8">
+                        {{ Form::text('address', Input::old('address'), array('class'=>'form-control', 'placeholder'=>'Address')) }}
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-4 control-label">City</label>
+                    <div class="col-sm-8">
+                        {{ Form::text('city',Input::old('city'), array('class'=>'form-control', 'placeholder'=>'City')) }}
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-4 control-label">CAP</label>
+                    <div class="col-sm-8">
+                        {{ Form::text('cap', Input::old('cap'), array('class'=>'form-control', 'placeholder'=>'CAP')) }}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div><!-- ./ col-md-4 -->
+
+    <div class="col-md-4"><!-- Box Contact Info -->
+        <div class="box box-success">
             <div class="box-header">
                 {{FA::icon('phone')}}
                 <h2 class="box-title">Contact Info</h2>
@@ -86,7 +116,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div><!-- ./ col-md-4 -->
 </div>
 
     {{ Form::close() }}

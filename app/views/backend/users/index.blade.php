@@ -78,7 +78,9 @@
 
 
     @section('header-title')
-    <h1>All Registered Users
+    <h1>
+        All Registered Users
+        <a href="{{URL::to('admin/users/create')}}" class="btn btn-sm btn-primary">{{FA::icon('plus')}}</a>
         <small></small>
     </h1>
     @stop

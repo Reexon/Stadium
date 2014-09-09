@@ -17,7 +17,7 @@
     </li>
     <li class="treeview">
         <a href="#">
-            {{FA::icon('user')}}<span>Users</span>
+            {{FA::icon('users')}}<span>Users</span>
             <i class="fa fa-angle-left pull-right"></i>
         </a>
         <ul class="treeview-menu">
