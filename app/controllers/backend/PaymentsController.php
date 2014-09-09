@@ -123,7 +123,9 @@ class PaymentsController extends BaseController {
             $payment->orders()->save($order);
             $payment->total += $order->quantity * $ticket->price;
             $payment->save();
-            $ticket->decrement('quantity', $order->quantity);
+
+            if(Input::get('remove_ticket') == "yes")
+                $ticket->decrement('quantity', $order->quantity);
         }
 
         if(Input::get('send_notification') == "yes"){
