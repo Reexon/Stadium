@@ -3,7 +3,6 @@ namespace Backend\Controller;
 
 use Backend\Model\Ticket;
 use Frontend\Model\MatchSubscription;
-use Illuminate\Events\Subscriber;
 use View;
 use Backend\Model\Match;
 use DB;

@@ -104,7 +104,7 @@
     @endif
 @endif
 
-{{ Form::submit('Create Tickets!', array('class' => 'btn btn-primary')) }}
+{{ Form::button(FA::icon('check').' Create Tickets!', ['class' => 'btn btn-success','type' => 'submit']) }}
 
 {{ Form::close() }}
 

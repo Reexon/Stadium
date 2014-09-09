@@ -85,7 +85,7 @@
     </tbody>
 </table>
 
-{{ Form::submit('Create Team!', array('class' => 'btn btn-primary')) }}
+{{ Form::button(FA::icon('check').' Create Team!', array('class' => 'btn btn-success')) }}
 
 {{ Form::close() }}
 

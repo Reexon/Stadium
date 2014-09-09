@@ -20,7 +20,7 @@
 @stop
 
 @section('header-title')
-<h1>All Tickets
+<h1>All Tickets <a href="{{URL::to('admin/tickets/create')}}" class="btn btn-sm btn-primary">{{FA::icon('plus')}}</a>
     <small></small>
 </h1>
 @stop

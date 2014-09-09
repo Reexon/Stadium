@@ -9,6 +9,7 @@
 @stop
 @section('header-title')
 <h1>Display All Matches
+    <a href="{{URL::to('admin/matches/create')}}" class="btn btn-sm btn-primary">{{FA::icon('plus')}}</a>
     <small></small>
 </h1>
 @stop

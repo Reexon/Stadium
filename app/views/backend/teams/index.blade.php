@@ -12,6 +12,7 @@
 
     @section('header-title')
     <h1>All Teams
+        <a href="{{URL::to('admin/teams/create')}}" class="btn btn-sm btn-primary">{{FA::icon('plus')}}</a>
         <small></small>
     </h1>
     @stop
