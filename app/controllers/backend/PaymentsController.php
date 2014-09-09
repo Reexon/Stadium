@@ -188,12 +188,31 @@ class PaymentsController extends BaseController {
 	{
 		$payment = Payment::findOrFail($id);
 
-		$validator = Validator::make($data = Input::all(), Payment::$rules);
+        $pay_date = Input::get('pay_date');
+        $arrTicketID = Input::get('ticket_id');
+        $arrMatchID = Input::get('match_id');
+        $arrQuantity = Input::get('quantity');
+
+        if(!strtotime($pay_date))
+            return Redirect::back()->withErrors('Date Error');
+
+        $pay_date = date('Y-m-d',strtotime($pay_date));
+
+		$validator = Validator::make($data = ['pay_date' => $pay_date], Payment::$rules_update);
 
 		if ($validator->fails())
 		{
-			return Redirect::back()->withErrors($validator)->withInput();
+			return Redirect::back()->withErrors($validator);
 		}
+
+        //modifico ogni order
+        $i=0;
+        foreach($payment->orders as $order){
+            $order->quantity = $arrQuantity[$i];
+            $order->ticket_id = $arrTicketID[$i];
+            $order->save();
+            $i++;
+        }
 
 		$payment->update($data);
 

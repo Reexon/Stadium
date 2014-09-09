@@ -9,6 +9,10 @@ class Payment extends \Eloquent {
          'pay_date' => 'required|date'
 	];
 
+    public static $rules_update = [
+        'pay_date' => 'required|date'
+    ];
+
     protected $primaryKey = 'id_payment';
 
 	// Don't forget to fill this array

@@ -73,8 +73,8 @@
                 "match_id": optionMatch.val() //match_id selezionato
             },
             function( ticketData ) {
-                clearTicketOption(selectOptionTicket);
-
+                if(ticketData == -1)//problema ( o record vuoto)
+                    clearTicketOption(selectOptionTicket);
                 if(ticketData.length > 0 )
                     addSelectOptionTo(selectOptionTicket,ticketData);
             },
@@ -104,8 +104,8 @@
 @section('content')
 
 {{ Form::open(array('route' => ['admin.payments.update',$payment->id_payment],'method' => 'PUT','class' => 'form-inline')) }}
-<h4>User: {{ Form::select('user_id', $users,null,['class' => 'form-control']) }}</h4>
-<h4>Date:  {{ Bootstrap::date('pay_date', '',Input::old('pay_date'), $errors,['class' =>'form-control datepicker'])}}</h4>
+<h4>User: {{ Form::select('user_id', $users,$payment->user->id_user,['class' => 'form-control']) }}</h4>
+<h4>Date:  {{ Bootstrap::date('pay_date', '',$payment->pay_date->format('d/m/Y'), $errors,['class' =>'form-control datepicker'])}}</h4>
 <table class="table">
     <thead>
     <tr>
@@ -125,10 +125,10 @@
             {{ Form::select('match_id[]', $matches ,$order->ticket->match_id, ['onChange' => 'loadTicketOption(this)','class' => 'form-control']) }}
         </td>
         <td>
-            {{ Form::select('ticket_id[]', $order->ticket,null,['class' => 'form-control']) }}
+            {{ Form::select('ticket_id[]', [''=>''],$order->ticket->id_ticket,['class' => 'form-control']) }}
         </td>
         <td>
-            {{ Form::selectRange('quantity[]', $order->ticket->quantity,1,$order->quantity,['class' => 'form-control']) }}
+            {{ Form::selectRange('quantity[]', $order->ticket->quantity+$order->quantity,1,$order->quantity,['class' => 'form-control']) }}
         </td>
         <td>
             {{ Form::button(FA::icon('plus'), ['class' => 'btn btn-large btn-primary openbutton','id' => 'addOrder'])}}
