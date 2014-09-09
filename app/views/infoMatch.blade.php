@@ -23,8 +23,36 @@
 
 @section('content')
 
+<?php $total = 0;?>
+@foreach($match->tickets as $ticket)
+    <?php $total += $ticket->quantity;?>
+@endforeach
+
+@if(count($match->tickets)==0 || $total == 0)
+<div class="box box-danger">
+    <div class="box-header">
+        <i class="fa fa-warning"></i>
+        <h3 class="box-title">Attention !</h3>
+    </div>
+    <div class="box-body">There aren't tickets available for this match at the moment ! <br>
+        If you want to be notified when new tickets are available, please insert your eMail here
+        {{Form::open(['url' => 'match/signup/'.$match->id_match],['class' =>'form-inline']) }}
+
+        <div class="input-group">
+                <span class="input-group-btn">
+                    {{Form::email('email','',['placeholder' => 'Your Email','class' =>'form-control','style' => 'width:300px;'])}}
+                    {{Form::button('Send',['type' => 'submit', 'class' => 'btn btn-warning'])}}
+                </span>
+        </div>
+
+        {{Form::close()}}
+    </div>
+</div>
+@endif
+
 @if(count($match->tickets) >0 )
-<table class="table ">
+
+<table class="table">
     <thead>
     <tr>
         <th>Ticket Type</th>
@@ -60,25 +88,6 @@
     </tbody>
 </table>
 
-@else
-    <div class="box box-danger">
-        <div class="box-header">
-            <i class="fa fa-warning"></i>
-            <h3 class="box-title">Attention !</h3>
-        </div>
-        <div class="box-body">There aren't tickets available for this match at the moment ! <br>
-            If you want to be notified when new tickets are available, please insert your eMail here
-            {{Form::open(['url' => 'match/signup/'.$match->id_match],['class' =>'form-inline']) }}
-
-            <div class="input-group">
-                <span class="input-group-btn">
-                    {{Form::email('email','',['placeholder' => 'Your Email','class' =>'form-control','style' => 'width:300px;'])}}
-                    {{Form::button('Send',['type' => 'submit', 'class' => 'btn btn-warning'])}}
-                </span>
-            </div>
-
-            {{Form::close()}}
-        </div>
-    </div>
 @endif
+
 @stop
