@@ -131,7 +131,15 @@ Route::group(array('prefix' => 'admin', 'before' => 'auth|admin','namespace' => 
      */
     Route::post('tickets/findQuantity','TicketsController@findQuantity');
 
+    /*
+     * Match Subscriptions
+     */
     Route::resource('MatchSubscriptions', 'MatchSubscriptionsController');
+
+    /*
+     * Gain
+     */
+    Route::get('gain','GainController@index');
 });
 
 Route::group(array('prefix' => 'user', 'before' => 'auth','namespace' => 'Frontend\Controller'), function() {
