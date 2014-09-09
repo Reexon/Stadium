@@ -182,19 +182,10 @@
         </td>
     </tr>
     </tbody>
-    <tfoot>
-        <tr>
-            <th>#</th>
-            <th>Match</th>
-            <th>Ticket</th>
-            <th>Quantity</th>
-            <th>Action</th>
-        </tr>
-    </tfoot>
 </table>
 <p>{{ Form::checkbox('send_notification','yes',false)}} Send Mail to User</p>
 <p>{{ Form::checkbox('remove_ticket','yes',true)}} Remove quantity from available Tickets</p>
-{{ Form::submit('Create Tickets!', array('class' => 'btn btn-primary')) }}
+{{ Form::button(FA::icon('check').' Create Tickets!', array('class' => 'btn btn-success','type' => 'submit')) }}
 
 {{ Form::close() }}
 
