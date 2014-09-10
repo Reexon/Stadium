@@ -18,7 +18,6 @@ use Paginator;
 class DashboardController extends BaseController{
 
     public function index(){
-
         $order_count = Payment::where('pay_date','>',DB::raw('DATE_SUB(curdate(), INTERVAL 1 WEEK)'))->count();
         $ticket_sell = Order::where('created_at','>',DB::raw('DATE_SUB(curdate(), INTERVAL 1 WEEK)'))->sum('quantity');
         $total_amount = Payment::where('pay_date','>',DB::raw('DATE_SUB(curdate(), INTERVAL 1 WEEK)'))->sum('total');
@@ -35,11 +34,11 @@ class DashboardController extends BaseController{
                                         INNER JOIN teams t2 ON t2.id_team = guest_id
                                         GROUP BY id_payment
                                         )as t
-                                    GROUP BY id_match');
+                                    GROUP BY id_match LIMIT 50');
 
 
         Paginator::setPageName('ppayments');
-        $payments = Payment::orderBy('pay_date','desc')->paginate(1);
+        $payments = Payment::orderBy('pay_date','desc')->paginate();
 
         $data = ['orderCount' => $order_count,
                 'ticketCount'   => $ticket_sell,
@@ -53,7 +52,9 @@ class DashboardController extends BaseController{
             ->join('matches as m','match_id','=','id_match')
             ->join('teams as t1','t1.id_team','=','m.home_id')
             ->join('teams as t2','t2.id_team','=','m.guest_id')
-            ->groupBy('ticket_id')->paginate(1);
+            ->groupBy('ticket_id')
+            ->limit(50)
+            ->paginate();
 
         Paginator::setPageName('psubscribers');
         $subscriptions = MatchSubscription::select('m.*',DB::raw('COUNT(*) as qty'),DB::raw('CONCAT(t1.name," - ",t2.name) as label_match'))
@@ -61,7 +62,8 @@ class DashboardController extends BaseController{
             ->join('teams as t1','t1.id_team','=','m.home_id')
             ->join('teams as t2','t2.id_team','=','m.guest_id')
             ->groupBy('match_id')
-            ->paginate(1);
+            ->limit(50)
+            ->paginate();
 
         return View::make($this->viewFolder.'dashboard',compact('data','payments','tickets','subscriptions','totalArray'));
     }
