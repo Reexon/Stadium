@@ -100,7 +100,7 @@
             </tbody>
         </table>
 
-        {{ Form::button(FA::icon('check').' Create Match!', array('class' => 'btn btn-success')) }}
+        {{ Form::button(FA::icon('check').' Create Match!', array('class' => 'btn btn-success','type'=>'submit')) }}
 
         {{ Form::close() }}
 
