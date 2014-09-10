@@ -205,15 +205,23 @@ class PaymentsController extends BaseController {
 			return Redirect::back()->withErrors($validator);
 		}
 
-        //modifico ogni order
+        //aggiorno ogni order
         $i=0;
+        //per aggiornare il total dell'order
+        $total = 0;
         foreach($payment->orders as $order){
+            if(Input::get('update_ticketQuantity') == "yes" && $arrQuantity[$i] != $order->quantity){ //se devo aggiornare quantita di ticket
+                $order->ticket->quantity += $order->quantity - $arrQuantity[$i];
+                $order->ticket->save();
+            }
+            $total += $arrQuantity[$i] * $order->ticket->price;
             $order->quantity = $arrQuantity[$i];
             $order->ticket_id = $arrTicketID[$i];
             $order->save();
             $i++;
         }
 
+        $data['total'] = $total;
 		$payment->update($data);
 
 		return Redirect::route('admin.payments.index');

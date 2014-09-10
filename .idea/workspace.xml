@@ -26,7 +26,7 @@
       <file leaf-file-name="PaymentsController.php" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/controllers/backend/PaymentsController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="222" column="0" selection-start="7284" selection-end="7284" vertical-scroll-proportion="0.6724891" vertical-offset="2534" max-vertical-offset="3615">
+            <state line="222" column="0" selection-start="7284" selection-end="7284" vertical-scroll-proportion="1.0491266" vertical-offset="2189" max-vertical-offset="3615">
               <folding />
             </state>
           </provider>
@@ -822,7 +822,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/controllers/backend/PaymentsController.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="222" column="0" selection-start="7284" selection-end="7284" vertical-scroll-proportion="0.6724891" vertical-offset="2534" max-vertical-offset="3615">
+        <state line="222" column="0" selection-start="7284" selection-end="7284" vertical-scroll-proportion="1.0491266" vertical-offset="2189" max-vertical-offset="3615">
           <folding />
         </state>
       </provider>
