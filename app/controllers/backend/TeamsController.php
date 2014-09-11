@@ -5,7 +5,7 @@ use Validator;
 use Redirect;
 use Input;
 use Backend\Model\Team;
-
+use Backend\Model\Match;
 class TeamsController extends BaseController {
 
 	/**

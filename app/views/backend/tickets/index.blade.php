@@ -63,7 +63,7 @@
 
 
         <td>
-            <a class="btn btn-small btn-success" href="{{ URL::to('admin/tickets/' . $ticket->id_ticket) }}">{{ FA::icon('eye'); }}</a>
+            <a class="btn btn-small btn-success" href="{{ URL::to('admin/tickets/' . $ticket->id_ticket) }}">{{ FA::icon('ticket'); }}</a>
 
             <a class="btn btn-small btn-info" href="{{ URL::to('admin/tickets/' . $ticket->id_ticket . '/edit') }}">{{ FA::icon('pencil'); }}</a>
 

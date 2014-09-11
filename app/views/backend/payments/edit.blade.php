@@ -152,7 +152,7 @@
     </tfoot>
 </table>
 <p>
-{{ Form::checkbox('update_ticketQuantity','yes',true)}}Update Number of ticket available
+{{ Form::checkbox('update_ticketQuantity','yes',true)}} Update Number of ticket available
 </p>
 {{ Form::submit('Edit Payment!', array('class' => 'btn btn-primary')) }}
 

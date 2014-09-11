@@ -20,6 +20,27 @@
 <table class="table table-striped table-bordered">
     <thead>
     <tr>
+        <!--TODO:da costruire controller con il metodo per la ricerca-->
+        {{Form::open(['url' =>'admin/teams/'.$team->id_team.'/search', 'method' => 'GET'])}}
+        <th>
+
+        </th>
+        <th>
+            {{Form::text('home_team',Input::old('home_team'),['class' => 'form-control'])}}
+        </th>
+        <th>
+            {{Form::text('guest_team',Input::old('guest_team'),['class' => 'form-control'])}}
+        </th>
+        <th>
+            {{Form::text('stadium',Input::old('stadium'),['class' => 'form-control'])}}
+        </th>
+        <th>
+            {{Form::text('date',Input::old('date'),['class' => 'form-control'])}}
+        </th>
+        <th></th>
+        {{Form::close()}}
+    </tr>
+    <tr>
         <th>ID</th>
         <th>Home</th>
         <th>Guest</th>
