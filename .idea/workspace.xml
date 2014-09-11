@@ -23,19 +23,55 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="PaymentsController.php" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/app/controllers/backend/PaymentsController.php">
+      <file leaf-file-name="CartController.php" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/controllers/frontend/CartController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="222" column="0" selection-start="7284" selection-end="7284" vertical-scroll-proportion="1.0491266" vertical-offset="2189" max-vertical-offset="3615">
+            <state line="85" column="27" selection-start="2965" selection-end="2965" vertical-scroll-proportion="-28.73913" vertical-offset="569" max-vertical-offset="1485">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="edit.blade.php" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/views/backend/payments/edit.blade.php">
+      <file leaf-file-name="database.php" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/app/config/database.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="154" column="40" selection-start="5262" selection-end="5283" vertical-scroll-proportion="-9.948052" vertical-offset="1544" max-vertical-offset="2490">
+            <state line="68" column="16" selection-start="2060" selection-end="2060" vertical-scroll-proportion="0.40365985" vertical-offset="645" max-vertical-offset="1965">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="checkout.blade.php" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/views/checkout.blade.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="107" column="14" selection-start="4031" selection-end="4031" vertical-scroll-proportion="-13.695652" vertical-offset="1290" max-vertical-offset="2280">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="profile.blade.php" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/views/frontend/profile.blade.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="19" column="100" selection-start="325" selection-end="368" vertical-scroll-proportion="-7.7391305" vertical-offset="107" max-vertical-offset="1890">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="routes.php" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/routes.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="55" column="70" selection-start="1756" selection-end="1756" vertical-scroll-proportion="-14.869565" vertical-offset="348" max-vertical-offset="2235">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="infoCart.blade.php" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/views/infoCart.blade.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="41" column="45" selection-start="1044" selection-end="1044" vertical-scroll-proportion="-26.73913" vertical-offset="0" max-vertical-offset="840">
               <folding />
             </state>
           </provider>
@@ -51,12 +87,7 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/app/models/backend/Match.php" />
-        <option value="$PROJECT_DIR$/app/models/backend/Feedback.php" />
-        <option value="$PROJECT_DIR$/app/controllers/frontend/MatchesController.php" />
-        <option value="$PROJECT_DIR$/app/views/frontend/payments/details.blade.php" />
         <option value="$PROJECT_DIR$/app/views/frontend/payments/index.blade.php" />
-        <option value="$PROJECT_DIR$/app/views/infoCart.blade.php" />
         <option value="$PROJECT_DIR$/app/templates/view.txt" />
         <option value="$PROJECT_DIR$/app/models/backend/MatchSubscription.php" />
         <option value="$PROJECT_DIR$/app/views/backend/MatchSubscriptions/create.blade.php" />
@@ -71,12 +102,10 @@
         <option value="$PROJECT_DIR$/app/views/frontend/feedbacks/create.blade.php" />
         <option value="$PROJECT_DIR$/app/controllers/frontend/FeedbacksController.php" />
         <option value="$PROJECT_DIR$/app/views/infoMatch.blade.php" />
-        <option value="$PROJECT_DIR$/app/routes.php" />
         <option value="$PROJECT_DIR$/app/controllers/backend/GainController.php" />
         <option value="$PROJECT_DIR$/app/views/backend/gain/index.blade.php" />
         <option value="$PROJECT_DIR$/composer.json" />
         <option value="$PROJECT_DIR$/app/config/local/database.php" />
-        <option value="$PROJECT_DIR$/app/config/database.php" />
         <option value="$PROJECT_DIR$/app/database/seeds/UserTableSeeder.php" />
         <option value="$PROJECT_DIR$/app/database/seeds/TeamTableSeeder.php" />
         <option value="$PROJECT_DIR$/app/database/seeds/DatabaseSeeder.php" />
@@ -100,8 +129,15 @@
         <option value="$PROJECT_DIR$/app/views/backend/matches/create.blade.php" />
         <option value="$PROJECT_DIR$/app/config/session.php" />
         <option value="$PROJECT_DIR$/app/controllers/backend/DashboardController.php" />
-        <option value="$PROJECT_DIR$/app/views/backend/payments/edit.blade.php" />
         <option value="$PROJECT_DIR$/app/controllers/backend/PaymentsController.php" />
+        <option value="$PROJECT_DIR$/app/views/backend/payments/edit.blade.php" />
+        <option value="$PROJECT_DIR$/app/views/backend/teams/show.blade.php" />
+        <option value="$PROJECT_DIR$/app/controllers/backend/TeamsController.php" />
+        <option value="$PROJECT_DIR$/app/views/infoCart.blade.php" />
+        <option value="$PROJECT_DIR$/app/views/checkout.blade.php" />
+        <option value="$PROJECT_DIR$/app/routes.php" />
+        <option value="$PROJECT_DIR$/app/controllers/frontend/CartController.php" />
+        <option value="$PROJECT_DIR$/app/config/database.php" />
       </list>
     </option>
   </component>
@@ -254,7 +290,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="layouts" />
+              <option name="myItemId" value="frontend" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -272,7 +308,65 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="views" />
+              <option name="myItemId" value="models" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Stadium" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Stadium" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="models" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="backend" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Stadium" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Stadium" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="controllers" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Stadium" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Stadium" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="controllers" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
@@ -294,77 +388,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="views" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="backend" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Stadium" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Stadium" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="views" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="backend" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="payments" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Stadium" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Stadium" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="controllers" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Stadium" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Stadium" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="controllers" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="backend" />
+              <option name="myItemId" value="config" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -377,7 +401,7 @@
     <property name="options.splitter.main.proportions" value="0.3" />
     <property name="options.splitter.details.proportions" value="0.2" />
     <property name="options.searchVisible" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../php-5.5" />
+    <property name="last_opened_file_path" value="$USER_HOME$/Documents/Stadium Old" />
     <property name="WebServerToolWindowFactoryState" value="true" />
     <property name="FullScreen" value="true" />
     <property name="LayoutCode.rearrangeEntriesPHP" value="false" />
@@ -489,9 +513,9 @@
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32959184" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
-      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.16971917" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.16971917" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.15567766" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Remote Host" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32967034" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Remote Host" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.20879121" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.22161172" sideWeight="0.5" order="1" side_tool="false" content_ui="combo" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="true" content_ui="tabs" />
@@ -522,49 +546,10 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="1" />
+      <option name="time" value="2" />
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/app/views/infoMatch.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="42" column="33" selection-start="1091" selection-end="1091" vertical-scroll-proportion="0.5398773" vertical-offset="278" max-vertical-offset="1470">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/views/backend/mails/index.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="13" column="0" selection-start="156" selection-end="156" vertical-scroll-proportion="0.29907975" vertical-offset="0" max-vertical-offset="652" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/routes.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="140" column="7" selection-start="3928" selection-end="3928" vertical-scroll-proportion="-25.086956" vertical-offset="1388" max-vertical-offset="2205" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/controllers/backend/GainController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="12" column="38" selection-start="212" selection-end="212" vertical-scroll-proportion="-7.478261" vertical-offset="8" max-vertical-offset="1020" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/views/backend/gain/index.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="25" column="0" selection-start="588" selection-end="588" vertical-scroll-proportion="-11.391304" vertical-offset="113" max-vertical-offset="1080">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/composer.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="10" column="32" selection-start="328" selection-end="328" vertical-scroll-proportion="0.23006135" vertical-offset="0" max-vertical-offset="795" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/config/local/database.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="25" column="0" selection-start="739" selection-end="828" vertical-scroll-proportion="0.33227345" vertical-offset="166" max-vertical-offset="795" />
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/config/local/app.php">
       <provider selected="true" editor-type-id="text-editor">
         <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="652" />
@@ -578,11 +563,6 @@
     <entry file="file://$PROJECT_DIR$/app/config/app.php">
       <provider selected="true" editor-type-id="text-editor">
         <state line="26" column="6" selection-start="838" selection-end="838" vertical-scroll-proportion="25.47826" vertical-offset="976" max-vertical-offset="3075" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/config/database.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="56" column="80" selection-start="1792" selection-end="1792" vertical-scroll-proportion="-8.478261" vertical-offset="645" max-vertical-offset="1965" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/config/mail.php">
@@ -623,13 +603,6 @@
     <entry file="file://$PROJECT_DIR$/app/views/backend/users/create.blade.php">
       <provider selected="true" editor-type-id="text-editor">
         <state line="19" column="68" selection-start="236" selection-end="262" vertical-scroll-proportion="-1.5652174" vertical-offset="249" max-vertical-offset="1920" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/views/frontend/profile.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="21" column="17" selection-start="391" selection-end="391" vertical-scroll-proportion="-4.244898" vertical-offset="107" max-vertical-offset="1890">
-          <folding />
-        </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/controllers/backend/UsersController.php">
@@ -673,11 +646,6 @@
     <entry file="file://$PROJECT_DIR$/app/views/backend/tickets/create.blade.php">
       <provider selected="true" editor-type-id="text-editor">
         <state line="106" column="36" selection-start="4216" selection-end="4216" vertical-scroll-proportion="-21.826086" vertical-offset="398" max-vertical-offset="1050" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/views/backend/teams/index.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="14" column="38" selection-start="217" selection-end="217" vertical-scroll-proportion="-9.130435" vertical-offset="0" max-vertical-offset="690" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/views/backend/teams/edit.blade.php">
@@ -813,16 +781,88 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/views/backend/payments/edit.blade.php">
+    <entry file="file://$PROJECT_DIR$/app/controllers/backend/PaymentsController.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="154" column="40" selection-start="5262" selection-end="5283" vertical-scroll-proportion="-9.948052" vertical-offset="1544" max-vertical-offset="2490">
+        <state line="192" column="45" selection-start="6250" selection-end="6250" vertical-scroll-proportion="-15.043478" vertical-offset="2354" max-vertical-offset="3615">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/controllers/backend/PaymentsController.php">
+    <entry file="file://$PROJECT_DIR$/app/views/backend/teams/index.blade.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="222" column="0" selection-start="7284" selection-end="7284" vertical-scroll-proportion="1.0491266" vertical-offset="2189" max-vertical-offset="3615">
+        <state line="14" column="38" selection-start="217" selection-end="217" vertical-scroll-proportion="0.22604951" vertical-offset="0" max-vertical-offset="929">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/views/backend/payments/edit.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="154" column="56" selection-start="5299" selection-end="5299" vertical-scroll-proportion="-9.831169" vertical-offset="1553" max-vertical-offset="2490">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/views/backend/teams/show.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="26" column="13" selection-start="555" selection-end="555" vertical-scroll-proportion="-16.956522" vertical-offset="0" max-vertical-offset="1350">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/models/backend/Team.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="952">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/controllers/backend/TeamsController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="128" column="0" selection-start="2558" selection-end="2558" vertical-scroll-proportion="0.9515608" vertical-offset="1036" max-vertical-offset="2040">
+          <folding>
+            <element signature="e#36#45#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/views/frontend/profile.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="19" column="100" selection-start="325" selection-end="368" vertical-scroll-proportion="-7.7391305" vertical-offset="107" max-vertical-offset="1890">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/routes.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="55" column="70" selection-start="1756" selection-end="1756" vertical-scroll-proportion="-14.869565" vertical-offset="348" max-vertical-offset="2235">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/views/infoCart.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="41" column="45" selection-start="1044" selection-end="1044" vertical-scroll-proportion="-26.73913" vertical-offset="0" max-vertical-offset="840">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/views/checkout.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="107" column="14" selection-start="4031" selection-end="4031" vertical-scroll-proportion="-13.695652" vertical-offset="1290" max-vertical-offset="2280">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/controllers/frontend/CartController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="85" column="27" selection-start="2965" selection-end="2965" vertical-scroll-proportion="-28.73913" vertical-offset="569" max-vertical-offset="1485">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/config/database.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="68" column="16" selection-start="2060" selection-end="2060" vertical-scroll-proportion="0.40365985" vertical-offset="645" max-vertical-offset="1965">
           <folding />
         </state>
       </provider>

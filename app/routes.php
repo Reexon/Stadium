@@ -52,6 +52,8 @@ Route::post('cart/update',function(){
  */
 Route::get('cart/clear','Frontend\Controller\CartController@clear');
 Route::get('cart/info','Frontend\Controller\CartController@info');
+Route::get('cart/checkout','Frontend\Controller\CartController@checkout');
+Route::any('cart/result','Frontend\Controller\CartController@result');
 
 Route::post('users/login','Backend\Controller\UsersController@login');
 

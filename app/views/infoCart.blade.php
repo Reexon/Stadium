@@ -17,7 +17,6 @@
 
 @section('content')
 @if(count($cartItems)>0)
-    {{ Form::open(['url' => 'cart/checkout'],['class' => 'form-inline']) }}
     <table class="table">
         <thead>
             <tr>
@@ -33,14 +32,14 @@
                     <td>#{{$item['id_ticket']}}</td>
                     <td>{{$item['label']}}</td>
                     <td>{{ Form::selectRange('quantity', 1, $item['quantity'],$item['buy_quantity']) }}</td>
+                    <!--TODO: Aggiornamento Prezzo AJAX in base a quando si cambia la quantità-->
                     <td>{{$item['buy_quantity'] * $item['price']}}</td>
                     <td></td>
                 </tr>
             @endforeach
         </tbody>
     </table>
-        {{ Form::button('Checkout',['type' => 'submit','class' =>'btn btn-warning']) }}
-    {{ Form::close() }}
+        <a href="{{URL::to('cart/checkout')}}" class="btn btn-warning">Next Step</a>
     <a href="{{URL::to('cart/clear')}}" class="btn btn-primary">Clear</a>
 @else
 
