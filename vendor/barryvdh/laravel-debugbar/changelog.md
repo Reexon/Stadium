@@ -1,5 +1,14 @@
 # Changelog for Laravel Debugbar
 
+## 1.7.6 (2014-09-12)
+
+- Fix reflash bug
+- Fix caching of debugbar assets
+
+## 1.7.5 (2014-09-12)
+
+- Reflash data for all debugbar requests
+
 ## 1.7.4 (2014-09-08)
 
 - Rename assets routes to prevent Nginx conflicts

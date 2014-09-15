@@ -6,7 +6,9 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
+    'Backend\\Controller\\ArtistsController' => $baseDir . '/app/controllers/backend/ArtistsController.php',
     'Backend\\Controller\\BaseController' => $baseDir . '/app/controllers/backend/BaseController.php',
+    'Backend\\Controller\\ConcertsController' => $baseDir . '/app/controllers/backend/ConcertsController.php',
     'Backend\\Controller\\DashboardController' => $baseDir . '/app/controllers/backend/DashboardController.php',
     'Backend\\Controller\\GainController' => $baseDir . '/app/controllers/backend/GainController.php',
     'Backend\\Controller\\MailMessageController' => $baseDir . '/app/controllers/backend/MailMessageController.php',
@@ -16,6 +18,10 @@ return array(
     'Backend\\Controller\\TeamsController' => $baseDir . '/app/controllers/backend/TeamsController.php',
     'Backend\\Controller\\TicketsController' => $baseDir . '/app/controllers/backend/TicketsController.php',
     'Backend\\Controller\\UsersController' => $baseDir . '/app/controllers/backend/UsersController.php',
+    'Backend\\Model\\Artist' => $baseDir . '/app/models/backend/Artist.php',
+    'Backend\\Model\\Category' => $baseDir . '/app/models/backend/Category.php',
+    'Backend\\Model\\Concert' => $baseDir . '/app/models/backend/Concert.php',
+    'Backend\\Model\\Events' => $baseDir . '/app/models/backend/Events.php',
     'Backend\\Model\\Feedback' => $baseDir . '/app/models/backend/Feedback.php',
     'Backend\\Model\\MailMessage' => $baseDir . '/app/models/backend/MailMessage.php',
     'Backend\\Model\\Match' => $baseDir . '/app/models/backend/Match.php',
