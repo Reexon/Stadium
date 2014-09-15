@@ -41,7 +41,7 @@ class QueryCollector extends PDOCollector
      */
     public function setFindSource($value = true)
     {
-        $this->findSource = (bool)$value;
+        $this->findSource = (bool) $value;
     }
 
     /**
@@ -53,7 +53,6 @@ class QueryCollector extends PDOCollector
      */
     public function addQuery($query, $bindings, $time, $connection)
     {
-
         $time = $time / 1000;
         $endTime = microtime(true);
         $startTime = $endTime - $time;
@@ -77,7 +76,7 @@ class QueryCollector extends PDOCollector
 
         $this->queries[] = array(
             'query' => $query,
-            'bindings' => $bindings,
+            'bindings' => $this->escapeBindings($bindings),
             'time' => $time,
             'source' => $source,
         );
@@ -104,6 +103,20 @@ class QueryCollector extends PDOCollector
     }
 
     /**
+     * Make the bindings safe for outputting.
+     *
+     * @param array $bindings
+     * @return array
+     */
+    protected function escapeBindings($bindings)
+    {
+        foreach ($bindings as &$binding) {
+            $binding = htmlentities($binding, ENT_QUOTES, 'UTF-8', false);
+        }
+        return $bindings;
+    }
+    
+    /**
      * Use a backtrace to search for the origin of the query.
      */
     protected function findSource()
@@ -115,7 +128,6 @@ class QueryCollector extends PDOCollector
                     DIRECTORY_SEPARATOR . 'vendor' . DIRECTORY_SEPARATOR
                 ) === false
             ) {
-
                 if (isset($trace['object']) && is_a($trace['object'], 'Twig_Template')) {
                     list($file, $line) = $this->getTwigInfo($trace);
                 } elseif (strpos($trace['file'], storage_path()) !== false) {
@@ -180,7 +192,7 @@ class QueryCollector extends PDOCollector
             $totalTime += $query['time'];
             $statements[] = array(
                 'sql' => $query['query'],
-                'params' => (object)$query['bindings'],
+                'params' => (object) $query['bindings'],
                 'duration' => $query['time'],
                 'duration_str' => $this->formatDuration($query['time']),
                 'stmt_id' => $query['source'],

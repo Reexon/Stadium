@@ -17,11 +17,11 @@ class MatchSubscriptionsController extends BaseController {
 	 */
 	public function index()
 	{
-		$subscriptions = DB::table('matches as m')
+		$subscriptions = DB::table('events as m')
             ->select('*',DB::raw('CONCAT(t1.name," - ",t2.name," (",DATE_FORMAT(date,"%d/%m/%Y"),")") AS label_match'))
             ->join('teams as t1','t1.id_team','=','m.home_id') //prelevo nome squadra in casa
             ->join('teams as t2','t2.id_team','=','m.guest_id') //prelevo nome squadra ospite
-            ->join('match_subscriptions','match_id','=','id_match')
+            ->join('event_subscriptions','event_id','=','id_event')
             ->paginate(10);
 
         return View::make($this->viewFolder.'MatchSubscriptions.index', compact('subscriptions'));
@@ -34,13 +34,13 @@ class MatchSubscriptionsController extends BaseController {
 	 */
 	public function create()
 	{
-        $matches = DB::table('matches as m')
-            ->select('id_match',DB::raw('CONCAT(t1.name," - ",t2.name," (",DATE_FORMAT(date,"%d/%m/%Y"),")") AS label_match'))
+        $matches = DB::table('events as m')
+            ->select('id_event',DB::raw('CONCAT(t1.name," - ",t2.name," (",DATE_FORMAT(date,"%d/%m/%Y"),")") AS label_match'))
             ->join('teams as t1','t1.id_team','=','m.home_id') //prelevo nome squadra in casa
             ->join('teams as t2','t2.id_team','=','m.guest_id') //prelevo nome squadra ospite
             ->orderBy('date','desc')
             ->where('date','>',DB::raw('CURDATE()'))
-            ->lists('label_match','id_match');
+            ->lists('label_match','id_event');
 
         return View::make($this->viewFolder.'MatchSubscriptions.create',compact('matches'));
 	}

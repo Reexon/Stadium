@@ -72,6 +72,7 @@
                     <th>Guest Team</th>
                     <th>Stadium</th>
                     <th>Date</th>
+                    <th>Event</th>
                     <th>Action</th>
                 </tr>
             </thead>
@@ -93,6 +94,9 @@
                         {{ Form::input('text','date[]',null,['class' => 'form-control datepicker','placeholder' =>'Date']) }}
                     </td>
                     <td>
+                        {{ Form::select('category_id[]', $category, null, ['class' => 'form-control']) }}
+                    </td>
+                    <td>
                         {{ Form::button(FA::icon('plus'), ['class' => 'btn btn-large btn-primary openbutton','id' => 'addMatch'])}}
                         {{ Form::button(FA::icon('times'), ['class' => 'btn btn-large btn-danger','id' => 'deleteMatch'])}}
                     </td>
@@ -100,7 +104,7 @@
             </tbody>
         </table>
 
-        {{ Form::button(FA::icon('check').' Create Match!', array('class' => 'btn btn-success','type'=>'submit')) }}
+        {{ Form::button(FA::icon('check').' Create Match!', array('class' => 'btn btn-success','type' => 'submit'))}}
 
         {{ Form::close() }}
 

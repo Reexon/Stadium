@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="PublishConfigData" serverName="Stadium" autoUploadExternalChanges="true" compareModeInSync="TIMESTAMP">
+    <serverData>
+      <paths name="Stadium">
+        <serverdata>
+          <mappings>
+            <mapping deploy="/app" local="$PROJECT_DIR$/app" web="" />
+            <mapping deploy="/public" local="$PROJECT_DIR$/public" web="/" />
+            <mapping deploy="/vendor" local="$PROJECT_DIR$/vendor" />
+          </mappings>
+        </serverdata>
+      </paths>
+    </serverData>
+  </component>
+</project>
+

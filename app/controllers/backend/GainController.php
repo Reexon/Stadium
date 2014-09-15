@@ -41,23 +41,23 @@ class GainController extends BaseController{
     private function gainEachMach(){
         /* Seleziono il guadagno di ogni match per visualizzarlo nel grafico
          * -------------
-         * SELECT id_match,CONCAT(h.name,' - ',g.name)as label_match,SUM(total)
+         * SELECT id_event,CONCAT(h.name,' - ',g.name)as label_match,SUM(total)
          * FROM payments
          * INNER JOIN orders ON id_payment = payment_id
          * INNER JOIN tickets ON id_ticket = ticket_id
-         * INNER JOIN matches ON id_match = match_id
+         * INNER JOIN matches ON id_event = match_id
          * INNER JOIN teams h ON h.id_team = home_id
-         * INNER JOIN teams g ON g.id_team = guest_id group by id_match
+         * INNER JOIN teams g ON g.id_team = guest_id group by id_event
          */
-        $gain=DB::table('payments')->select('id_match',
+        $gain=DB::table('payments')->select('id_event',
             DB::raw('CONCAT(h.name,\' - \',g.name)as label_match'),
             DB::raw('SUM(total) as total'))
             ->join('orders','id_payment','=','payment_id')
             ->join('tickets','id_ticket','=','ticket_id')
-            ->join('matches','id_match','=','match_id')
+            ->join('events','id_event','=','event_id')
             ->join('teams AS h','h.id_team','=','home_id')
             ->join('teams AS g','g.id_team','=','guest_id')
-            ->groupBy('id_match')
+            ->groupBy('id_event')
             ->get();
     }
 } 

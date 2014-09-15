@@ -14,6 +14,7 @@ use Validator;
 use Redirect;
 use Response;
 use Mail;
+use Backend\Model\Concert;
 
 class PaymentsController extends BaseController {
 
@@ -34,20 +35,29 @@ class PaymentsController extends BaseController {
 	 *
 	 * @return Response
 	 */
-	public function create()
+	public function create($category)
 	{
-        $matches = DB::table('matches as m')
-            ->select('id_match',DB::raw('CONCAT(t1.name," - ",t2.name," (",DATE_FORMAT(date,"%d/%m/%Y"),")") AS label_match'))
+        if($category == 'match'){
+        $events = DB::table('events as m')
+            ->select('id_event',DB::raw('CONCAT(t1.name," - ",t2.name," (",DATE_FORMAT(date,"%d/%m/%Y"),")") AS label_match'))
             ->join('teams as t1','t1.id_team','=','m.home_id') //prelevo nome squadra in casa
             ->join('teams as t2','t2.id_team','=','m.guest_id') //prelevo nome squadra ospite
-            ->join('tickets','id_match','=','match_id')//solo match che hanno qualche ticket nella tabella ticket
+            ->join('tickets','id_event','=','event_id')//solo match che hanno qualche ticket nella tabella ticket
             ->where('quantity','>',0) //i ticket presenti nella tabella devono essere di quantita >0
             ->orderBy('date','desc')
-            ->lists('label_match','id_match');
+            ->lists('label_match','id_event');
 
+        }else if ($category == 'concert'){
+            $events = Concert::select('id_event',DB::raw('teams.name as name'))
+                ->join('teams','home_id','=','id_team')
+                ->join('tickets','event_id','=','id_event')
+                ->where('quantity','>',0)
+                ->orderBy('date','desc')
+                ->lists('name','id_event');
+        }
         $users = User::select('id_user',DB::raw('CONCAT(firstname, " ", lastname) AS name'))->lists('name','id_user');
 
-		return View::make($this->viewFolder.'payments.create',compact('matches','users'));
+		return View::make($this->viewFolder.'payments.create',compact('events','users'));
 	}
 
 	/**
@@ -83,6 +93,9 @@ class PaymentsController extends BaseController {
         }
 
 
+        $feedback = new Feedback(['uuid' => Str::random(32)]);
+        $feedback->save();
+
         /*
          * Creo un oggetto payment e lo inizializzo
          * Cerco l'user da associare al payment
@@ -91,9 +104,10 @@ class PaymentsController extends BaseController {
          */
         $payment = new Payment($dataPayment);
         $user = User::find($user_id);
+        $payment->feedback()->associate($feedback);
         $payment = $user->payments()->save($payment);
-        $feedback = new Feedback(['uuid' => Str::random(32)]);
-        $feedback->save();
+
+
         for($i = 0; $i < count($ticket_id); $i++){
 
             $dataOrder = [
@@ -127,6 +141,7 @@ class PaymentsController extends BaseController {
             if(Input::get('remove_ticket') == "yes")
                 $ticket->decrement('quantity', $order->quantity);
         }
+
 
         if(Input::get('send_notification') == "yes"){
 
@@ -166,12 +181,12 @@ class PaymentsController extends BaseController {
 	public function edit($id)
 	{
 		$payment = Payment::find($id);
-        $matches = DB::table('matches as m')
-            ->select('id_match',DB::raw('CONCAT(t1.name," - ",t2.name," (",DATE_FORMAT(date,"%d/%m/%Y"),")") AS label_match'))
+        $matches = DB::table('events as m')
+            ->select('id_event',DB::raw('CONCAT(t1.name," - ",t2.name," (",DATE_FORMAT(date,"%d/%m/%Y"),")") AS label_match'))
             ->join('teams as t1','t1.id_team','=','m.home_id')
             ->join('teams as t2','t2.id_team','=','m.guest_id')
             ->orderBy('date','desc')
-            ->lists('label_match','id_match');
+            ->lists('label_match','id_event');
 
         $users = User::select('id_user',DB::raw('CONCAT(firstname, " ", lastname) AS name'))->lists('name','id_user');
 
@@ -190,7 +205,7 @@ class PaymentsController extends BaseController {
 
         $pay_date = Input::get('pay_date');
         $arrTicketID = Input::get('ticket_id');
-        $arrMatchID = Input::get('match_id');
+        $arrMatchID = Input::get('event_id');
         $arrQuantity = Input::get('quantity');
 
         if(!strtotime($pay_date))

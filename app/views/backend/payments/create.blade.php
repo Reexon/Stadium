@@ -73,7 +73,7 @@
                  dei tag del form, visto che il token non si trova all'interno del form, devo cercarlo sull'intera pagina.
                  */
                 "_token": $('input[name=_token]:first').val(),
-                "match_id": optionMatch.val() //match_id selezionato
+                "event_id": optionMatch.val() //match_id selezionato
             },
             function( ticketData ) {
                 clearTicketOption(selectOptionTicket);
@@ -101,7 +101,7 @@
                  dei tag del form, visto che il token non si trova all'interno del form, devo cercarlo sull'intera pagina.
                  */
                 "_token": $('input[name=_token]:first').val(),
-                "ticket_id": optionTicket.val() //match_id selezionato
+                "ticket_id": optionTicket.val() //event_id selezionato
             },
             function( ticketQuantity ) {
 
@@ -151,7 +151,6 @@
 @section('content')
 
 {{ Form::open(array('url' => 'admin/payments','class' => 'form-inline')) }}
-
 <h4>User: {{ Form::select('user_id', $users , null, ['class' => 'form-control']) }}</h4>
 <h4>Date:  {{ Bootstrap::date('pay_date', '',Input::old('pay_date'), $errors,['class' =>'form-control datepicker'])}}</h4>
 <table class="table">
@@ -168,7 +167,7 @@
     <tr>
         <td>1</td>
         <td>
-            {{ Form::select('match_id[]', $matches ,'', ['onChange' => 'loadTicketOption(this)', 'class' => 'form-control']) }}
+            {{ Form::select('match_id[]', $events ,'', ['onChange' => 'loadTicketOption(this)', 'class' => 'form-control']) }}
         </td>
         <td>
             {{ Form::select('ticket_id[]', array('' => ''),null,['class' => 'form-control','onChange' => 'loadTicketQuantity(this)']) }}

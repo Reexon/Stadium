@@ -1,5 +1,6 @@
 <?php
 namespace Backend\Controller;
+use Backend\Model\Category;
 use View;
 use Validator;
 use Redirect;
@@ -15,7 +16,7 @@ class TeamsController extends BaseController {
 	 */
 	public function index()
 	{
-		$teams = Team::paginate();
+		$teams = Team::where('category_id','=','1')->paginate();
 
 		return View::make($this->viewFolder.'teams.index', compact('teams'));
 	}
@@ -27,7 +28,8 @@ class TeamsController extends BaseController {
 	 */
 	public function create()
 	{
-		return View::make($this->viewFolder.'teams.create');
+        $event_list = Category::all()->lists('name','id_category');
+		return View::make($this->viewFolder.'teams.create',compact('event_list'));
 	}
 
 	/**
@@ -38,21 +40,21 @@ class TeamsController extends BaseController {
 	public function store()
 	{
 
-
         /**
          * WARNIGN: non toccare questo metodo finchè non viene risolto il problema
          * @see  http://laravel.io/forum/08-26-2014-inputold-with-array-of-input
          */
 
-        $team = Input::get('team');
+        $team_names = Input::get('name');
 
-        for($i = 0 ; $i < count($team); $i++){
+        for($i = 0 ; $i < count($team_names); $i++){
             $dataMatches = [
-                '_token' => Input::get('_token'),
-                'team'     =>  $team[$i]
+                '_token'        => Input::get('_token'),
+                'name'          => $team_names[$i],
+                'category_id'   => Match::$football,
             ];
 
-            $validator = Validator::make($teamName = $dataMatches, Team::$rules);
+            $validator = Validator::make($teamData = $dataMatches, Team::$rules);
 
             if ($validator->fails())
             {
@@ -60,7 +62,8 @@ class TeamsController extends BaseController {
             }
 
             //TODO: Bisogna Validare i dati prima di creare il match
-            Team::create($teamName);
+            Team::create($teamData);
+
         }
 
 		return Redirect::route('admin.teams.index')->with('success','Team Create');

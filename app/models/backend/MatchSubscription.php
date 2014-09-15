@@ -5,18 +5,18 @@ class MatchSubscription extends \Eloquent {
 
     // Add your validation rules here
     public static $rules = [
-        'email' => 'required|email|unique:match_subscriptions',
-        'match_id' => 'required'
+        'email' => 'required|email|unique:event_subscriptions',
+        'event_id' => 'required'
 
     ];
 
     protected $primaryKey = 'id_subscription';
 
-    protected $table = 'match_subscriptions';
+    protected $table = 'event_subscriptions';
 
     protected $dates = ['subscription_date'];
 
-    protected $fillable = ['match_id','email'];
+    protected $fillable = ['event_id','email'];
 
     public function match()
     {

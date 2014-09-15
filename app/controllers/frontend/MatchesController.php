@@ -16,6 +16,7 @@ use Input;
 use Mail;
 use Redirect;
 use DB;
+
 class MatchesController extends BaseController{
 
     /**
@@ -28,16 +29,16 @@ class MatchesController extends BaseController{
     public function index(){
         //TODO: seleizonare solo i match prossimi, non tutti
 
-        $matches = Match::where('date','>',DB::raw('CURDATE()'))
-                        ->orderBy('date')
-                        ->take(10)
-                        ->get();
-
+        $matches = Match:://where('date','>',DB::raw('CURDATE()'))
+                        where('category_id','=',Match::$football)
+                        ->orderBy('date','desc')
+                        ->paginate();
 
         return View::make('index',compact('matches'));
     }
 
     public function info($id){
+
         $match = Match::with('tickets')->findOrFail($id);
 
         return View::make('infoMatch',compact('match'));
@@ -61,7 +62,7 @@ class MatchesController extends BaseController{
 
         $matchSubscription = new  MatchSubscription();
         //TODO: Validation Before Save
-        $matchSubscription->match_id = $id;
+        $matchSubscription->event_id = $id;
         $matchSubscription->email = $user_email;
         $matchSubscription->save();
 

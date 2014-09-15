@@ -43,7 +43,7 @@
 <div class="form-group">
     {{ Form::label('match_id','Match',['class' => 'col-sm-2 control-label']) }}
     <div class="col-sm-10">
-        {{ Form::select('match_id', $matches,$ticket->match->id_match ) }}
+        {{ Form::select('match_id', $matches,$ticket->match->id_event ) }}
     </div>
 </div>
 

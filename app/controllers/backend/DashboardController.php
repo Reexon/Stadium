@@ -24,17 +24,17 @@ class DashboardController extends BaseController{
 
         //TODO: Pagination dei amount
         //TODO: bisogna selezionare solo i amount dell'ultima settimana o mese
-        $totalArray = DB::select('SELECT id_match,CONCAT(home," - ",guest) as label_match,SUM(total) as total
+        $totalArray = DB::select('SELECT id_event,CONCAT(home," - ",guest) as label_match,SUM(total) as total
                                     FROM (
-                                        SELECT t1.name as home,t2.name as guest,id_match,total FROM payments
+                                        SELECT t1.name as home,t2.name as guest,id_event,total FROM payments
                                         INNER JOIN orders ON payment_id = id_payment
                                         INNER JOIN tickets ON id_ticket = ticket_id
-                                        INNER JOIN matches ON match_id = id_match
+                                        INNER JOIN events ON event_id = id_event
                                         INNER JOIN teams t1 ON t1.id_team = home_id
                                         INNER JOIN teams t2 ON t2.id_team = guest_id
                                         GROUP BY id_payment
                                         )as t
-                                    GROUP BY id_match LIMIT 50');
+                                    GROUP BY id_event LIMIT 50');
 
 
         Paginator::setPageName('ppayments');
@@ -49,7 +49,7 @@ class DashboardController extends BaseController{
         $tickets =
             Order::select('tickets.*','m.*',DB::raw('SUM(orders.quantity) as qty_selled'),DB::raw('CONCAT(t1.name," - ",t2.name) as label_match'))
             ->join('tickets','ticket_id','=','id_ticket')
-            ->join('matches as m','match_id','=','id_match')
+            ->join('events as m','event_id','=','id_event')
             ->join('teams as t1','t1.id_team','=','m.home_id')
             ->join('teams as t2','t2.id_team','=','m.guest_id')
             ->groupBy('ticket_id')
@@ -58,10 +58,10 @@ class DashboardController extends BaseController{
 
         Paginator::setPageName('psubscribers');
         $subscriptions = MatchSubscription::select('m.*',DB::raw('COUNT(*) as qty'),DB::raw('CONCAT(t1.name," - ",t2.name) as label_match'))
-            ->join('matches as m','match_id','=','id_match')
+            ->join('events as m','event_id','=','id_event')
             ->join('teams as t1','t1.id_team','=','m.home_id')
             ->join('teams as t2','t2.id_team','=','m.guest_id')
-            ->groupBy('match_id')
+            ->groupBy('event_id')
             ->limit(50)
             ->paginate();
 

@@ -5,36 +5,7 @@
             {{FA::icon('dashboard')}} <span>Dashboard</span>
         </a>
     </li>
-    <li class="treeview">
-        <a href="#">
-            {{FA::icon('money')}}<span>Payments</span>
-            <i class="fa fa-angle-left pull-right"></i>
-        </a>
-        <ul class="treeview-menu">
-            <li><a href="{{ URL::to('admin/payments') }}">{{FA::icon('eye')}}  Show All Payment</a></li>
-            <li><a href="{{ URL::to('admin/payments/create') }}">{{FA::icon('plus')}}  Add Payment</a></li>
-        </ul>
-    </li>
-    <li class="treeview">
-        <a href="#">
-            {{FA::icon('users')}}<span>Users</span>
-            <i class="fa fa-angle-left pull-right"></i>
-        </a>
-        <ul class="treeview-menu">
-            <li><a href="{{ URL::to('admin/users') }}">{{FA::icon('eye')}}  Show All Users</a></li>
-            <li><a href="{{ URL::to('admin/users/create') }}">{{FA::icon('plus')}}  Add User</a></li>
-        </ul>
-    </li>
-    <li class="treeview">
-        <a href="#">
-            {{FA::icon('ticket')}}<span>Tickets</span>
-            <i class="fa fa-angle-left pull-right"></i>
-        </a>
-        <ul class="treeview-menu">
-            <li><a href="{{ URL::to('admin/tickets') }}">{{FA::icon('eye')}}  Show All Tickets</a></li>
-            <li><a href="{{ URL::to('admin/tickets/create') }}">{{FA::icon('plus')}}  Add Tickets</a></li>
-        </ul>
-    </li>
+    <!-- Matches -->
     <li class="treeview">
         <a href="#">
             {{FA::icon('soccer-ball-o')}}<span>Matches</span>
@@ -43,18 +14,25 @@
         <ul class="treeview-menu">
             <li><a href="{{ URL::to('admin/matches') }}">{{FA::icon('eye')}}  Show All Matches</a></li>
             <li><a href="{{ URL::to('admin/matches/create') }}">{{FA::icon('plus')}}  Add Match</a></li>
+            <li><a href="{{ URL::to('admin/tickets/create/1')}}">{{FA::icon('ticket')}}  Add Tickets</a></li>
+            <li><a href="{{ URL::to('admin/teams') }}">{{FA::icon('flag-checkered')}} Teams</a></li>
         </ul>
     </li>
+    <!-- ./ Matches -->
+    <!-- Concerts -->
     <li class="treeview">
         <a href="#">
-            {{FA::icon('flag-checkered')}}<span>Teams</span>
+            {{FA::icon('microphone')}}<span>Concerts</span>
             <i class="fa fa-angle-left pull-right"></i>
         </a>
         <ul class="treeview-menu">
-            <li><a href="{{ URL::to('admin/teams') }}">{{FA::icon('eye')}}  Show All Teams</a></li>
-            <li><a href="{{ URL::to('admin/teams/create') }}">{{FA::icon('plus')}}  Add Team</a></li>
+            <li><a href="{{ URL::to('admin/concerts') }}">{{FA::icon('eye')}}  Show All Concerts</a></li>
+            <li><a href="{{ URL::to('admin/concerts/create') }}">{{FA::icon('plus')}}  Add Concerts</a></li>
+            <li><a href="{{ URL::to('admin/tickets/create/2')}}">{{FA::icon('ticket')}}  Add Tickets</a></li>
+            <li><a href="{{ URL::to('admin/artists')}}">{{FA::icon('user')}}  Artists</a></li>
         </ul>
     </li>
+    <!-- ./ Concert -->
     <li class="treeview">
         <a href="#">
             {{FA::icon('envelope-o')}}<span>Subscriptions</span>
@@ -65,6 +43,42 @@
             <li><a href="{{ URL::to('admin/MatchSubscriptions/create') }}">{{FA::icon('plus')}} Add Subscription Match</a></li>
         </ul>
     </li>
+    <!-- Tickets -->
+    <li class="treeview">
+        <a href="#">
+            {{FA::icon('ticket')}}<span>Tickets</span>
+            <i class="fa fa-angle-left pull-right"></i>
+        </a>
+        <ul class="treeview-menu">
+            <li><a href="{{ URL::to('admin/tickets') }}">{{FA::icon('eye')}}  Show All Tickets</a></li>
+            <li><a href="{{ URL::to('admin/tickets/create') }}">{{FA::icon('plus')}}  Add Tickets</a></li>
+        </ul>
+    </li>
+    <!-- Users -->
+    <li class="treeview">
+        <a href="#">
+            {{FA::icon('users')}}<span>Users</span>
+            <i class="fa fa-angle-left pull-right"></i>
+        </a>
+        <ul class="treeview-menu">
+            <li><a href="{{ URL::to('admin/users') }}">{{FA::icon('eye')}}  Show All Users</a></li>
+            <li><a href="{{ URL::to('admin/users/create') }}">{{FA::icon('plus')}}  Add User</a></li>
+        </ul>
+    </li>
+    <!-- ./Users -->
+    <!-- Payments -->
+    <li class="treeview">
+        <a href="#">
+            {{FA::icon('money')}}<span>Payments</span>
+            <i class="fa fa-angle-left pull-right"></i>
+        </a>
+        <ul class="treeview-menu">
+            <li><a href="{{ URL::to('admin/payments') }}">{{FA::icon('eye')}}  Show All Payment</a></li>
+            <li><a href="{{ URL::to('admin/payments/create') }}">{{FA::icon('plus')}}  Add Payment</a></li>
+        </ul>
+    </li>
+    <!-- ./Payments -->
+    <!-- ./Tickets -->
     <li>
         <a href="{{URL::to('admin/gain')}}">
             {{FA::icon('euro')}} <span>Gain</span>

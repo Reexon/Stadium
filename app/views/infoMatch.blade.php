@@ -17,7 +17,7 @@
     @else
         No Tickets Available !
     @endif
-    <small>#{{$match->id_match}}</small>
+    <small>#{{$match->id_event}}</small>
 </h1>
 @stop
 
@@ -36,7 +36,7 @@
     </div>
     <div class="box-body">There aren't tickets available for this match at the moment ! <br>
         If you want to be notified when new tickets are available, please insert your eMail here
-        {{Form::open(['url' => 'match/signup/'.$match->id_match],['class' =>'form-inline']) }}
+        {{Form::open(['url' => 'match/signup/'.$match->id_event],['class' =>'form-inline']) }}
 
         <div class="input-group">
                 <span class="input-group-btn">

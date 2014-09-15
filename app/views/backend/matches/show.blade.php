@@ -11,7 +11,7 @@
 
 @section('header-title')
 <h1>Detail {{ $match->homeTeam->name }} vs {{ $match->guestTeam->name }} - ({{$match->date->format('d-m-Y')}})
-    <small>#{{$match->id_match}}</small>
+    <small>#{{$match->id_event}}</small>
 </h1>
 @stop
 
@@ -50,11 +50,11 @@
                 </tbody>
             </table>
         <div class="clearfix">
-            <a class="btn btn-primary btn-lg btn-block btn-success" href="{{ URL::to('admin/tickets/create/' . $match->id_match) }}">{{FA::icon('plus')}} Add Tickets</a>
+            <a class="btn btn-primary btn-lg btn-block btn-success" href="{{ URL::to('admin/tickets/create/'.$match->category_id.'/' . $match->id_event) }}">{{FA::icon('plus')}} Add Tickets</a>
         </div>
         @else
             <h2>No Tickets !</h2>
-            <a class="btn btn-primary btn-lg btn-block btn-success" href="{{ URL::to('admin/tickets/create/' . $match->id_match) }}">Create Tickets</a>
+            <a class="btn btn-primary btn-lg btn-block btn-success" href="{{ URL::to('admin/tickets/create/'.$match->category_id.'/' . $match->id_event) }}">Create Tickets</a>
         @endif
 </div>
 

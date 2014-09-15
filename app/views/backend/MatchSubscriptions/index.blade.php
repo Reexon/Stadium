@@ -41,7 +41,7 @@
                 <tr>
                     <td>{{$subscription->id_subscription}}</td>
                     <td>{{$subscription->email}}</td>
-                    <td><a href="{{URL::to('admin/matches/'.$subscription->id_match)}}">{{$subscription->label_match}}</a></td>
+                    <td><a href="{{URL::to('admin/matches/'.$subscription->id_event)}}">{{$subscription->label_match}}</a></td>
                     <td>
                         {{Form::open(['url' => 'admin/MatchSubscriptions/'.$subscription->id_subscription,'method' =>'DELETE'])}}
                         {{Form::button(FA::icon('trash-o'), array('type' => 'submit', 'class' => 'btn btn-small btn-danger'))}}

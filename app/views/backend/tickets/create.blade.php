@@ -12,7 +12,7 @@
         var ticket_type = '{{ Form::text('label[]', Input::old('label'), array('class' => 'form-control','placeholder' => 'Ticket Type')) }}';
         var ticket_price ='{{ Form::text('price[]', Input::old('price'), array('class' => 'form-control','placeholder' => 'Price')) }}';
         var ticket_quantity ='{{ Form::text('quantity[]', Input::old('quantity'), array('class' => 'form-control','placeholder' => 'Quantity')) }}';
-        var selectMatch ='{{ Form::select('match_id[]', $matches,$match_id) }}';
+        var selectMatch ='{{ Form::select('match_id[]', $events,null) }}';
         var addTicket = '{{ Form::button(FA::icon('plus'), ['class' => 'btn btn-large btn-primary openbutton','id' => 'addTicket'])}}';
         var deleteTicket ='{{ Form::button(FA::icon('times'), ['class' => 'btn btn-large btn-danger','id' => 'deleteTicket'])}}';
 
@@ -64,7 +64,7 @@
 @section('content')
 
 {{ Form::open(array('url' => 'admin/tickets','class' => 'form-inline')) }}
-
+    {{Form::hidden('category_id',$category_id)}}
 <table class="table">
     <thead>
         <tr>
@@ -89,7 +89,7 @@
             {{ Form::text('quantity[]', Input::old('quantity'), array('class' => 'form-control','placeholder' => 'Quantity')) }}
         </td>
         <td>
-            {{ Form::select('match_id[]', $matches,$match_id,['class' => 'form-control']) }}
+            {{ Form::select('event_id[]', $events,$match_id,['class' => 'form-control']) }}
         </td>
         <td>
             {{ Form::button(FA::icon('plus'), ['class' => 'btn btn-large btn-primary openbutton','id' => 'addTicket'])}}
@@ -105,6 +105,7 @@
 @endif
 
 {{ Form::button(FA::icon('check').' Create Tickets!', ['class' => 'btn btn-success','type' => 'submit']) }}
+
 
 {{ Form::close() }}
 

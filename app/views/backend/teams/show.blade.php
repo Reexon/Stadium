@@ -53,29 +53,29 @@
 
     @foreach($team->matchesHome as $match)
     <tr>
-        <td>{{ $match->id_match }}</td>
+        <td>{{ $match->id_event }}</td>
 
         <td>{{ $match->homeTeam->name }}</td>
         <td>{{ $match->guestTeam->name }}</td>
         <td>{{ $match->stadium }}</td>
         <td>{{ $match->date->format('d-m-Y') }}</td>
         <td>
-            <a class="btn btn-small btn-success" href="{{ URL::to('admin/matches/' . $match->id_match) }}">{{ FA::icon('eye'); }}</a>
-            <a class="btn btn-small btn-info" href="{{ URL::to('admin/matches/' . $match->id_match . '/edit') }}">{{ FA::icon('pencil'); }}</a>
+            <a class="btn btn-small btn-success" href="{{ URL::to('admin/matches/' . $match->id_event) }}">{{ FA::icon('eye'); }}</a>
+            <a class="btn btn-small btn-info" href="{{ URL::to('admin/matches/' . $match->id_event . '/edit') }}">{{ FA::icon('pencil'); }}</a>
         </td>
     </tr>
     @endforeach
     @foreach($team->matchesGuest as $match)
     <tr>
-        <td>{{ $match->id_match }}</td>
+        <td>{{ $match->id_event }}</td>
 
         <td>{{ $match->homeTeam->name }}</td>
         <td>{{ $match->guestTeam->name }}</td>
         <td>{{ $match->stadium }}</td>
         <td>{{ $match->date->format('d-m-Y') }}</td>
         <td>
-            <a class="btn btn-small btn-success" href="{{ URL::to('admin/matches/' . $match->id_match) }}">{{ FA::icon('eye'); }}</a>
-            <a class="btn btn-small btn-info" href="{{ URL::to('admin/matches/' . $match->id_match . '/edit') }}">{{ FA::icon('pencil'); }}</a>
+            <a class="btn btn-small btn-success" href="{{ URL::to('admin/matches/' . $match->id_event) }}">{{ FA::icon('eye'); }}</a>
+            <a class="btn btn-small btn-info" href="{{ URL::to('admin/matches/' . $match->id_event . '/edit') }}">{{ FA::icon('pencil'); }}</a>
         </td>
     </tr>
     @endforeach

@@ -11,13 +11,13 @@
 
 @section('header-title')
 <h1>Edit {{ $match->homeTeam->name }} vs {{ $match->guestTeam->name }} - ({{$match->date->format('d-m-Y')}})
-    <small>#{{$match->id_match}}</small>
+    <small>#{{$match->id_event}}</small>
 </h1>
 @stop
 
 @section('content')
 
-    {{ Form::model($match, array('route' => array('admin.matches.update', $match->id_match), 'method' => 'PUT','class'=>'form-horizontal', 'role' => 'form')) }}
+    {{ Form::model($match, array('route' => array('admin.matches.update', $match->id_event), 'method' => 'PUT','class'=>'form-horizontal', 'role' => 'form')) }}
 
     <div class="form-group">
         {{ Form::label('home_team','Home Team',['class' => 'col-sm-2 control-label']) }}

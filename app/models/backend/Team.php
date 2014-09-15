@@ -5,13 +5,14 @@ class Team extends \Eloquent {
 
 	// Add your validation rules here
 	public static $rules = [
-		 'name' => 'required'
+		 'name' => 'required',
+         'category_id'  => 'required'
 	];
 
     protected $perPage = 10;
 
 	// Don't forget to fill this array
-	protected $fillable = ['name'];
+	protected $fillable = ['name','category_id'];
 
     protected $table = 'teams';
 
@@ -19,10 +20,10 @@ class Team extends \Eloquent {
 
     public function matchesHome(){
         return $this->hasMany('Backend\Model\Match','home_id');
-
     }
+
     public function matchesGuest(){
         return $this->hasMany('Backend\Model\Match','guest_id');
-
     }
+
 }

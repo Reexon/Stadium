@@ -29,7 +29,7 @@
         <tbody>
         @foreach($matches as $match)
         <tr>
-            <td>{{ $match->id_match }}</td>
+            <td>{{ $match->id_event }}</td>
             <td><a href="{{ URL::to('admin/teams/'.$match->homeTeam->id_team)}}">{{ $match->homeTeam->name }}</a></td>
             <td><a href="{{ URL::to('admin/teams/'.$match->guestTeam->id_team)}}">{{ $match->guestTeam->name }}</a></td>
             <td>{{ $match->stadium }}</td>
@@ -37,13 +37,13 @@
 
             <td>
                 <!-- GET /nerds/{id} -->
-                <a class="btn btn-small btn-success" href="{{ URL::to('admin/matches/' . $match->id_match) }}">{{ FA::icon('eye'); }}</a>
+                <a class="btn btn-small btn-success" href="{{ URL::to('admin/matches/' . $match->id_event) }}">{{ FA::icon('eye'); }}</a>
 
                 <!-- GET /nerds/{id}/edit -->
-                <a class="btn btn-small btn-info" href="{{ URL::to('admin/matches/' . $match->id_match . '/edit') }}">{{ FA::icon('pencil'); }}</a>
+                <a class="btn btn-small btn-info" href="{{ URL::to('admin/matches/' . $match->id_event . '/edit') }}">{{ FA::icon('pencil'); }}</a>
 
                 <!-- TODO: Confirmation Before Delete -->
-                {{ Form::open(array('url' => 'admin/matches/' . $match->id_match,'style' =>'display:inline-block')) }}
+                {{ Form::open(array('url' => 'admin/matches/' . $match->id_event,'style' =>'display:inline-block')) }}
                     {{ Form::hidden('_method', 'DELETE') }}
                     {{ Form::button(FA::icon('trash-o'), array('type' => 'submit', 'class' => 'btn btn-small btn-danger'))}}
                 {{ Form::close() }}

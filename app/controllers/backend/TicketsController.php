@@ -1,6 +1,7 @@
 <?php
 namespace Backend\Controller;
 
+use Backend\Model\Concert;
 use Backend\Model\Ticket;
 use Frontend\Model\MatchSubscription;
 use View;
@@ -21,8 +22,9 @@ class TicketsController extends BaseController {
 	 */
 	public function index()
 	{
-		$tickets = Ticket::paginate();
-		return View::make($this->viewFolder.'tickets.index', compact('tickets'));
+		$match_tickets = Ticket::where('category_id','=',Match::$football)->paginate();
+        $concert_tickets = Ticket::where('category_id','=',Concert::$concert)->paginate();
+		return View::make($this->viewFolder.'tickets.index', compact('match_tickets','concert_tickets'));
 	}
 
 	/**
@@ -31,19 +33,32 @@ class TicketsController extends BaseController {
      *                          l'unica utilità è che viene caricato il form di creazione con il match gia selezionato.
 	 * @return Response
 	 */
-	public function create($match_id = 0)
+	public function create($category_id,$match_id = 0)
 	{
 
-        $match = Match::find($match_id);
+        //se la categoria è una di quelle da gestire tipo concerto...
+        if(in_array($category_id,Concert::$category)){
+            $match = Concert::find($match_id);
+            $events = Match::join('teams','home_id','=','id_team')
+                ->select('id_event',DB::raw('CONCAT(name," (",DATE_FORMAT(date,"%d/%m/%Y"),")") as name'))
+                ->where('teams.category_id','=',$category_id)
+                ->orderBy('date','desc')
+                ->lists('name','id_event');
 
-        $matches = DB::table('matches as m')
-            ->select('id_match',DB::raw('CONCAT(t1.name," - ",t2.name," (",DATE_FORMAT(date,"%d/%m/%Y"),")") AS label_match'))
-            ->join('teams as t1','t1.id_team','=','m.home_id')
-            ->join('teams as t2','t2.id_team','=','m.guest_id')
-            ->orderBy('date','desc')
-            ->lists('label_match','id_match');
+            //se la categoria è una di quelle da gestire come match..
+        }else if(in_array($category_id,Match::$category)){
+            $match = Match::find($match_id);
 
-        return View::make($this->viewFolder.'tickets.create', compact('matches','match','match_id'));
+            $events = DB::table('events as m')
+                ->select('id_event',DB::raw('CONCAT(t1.name," - ",t2.name," (",DATE_FORMAT(date,"%d/%m/%Y"),")") AS label_match'))
+                ->join('teams as t1','t1.id_team','=','m.home_id')
+                ->join('teams as t2','t2.id_team','=','m.guest_id')
+                ->where('m.category_id','=',$category_id)
+                ->orderBy('date','desc')
+                ->lists('label_match','id_event');
+        }
+
+        return View::make($this->viewFolder.'tickets.create', compact('events','match','match_id','category_id'));
 	}
 
 	/**
@@ -61,17 +76,21 @@ class TicketsController extends BaseController {
 
         $ticket_type = Input::get('label');
         $ticket_price = Input::get('price');
-        $ticket_matchID = Input::get('match_id');
+        $ticket_eventID = Input::get('event_id');
         $ticket_quantity = Input::get('quantity');
+
+        //campo nascosto nel form per capire di che categoria è l'evento
+        $category_event = Input::get('category_id');
 
         for($i = 0; $i < count($ticket_type); $i++){
 
             $dataTicket = [
-                '_token' => Input::get('_token'),
-                'label' => $ticket_type[$i],
-                'price' => $ticket_price[$i],
-                'match_id' => $ticket_matchID[$i],
-                'quantity' => $ticket_quantity[$i],
+                '_token'        => Input::get('_token'),
+                'label'         => $ticket_type[$i],
+                'price'         => $ticket_price[$i],
+                'event_id'      => $ticket_eventID[$i],
+                'quantity'      => $ticket_quantity[$i],
+                'category_id'   => $category_event,
             ];
 
            $validator = Validator::make($data = $dataTicket, Ticket::$rules);
@@ -84,10 +103,11 @@ class TicketsController extends BaseController {
             Ticket::create($dataTicket);
         }
 
+        //Se è stato flaggato l'invio delle notifiche
         if(Input::get('send_notifications') == "yes" ){
-            $subscribers = MatchSubscription::select('email')->where('match_id','=',$ticket_matchID[0])->get();
+            $subscribers = MatchSubscription::select('email')->where('event_id','=',$ticket_eventID[0])->get();
 
-            $match = Match::find($ticket_matchID[0]);
+            $match = Match::find($ticket_eventID[0]);
             $data['match'] = serialize($match);//lo serializzo per utilizzarlo nel template mail
             Mail::queue('emails.newticket', $data, function($message) use ($subscribers,$match)
             {
@@ -107,7 +127,7 @@ class TicketsController extends BaseController {
 	 */
 	public function show($id)
 	{
-        $ticket = Ticket::with('match','orders.payment.user')->findOrFail($id);
+        $ticket = Ticket::with('events','orders.payment.user')->findOrFail($id);
 		return View::make($this->viewFolder.'tickets.show', compact('ticket'));
 	}
 
@@ -117,17 +137,19 @@ class TicketsController extends BaseController {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function edit($id)
+	public function edit($category,$id)
 	{
-		$ticket = Ticket::find($id);
+
+		$ticket = Ticket::where('category_id','=',$category)->find($id);
+
 
         //TODO:selezionare solo i match prossimi
-        $matches = DB::table('matches as m')
-            ->select('id_match',DB::raw('CONCAT(t1.name," - ",t2.name," (",DATE_FORMAT(date,"%d/%m/%Y"),")") AS label_match'))
+        $matches = DB::table('events as m')
+            ->select('id_event',DB::raw('CONCAT(t1.name," - ",t2.name," (",DATE_FORMAT(date,"%d/%m/%Y"),")") AS label_match'))
             ->join('teams as t1','t1.id_team','=','m.home_id')
             ->join('teams as t2','t2.id_team','=','m.guest_id')
             ->orderBy('date','desc')
-            ->lists('label_match','id_match');
+            ->lists('label_match','id_event');
 
 		return View::make($this->viewFolder.'tickets.edit', compact('ticket','matches'));
 	}
@@ -167,16 +189,16 @@ class TicketsController extends BaseController {
 		return Redirect::route('admin.tickets.index');
 	}
 
-    public function selledForMatch($id_match){
+    public function selledForMatch($id_event){
         $tickets = DB::select('SELECT label,ticket_id,price,
         SUM(orders.quantity)as quantity,
         SUM(orders.quantity * tickets.price)as total_price
         FROM payments
         INNER JOIN orders ON id_payment = payment_id
         INNER JOIN tickets ON ticket_id = id_ticket
-        WHERE tickets.match_id = ?
+        WHERE tickets.event_id = ?
         GROUP BY ticket_id
-        ',[$id_match]);
+        ',[$id_event]);
 
         return View::make($this->viewFolder.'tickets.selled',compact('tickets'));
     }

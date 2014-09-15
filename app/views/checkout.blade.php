@@ -16,7 +16,7 @@
 @stop
 
 @section('content')
-{{ Form::model(Auth::user(),['url' => 'cart/checkout','class'=>'form-horizontal','role' => 'form']) }}
+{{ Form::model(Auth::user(),['url' => 'cart/buy','class'=>'form-horizontal','role' => 'form']) }}
 
 <div class="row">
     <div class="col-md-5">
@@ -133,7 +133,6 @@
 
 
 <a href="{{URL::to('cart/clear')}}" class="btn btn-primary">Clear</a>
-{{$button}}
 @else
 
 <div class="alert alert-warning alert-dismissable">

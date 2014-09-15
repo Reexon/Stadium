@@ -2,6 +2,9 @@
 
 namespace Backend\Controller;
 
+use Backend\Model\Category;
+use Backend\Model\Event;
+use Backend\Model\Events;
 use View;
 use Validator;
 use Redirect;
@@ -21,7 +24,7 @@ class MatchesController extends BaseController {
 	{
         //prendo i match che non sono scaduti
 		//$matches = Match::where('date','>',time())->paginate(15);
-        $matches = Match::with('homeTeam','guestTeam')->paginate();
+        $matches = Match::with('homeTeam','guestTeam')->whereBetween('category_id', Match::$category)->paginate();
 
 		return View::make($this->viewFolder.'matches.index', compact('matches'));
 
@@ -34,8 +37,9 @@ class MatchesController extends BaseController {
 	 */
 	public function create()
 	{
-        $teams = Team::all()->lists('name', 'id_team');
-		return View::make($this->viewFolder.'matches.create',compact('teams'));
+        $teams = Team::whereBetween('category_id',Match::$category)->lists('name', 'id_team');
+        $category = Category::whereBetween('id_category',Match::$category)->lists('name','id_category');
+		return View::make($this->viewFolder.'matches.create',compact('teams','category'));
 	}
 
 	/**
@@ -55,6 +59,7 @@ class MatchesController extends BaseController {
         $guest_id = Input::get('guest_id');
         $stadium = Input::get('stadium');
         $date = Input::get('date');
+        $category = Input::get('category_id');
 
         for($i = 0 ; $i < count($guest_id); $i++){
             $dataMatches = [
@@ -62,7 +67,8 @@ class MatchesController extends BaseController {
                 'home_id'     =>  $home_id[$i],
                 'guest_id'    =>  $guest_id[$i],
                 'stadium'       =>  $stadium[$i],
-                'date'          => date('Y-m-d',strtotime($date[$i]))
+                'date'          => date('Y-m-d',strtotime($date[$i])),
+                'category_id'   => $category[$i],
             ];
 
             $validator = Validator::make($data = $dataMatches, Match::$rules);
@@ -145,9 +151,10 @@ class MatchesController extends BaseController {
 		return Redirect::route('admin.matches.index');
 	}
 
+
     public function findTicket(){
 
-        $match = Match::join('tickets','match_id','=','id_match')->find(Input::get('match_id'));
+        $match = Event::join('tickets','event_id','=','id_event')->find(Input::get('event_id'));
         if(!is_object($match))
             return -1;
         return Response::json( $match->tickets );

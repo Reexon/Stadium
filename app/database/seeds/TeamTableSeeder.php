@@ -6,10 +6,8 @@ use Backend\Model\Team;
 
 class TeamTableSeeder extends Seeder {
 
-	public function run()
-	{
-		$faker = Faker::create();
-
+    public function run()
+    {
 
         $teams = [
             'Milan',        'Atalanta',
@@ -25,12 +23,12 @@ class TeamTableSeeder extends Seeder {
             'Empoli',       'Fiorentina',
         ];
 
-		foreach($teams as $team)
-		{
-			Team::create([
+        foreach($teams as $team)
+        {
+            Team::create([
                 'name'  => $team
-			]);
-		}
-	}
+            ]);
+        }
+    }
 
 }

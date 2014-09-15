@@ -1,31 +1,25 @@
 <?php
 namespace Backend\Model;
 
-class Match extends \Eloquent {
+class Match extends Event {
 
 	// Add your validation rules here
 	public static $rules = [
-		   'home_id' => 'required',
-           'guest_id' => 'required',
-           'date'  => 'required',
-           'stadium'   => 'required'
+		   'home_id'        => 'required',
+           'guest_id'       => 'required',
+           'date'           => 'required',
+           'stadium'        => 'required',
+           'category_id'    => 'required'
 	];
 
-    protected $perPage = 10;
 
-    protected $primaryKey = 'id_match';
+    //viene inserito array per poter gestire diverse categorie (hockey,rugby,nba ecc)
+    public static $category = [1,1];
+
+    public static $football = 1;
 
 	// Don't forget to fill this array
-	protected $fillable = ['home_id','guest_id','date','stadium'];
-
-    public function tickets()
-    {
-        return $this->hasMany('Backend\Model\Ticket');
-    }
-
-    public function subscribers(){
-        return $this->hasMany('Frontend\Model\MatchSubscription');
-    }
+	protected $fillable = ['home_id','guest_id','date','stadium','category_id'];
 
     public function homeTeam(){
         return $this->belongsTo('Backend\Model\Team','home_id');
@@ -35,5 +29,5 @@ class Match extends \Eloquent {
         return $this->belongsTo('Backend\Model\Team','guest_id');
     }
 
-    protected $dates = ['date'];
+
 }

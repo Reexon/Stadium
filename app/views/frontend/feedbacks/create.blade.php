@@ -39,7 +39,11 @@
             </p>
             <div class="well">
                 @foreach($feedback->payment->orders as $order)
-                    {{$order->ticket->match->homeTeam->name}} vs {{$order->ticket->match->guestTeam->name}} - {{$order->ticket->label}}x{{$order->quantity}}
+                    @if($order->ticket->event->category_id == 1)
+                        {{$order->ticket->match->homeTeam->name}} vs {{$order->ticket->match->guestTeam->name}}- {{$order->ticket->label}}x{{$order->quantity}}
+                    @else
+                        {{$order->ticket->concert->artist->name}} - {{$order->ticket->label}}x{{$order->quantity}}
+                    @endif
                 @endforeach
             </div>
             @if(($feedback->comment == null) || empty($feedback->comment) )

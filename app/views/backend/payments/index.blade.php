@@ -67,7 +67,7 @@
         <tr>
             <td>{{ $order->ticket->label }}</td>
             <td>
-                <a href="{{URL::to('admin/matches/'.$order->ticket->match->id_match)}}">
+                <a href="{{URL::to('admin/matches/'.$order->ticket->match->id_event)}}">
                     {{ $order->ticket->match->homeTeam->name }} vs {{ $order->ticket->match->guestTeam->name }}
                 </a>
             </td>

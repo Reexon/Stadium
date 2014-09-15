@@ -28,7 +28,7 @@
             </div>
             <div class="box-body">
                 <label>Select Match:</label>
-                {{Form::select('match_id',$matches,1,['class' => 'form-control'])}}
+                {{Form::select('event_id',$matches,1,['class' => 'form-control'])}}
                 <label>Mail:</label>
                 {{Form::email('email',Input::old('email'),['class' => 'form-control'])}}
             </div>

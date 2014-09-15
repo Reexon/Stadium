@@ -13,8 +13,8 @@
 
 Route::get('/','Frontend\Controller\MatchesController@index');
 Route::get('contact',function(){return View::make('contact');});
-Route::get('/match/info/{id_match}','Frontend\Controller\MatchesController@info');
-Route::post('match/signup/{id_match}','Frontend\Controller\MatchesController@signup');
+Route::get('/match/info/{id_event}','Frontend\Controller\MatchesController@info');
+Route::post('match/signup/{id_event}','Frontend\Controller\MatchesController@signup');
 /*
  * Gestione del carrello dei ticket
  */
@@ -53,7 +53,12 @@ Route::post('cart/update',function(){
 Route::get('cart/clear','Frontend\Controller\CartController@clear');
 Route::get('cart/info','Frontend\Controller\CartController@info');
 Route::get('cart/checkout','Frontend\Controller\CartController@checkout');
-Route::any('cart/result','Frontend\Controller\CartController@result');
+Route::post('cart/buy','Frontend\Controller\CartController@buy');
+Route::get('cart/result','Frontend\Controller\CartController@result');
+Route::post('cart/receipt','Frontend\Controller\CartController@receipt');
+Route::post('cart/error',function(){
+    dd(Input::all());
+});
 
 Route::post('users/login','Backend\Controller\UsersController@login');
 
@@ -100,8 +105,19 @@ Route::group(array('prefix' => 'admin', 'before' => 'auth|admin','namespace' => 
      * Tickets
      */
 
-    Route::get('tickets/create/{id}', 'TicketsController@create');
+    Route::get('tickets/create/{category_id?}/{id?}', 'TicketsController@create');
+    Route::get('tickets/{category_id}/{id}/edit','TicketsController@edit');
     Route::resource('tickets', 'TicketsController');
+
+    /*
+     * Artists
+     */
+    Route::resource('artists', 'ArtistsController');
+
+    /*
+     * Concerts
+     */
+    Route::resource('concerts', 'ConcertsController');
 
     /*
      * Users
@@ -114,6 +130,7 @@ Route::group(array('prefix' => 'admin', 'before' => 'auth|admin','namespace' => 
      * Payments
      */
     Route::get('payments/search','PaymentsController@search');
+    Route::get('payments/create/{category}','PaymentsController@create');
     Route::resource('payments', 'PaymentsController');
 
     /*

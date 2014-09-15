@@ -142,7 +142,7 @@
                 <?php Paginator::setPageName('ptickets'); ?>
                 @foreach($tickets as $ticket)
                 <tr>
-                    <td><a href="{{URL::to('admin/matches/'.$ticket->id_match)}}">{{$ticket->label_match}}</a></td>
+                    <td><a href="{{URL::to('admin/matches/'.$ticket->id_event)}}">{{$ticket->label_match}}</a></td>
                     <td><a href="{{URL::to('admin/tickets/'.$ticket->id_ticket)}}">{{$ticket->label}}</a></td>
                     <td>{{$ticket->qty_selled}}</td>
                 </tr>
@@ -176,7 +176,7 @@
                     <tr>
                         <td>#</td>
                         <td>
-                            <a href="{{URL::to('admin/matches/'.$singleMatch->id_match)}}">{{$singleMatch->label_match}}</a>
+                            <a href="{{URL::to('admin/matches/'.$singleMatch->id_event)}}">{{$singleMatch->label_match}}</a>
                         </td>
                         <td>{{number_format($singleMatch->total,2,',','.')}} €</td>
                     </tr>
@@ -203,7 +203,7 @@
                 @foreach($subscriptions as $subscription)
                 <tr>
                     <td>#</td>
-                    <td><a href="{{URL::to('admin/matches/'.$subscription->id_match)}}">{{$subscription->label_match}}</a></td>
+                    <td><a href="{{URL::to('admin/matches/'.$subscription->id_event)}}">{{$subscription->label_match}}</a></td>
                     <td><a href="#">{{$subscription->qty}}</a></td>
                 </tr>
                 @endforeach

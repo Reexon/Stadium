@@ -39,7 +39,7 @@
                 </div>
                 <div class="form-group">
                     <label class="control-label">Birth Date</label>
-                    {{$user->birth_date->format('d.m.Y')}}
+                    {{$user->birth_date}}
                 </div>
                 <div class="form-group">
                     <label class="control-label">Register Date</label>
