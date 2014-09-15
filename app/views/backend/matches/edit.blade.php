@@ -52,6 +52,9 @@
 
     <div class="form-group">
         <div class="col-sm-offset-2 col-sm-10">
+            {{Form::checkbox('send_notifications','yes',false)}}  Avvisa gli utenti della modifica
+        </div>
+        <div class="col-sm-offset-2 col-sm-10">
             {{ Form::submit('Edit Match!', array('class' => 'btn btn-primary')) }}
         </div>
     </div>

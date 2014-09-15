@@ -137,6 +137,11 @@ class MatchesController extends BaseController {
 
 		$match->update($data);
 
+        //avvisare gli utenti che hanno acquistato biglietto, della modifica ?
+        if(Input::get('send_notifications')){
+            //TODO:inviare mail a utenti
+        }
+
 	    return Redirect::route('admin.matches.index')->with('success','Match Updated Succesfully');
 	}
 

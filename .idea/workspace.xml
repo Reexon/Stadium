@@ -26,7 +26,7 @@
       <file leaf-file-name="MatchesController.php" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/controllers/backend/MatchesController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="114" column="0" selection-start="3084" selection-end="3084" vertical-scroll-proportion="0.53637904" vertical-offset="1258" max-vertical-offset="2565">
+            <state line="141" column="40" selection-start="3805" selection-end="3805" vertical-scroll-proportion="0.86632824" vertical-offset="1468" max-vertical-offset="2640">
               <folding />
             </state>
           </provider>
@@ -35,7 +35,7 @@
       <file leaf-file-name="edit.blade.php" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/views/backend/matches/edit.blade.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="42" column="53" selection-start="1497" selection-end="1497" vertical-scroll-proportion="-14.347826" vertical-offset="300" max-vertical-offset="990">
+            <state line="54" column="61" selection-start="2047" selection-end="2047" vertical-scroll-proportion="-19.956522" vertical-offset="351" max-vertical-offset="1035">
               <folding />
             </state>
           </provider>
@@ -816,13 +816,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/controllers/frontend/MatchesController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="32" column="24" selection-start="604" selection-end="604" vertical-scroll-proportion="-8.521739" vertical-offset="119" max-vertical-offset="990">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/views/index.blade.php">
       <provider selected="true" editor-type-id="text-editor">
         <state line="19" column="60" selection-start="302" selection-end="302" vertical-scroll-proportion="0.19550173" vertical-offset="172" max-vertical-offset="795">
@@ -830,16 +823,23 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/app/controllers/frontend/MatchesController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="32" column="24" selection-start="604" selection-end="604" vertical-scroll-proportion="-8.521739" vertical-offset="119" max-vertical-offset="990">
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/app/views/backend/matches/edit.blade.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="42" column="53" selection-start="1497" selection-end="1497" vertical-scroll-proportion="-14.347826" vertical-offset="300" max-vertical-offset="990">
+        <state line="54" column="61" selection-start="2047" selection-end="2047" vertical-scroll-proportion="-19.956522" vertical-offset="351" max-vertical-offset="1035">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/controllers/backend/MatchesController.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="114" column="0" selection-start="3084" selection-end="3084" vertical-scroll-proportion="0.53637904" vertical-offset="1258" max-vertical-offset="2565">
+        <state line="141" column="40" selection-start="3805" selection-end="3805" vertical-scroll-proportion="0.86632824" vertical-offset="1468" max-vertical-offset="2640">
           <folding />
         </state>
       </provider>
