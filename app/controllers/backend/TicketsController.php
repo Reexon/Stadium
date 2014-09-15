@@ -116,7 +116,7 @@ class TicketsController extends BaseController {
             });
         }
 
-		return Redirect::route('admin.tickets.index')->with('success','Ticket Created Succesfully');
+		return Redirect::back()->with('success','Ticket Created Succesfully');
 	}
 
 	/**
@@ -173,7 +173,7 @@ class TicketsController extends BaseController {
 
 		$ticket->update($data);
 
-		return Redirect::route('admin.tickets.index');
+		return Redirect::back()->with('success','Tickets Updated Succesfully');
 	}
 
 	/**

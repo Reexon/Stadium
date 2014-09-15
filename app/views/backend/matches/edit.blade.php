@@ -49,13 +49,15 @@
             {{ Bootstrap::date('date', '', $match->date->format('d-m-Y'), $errors, ['class' => 'form-control datepicker'], ['format' => 'DD-MM-YYYY'])}}
         </div>
     </div>
-
     <div class="form-group">
-        <div class="col-sm-offset-2 col-sm-10">
+        {{ Form::label('send_notifications','Send Notifications',['class' => 'col-sm-2 control-label']) }}
+        <div class="col-sm-10">
             {{Form::checkbox('send_notifications','yes',false)}}  Avvisa gli utenti della modifica
         </div>
+    </div>
+    <div class="form-group">
         <div class="col-sm-offset-2 col-sm-10">
-            {{ Form::submit('Edit Match!', array('class' => 'btn btn-primary')) }}
+            {{ Form::button(FA::icon('check').' Edit Match!', array('class' => 'btn btn-success','type' => 'submit')) }}
         </div>
     </div>
     {{ Form::close() }}

@@ -12,7 +12,7 @@
         var ticket_type = '{{ Form::text('label[]', Input::old('label'), array('class' => 'form-control','placeholder' => 'Ticket Type')) }}';
         var ticket_price ='{{ Form::text('price[]', Input::old('price'), array('class' => 'form-control','placeholder' => 'Price')) }}';
         var ticket_quantity ='{{ Form::text('quantity[]', Input::old('quantity'), array('class' => 'form-control','placeholder' => 'Quantity')) }}';
-        var selectMatch ='{{ Form::select('match_id[]', $events,null) }}';
+        var selectMatch ='{{ Form::select('event_id[]', $events,null,['class' => 'form-control']) }}';
         var addTicket = '{{ Form::button(FA::icon('plus'), ['class' => 'btn btn-large btn-primary openbutton','id' => 'addTicket'])}}';
         var deleteTicket ='{{ Form::button(FA::icon('times'), ['class' => 'btn btn-large btn-danger','id' => 'deleteTicket'])}}';
 

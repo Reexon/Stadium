@@ -23,29 +23,26 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="MatchesController.php" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/app/controllers/backend/MatchesController.php">
+      <file leaf-file-name="TicketsController.php" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/app/controllers/backend/TicketsController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="141" column="40" selection-start="3805" selection-end="3805" vertical-scroll-proportion="0.86632824" vertical-offset="1468" max-vertical-offset="2640">
-              <folding />
+            <state line="118" column="30" selection-start="4318" selection-end="4318" vertical-scroll-proportion="0.7733564" vertical-offset="1323" max-vertical-offset="3285">
+              <folding>
+                <element signature="e#37#63#0" expanded="true" />
+                <marker date="1410788324000" expanded="true" signature="6126:6444" placeholder="SELECT label..payments..." />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="edit.blade.php" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/views/backend/matches/edit.blade.php">
+      <file leaf-file-name="create.blade.php" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/views/backend/tickets/create.blade.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="54" column="61" selection-start="2047" selection-end="2047" vertical-scroll-proportion="-19.956522" vertical-offset="351" max-vertical-offset="1035">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="MatchesController.php" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/controllers/frontend/MatchesController.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="32" column="24" selection-start="604" selection-end="604" vertical-scroll-proportion="-8.521739" vertical-offset="119" max-vertical-offset="990">
-              <folding />
+            <state line="25" column="53" selection-start="1550" selection-end="1550" vertical-scroll-proportion="0.19480519" vertical-offset="180" max-vertical-offset="1185">
+              <folding>
+                <element signature="e#249#1493#0" expanded="false" />
+                <element signature="e#1550#2653#0" expanded="false" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -86,7 +83,6 @@
         <option value="$PROJECT_DIR$/app/controllers/backend/DashboardController.php" />
         <option value="$PROJECT_DIR$/app/views/backend/matches/create.blade.php" />
         <option value="$PROJECT_DIR$/app/views/backend/artists/create.blade.php" />
-        <option value="$PROJECT_DIR$/app/views/backend/tickets/create.blade.php" />
         <option value="$PROJECT_DIR$/app/views/backend/tickets/index.blade.php" />
         <option value="$PROJECT_DIR$/app/models/backend/Team.php" />
         <option value="$PROJECT_DIR$/app/controllers/backend/TeamsController.php" />
@@ -100,7 +96,6 @@
         <option value="$PROJECT_DIR$/app/views/backend/concerts/index.blade.php" />
         <option value="$PROJECT_DIR$/app/controllers/backend/ConcertsController.php" />
         <option value="$PROJECT_DIR$/app/views/backend/concerts/show.blade.php" />
-        <option value="$PROJECT_DIR$/app/controllers/backend/TicketsController.php" />
         <option value="$PROJECT_DIR$/app/models/backend/Order.php" />
         <option value="$PROJECT_DIR$/app/views/backend/users/show.blade.php" />
         <option value="$PROJECT_DIR$/app/views/backend/payments/create.blade.php" />
@@ -109,8 +104,10 @@
         <option value="$PROJECT_DIR$/app/views/frontend/feedbacks/create.blade.php" />
         <option value="$PROJECT_DIR$/app/controllers/frontend/MatchesController.php" />
         <option value="$PROJECT_DIR$/app/views/index.blade.php" />
-        <option value="$PROJECT_DIR$/app/views/backend/matches/edit.blade.php" />
         <option value="$PROJECT_DIR$/app/controllers/backend/MatchesController.php" />
+        <option value="$PROJECT_DIR$/app/views/backend/matches/edit.blade.php" />
+        <option value="$PROJECT_DIR$/app/views/backend/tickets/create.blade.php" />
+        <option value="$PROJECT_DIR$/app/controllers/backend/TicketsController.php" />
       </list>
     </option>
   </component>
@@ -275,7 +272,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="matches" />
+              <option name="myItemId" value="tickets" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -611,13 +608,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/views/backend/tickets/create.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="91" column="49" selection-start="3698" selection-end="3698" vertical-scroll-proportion="0.5190972" vertical-offset="1066" max-vertical-offset="1755">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/views/backend/tickets/index.blade.php">
       <provider selected="true" editor-type-id="text-editor">
         <state line="114" column="37" selection-start="3421" selection-end="3421" vertical-scroll-proportion="0.5434028" vertical-offset="662" max-vertical-offset="1335">
@@ -762,16 +752,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/controllers/backend/TicketsController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="196" column="52" selection-start="6327" selection-end="6327" vertical-scroll-proportion="0.41981983" vertical-offset="2707" max-vertical-offset="3285">
-          <folding>
-            <element signature="e#37#63#0" expanded="true" />
-            <marker date="1410782633000" expanded="true" signature="-1:-1" placeholder="SELECT label..payments..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/views/backend/payments/create.blade.php">
       <provider selected="true" editor-type-id="text-editor">
         <state line="166" column="8" selection-start="5453" selection-end="5453" vertical-scroll-proportion="0.2214533" vertical-offset="2002" max-vertical-offset="2580">
@@ -825,22 +805,42 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/controllers/frontend/MatchesController.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="32" column="24" selection-start="604" selection-end="604" vertical-scroll-proportion="-8.521739" vertical-offset="119" max-vertical-offset="990">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/views/backend/matches/edit.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="54" column="61" selection-start="2047" selection-end="2047" vertical-scroll-proportion="-19.956522" vertical-offset="351" max-vertical-offset="1035">
+        <state line="32" column="24" selection-start="604" selection-end="604" vertical-scroll-proportion="0.3316413" vertical-offset="119" max-vertical-offset="990">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/controllers/backend/MatchesController.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="141" column="40" selection-start="3805" selection-end="3805" vertical-scroll-proportion="0.86632824" vertical-offset="1468" max-vertical-offset="2640">
+        <state line="141" column="40" selection-start="3805" selection-end="3805" vertical-scroll-proportion="-22.26087" vertical-offset="1468" max-vertical-offset="2640">
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/views/backend/matches/edit.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="38" column="10" selection-start="1292" selection-end="1292" vertical-scroll-proportion="0.7404844" vertical-offset="142" max-vertical-offset="1065">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/views/backend/tickets/create.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="25" column="53" selection-start="1550" selection-end="1550" vertical-scroll-proportion="0.19480519" vertical-offset="180" max-vertical-offset="1185">
+          <folding>
+            <element signature="e#249#1493#0" expanded="false" />
+            <element signature="e#1550#2653#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/controllers/backend/TicketsController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="118" column="30" selection-start="4318" selection-end="4318" vertical-scroll-proportion="0.7733564" vertical-offset="1323" max-vertical-offset="3285">
+          <folding>
+            <element signature="e#37#63#0" expanded="true" />
+            <marker date="1410788324000" expanded="true" signature="6126:6444" placeholder="SELECT label..payments..." />
+          </folding>
         </state>
       </provider>
     </entry>
