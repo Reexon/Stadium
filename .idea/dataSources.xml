@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="DataSourceManagerImpl" format="xml" hash="3793271994">
-    <data-source source="LOCAL" name="MySQL - stadium@localhost" uuid="2fd42975-b430-4851-945d-ad4c8e56be8e">
+  <component name="DataSourceManagerImpl" format="xml" hash="4176833935">
+    <data-source source="LOCAL" name="MySQL - thrcodes_stadium@localhost" uuid="2fd42975-b430-4851-945d-ad4c8e56be8e">
       <driver-ref>mysql</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>com.mysql.jdbc.Driver</jdbc-driver>
-      <jdbc-url>jdbc:mysql://localhost:3306/stadium</jdbc-url>
+      <jdbc-url>jdbc:mysql://localhost:3306/thrcodes_stadium</jdbc-url>
       <user-name>root</user-name>
       <user-password>dfd8dfc5dfc5dfde</user-password>
       <schema-pattern>stadium.*</schema-pattern>
