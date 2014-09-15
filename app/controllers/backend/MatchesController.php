@@ -106,9 +106,11 @@ class MatchesController extends BaseController {
 	 */
 	public function edit($id)
 	{
+
 		$match = Match::find($id);
         $teams = Team::all()->lists('name', 'id_team');
-		return View::make($this->viewFolder.'matches.edit', compact('match','teams'));
+        $categories = Category::whereBetween('id_category',Match::$category)->lists('name','id_category');
+		return View::make($this->viewFolder.'matches.edit', compact('match','teams','categories'));
 	}
 
 	/**

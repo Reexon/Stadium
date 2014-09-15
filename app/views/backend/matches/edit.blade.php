@@ -38,6 +38,12 @@
         </div>
     </div>
     <div class="form-group">
+        {{ Form::label('category_id','Category',['class' => 'col-sm-2 control-label']) }}
+        <div class="col-sm-10">
+            {{ Form::select('category_id',$categories, Input::old('category_id'), array('class' => 'form-control')) }}
+        </div>
+    </div>
+    <div class="form-group">
         {{ Form::label('date','Date',['class' => 'col-sm-2 control-label']) }}
         <div class="col-sm-10">
             {{ Bootstrap::date('date', '', $match->date->format('d-m-Y'), $errors, ['class' => 'form-control datepicker'], ['format' => 'DD-MM-YYYY'])}}
