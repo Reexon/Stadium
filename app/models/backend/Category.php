@@ -19,4 +19,6 @@ class Category extends \Eloquent{
 
     protected $primaryKey = 'id_category';
 
+    public $timestamps = false;
+
 } 
