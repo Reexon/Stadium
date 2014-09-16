@@ -5,6 +5,7 @@ use Faker\Factory as Faker;
 use Backend\Model\Feedback;
 use Backend\Model\Payment;
 use Backend\Model\Order;
+use Backend\Model\Ticket;
 class FeedbackTableSeeder extends Seeder {
 
 	public function run()
@@ -14,17 +15,24 @@ class FeedbackTableSeeder extends Seeder {
 
 		foreach(range(1, 100) as $index)
 		{
+            $total = 0;
             foreach(range(1,4) as $boh){//3 order ogni payment
+                $qty_ticket = $faker->numberBetween($min = 1,$max=100);
+
                 Order::create([
-                    'quantity' => $faker->numberBetween($min = 1,$max=100),
+                    'quantity' => $qty_ticket,
                     'ticket_id' => $faker->numberBetween($min = 1,$max= 30),
                     'payment_id' => $index
                ]);
+
+                //calcolo il totale
+                $ticket = Ticket::find($index);
+                $total += $ticket->quantity * $qty_ticket;
             }
 
 
             Payment::create([
-                'total'     =>'',
+                'total'     =>$total,
                 'pay_date'  => $faker->unixTime,
                 'user_id'   => $faker->numberBetween($min = 1,$max=100),
                 'feedback_id'=> $index
