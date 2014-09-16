@@ -38,7 +38,7 @@ class DashboardController extends BaseController{
 
 
         Paginator::setPageName('ppayments');
-        $payments = Payment::orderBy('pay_date','desc')->paginate();
+        $payments = Payment::with('user')->orderBy('pay_date','desc')->limit(50)->paginate();
 
         $data = ['orderCount' => $order_count,
                 'ticketCount'   => $ticket_sell,

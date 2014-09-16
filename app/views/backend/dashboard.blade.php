@@ -42,7 +42,7 @@
         <div class="small-box bg-green">
             <div class="inner">
                 <h3>
-                    {{$data['ticketCount']}}
+                    {{number_format($data['ticketCount'],0,',','.')}}
                 </h3>
                 <p>
                     Ticket Selled
@@ -61,7 +61,7 @@
         <div class="small-box bg-yellow">
             <div class="inner">
                 <h3>
-                    {{number_format($data['total_amount'],0,',','.')}}<sup style="font-size: 20px">€</sup>
+                    {{number_format($data['total_amount'],2,',','.')}}<sup style="font-size: 20px">€</sup>
                 </h3>
                 <p>
                     T. Amount
@@ -116,7 +116,7 @@
                     <tr>
                         <td><a href="{{URL::to('admin/payments/'.$payment->id_payment)}}">{{$payment->id_payment}}</a></td>
                         <td><a href="{{URL::to('admin/users/'. $payment->user->id_user)}}">{{$payment->user->firstname}}</a></td>
-                        <td>{{ number_format($payment->total,0,',','.') }} €</td>
+                        <td>{{ number_format($payment->total,2,',','.') }} €</td>
                     </tr>
                 @endforeach
                 </tbody>
@@ -165,7 +165,6 @@
             <table class="table">
                 <thead>
                 <tr>
-                    <th>#</th>
                     <th>Match</th>
                     <th>Total-</th>
                 </tr>
@@ -174,7 +173,6 @@
                 @foreach($totalArray as $singleMatch)
 
                     <tr>
-                        <td>#</td>
                         <td>
                             <a href="{{URL::to('admin/matches/'.$singleMatch->id_event)}}">{{$singleMatch->label_match}}</a>
                         </td>
@@ -193,7 +191,6 @@
             <table class="table">
                 <thead>
                 <tr>
-                    <th>#</th>
                     <th>Match</th>
                     <th>Number</th>
                 </tr>
@@ -202,9 +199,8 @@
                 <?php Paginator::setPageName('psubscribers'); ?>
                 @foreach($subscriptions as $subscription)
                 <tr>
-                    <td>#</td>
                     <td><a href="{{URL::to('admin/matches/'.$subscription->id_event)}}">{{$subscription->label_match}}</a></td>
-                    <td><a href="#">{{$subscription->qty}}</a></td>
+                    <td>{{$subscription->qty}}</td>
                 </tr>
                 @endforeach
                 </tbody>
