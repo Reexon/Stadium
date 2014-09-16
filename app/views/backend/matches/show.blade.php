@@ -25,7 +25,7 @@
         </p>
     </div>
 <!-- Visualizzazione Di tutti i ticket -->
-<div class="col-md-3">
+<div class="col-md-4">
         @if(count($match->tickets)>0)
             <table class="table table-bordered">
                 <thead>
@@ -49,13 +49,12 @@
                 @endforeach
                 </tbody>
             </table>
-        <div class="clearfix">
-            <a class="btn btn-primary btn-lg btn-block btn-success" href="{{ URL::to('admin/tickets/create/'.$match->category_id.'/' . $match->id_event) }}">{{FA::icon('plus')}} Add Tickets</a>
-        </div>
         @else
             <h2>No Tickets !</h2>
-            <a class="btn btn-primary btn-lg btn-block btn-success" href="{{ URL::to('admin/tickets/create/'.$match->category_id.'/' . $match->id_event) }}">Create Tickets</a>
         @endif
+        <div class="clearfix">
+            <a class="btn btn-primary btn-lg btn-block btn-success" href="{{ URL::to('admin/tickets/create/'.$match->category_id.'/' . $match->id_event) }}">{{FA::icon('ticket')}} Add Tickets</a>
+        </div>
 </div>
 
 <!-- Visualizzazione di tutti gli acquisti -->
@@ -92,7 +91,7 @@
     <h2>No Purchases !</h2>
     @endif
     <div class="clearfix">
-        <a class="btn btn-primary btn-lg btn-block btn-warning" href="{{ URL::to('admin/payments/create') }}">{{FA::icon('plus')}} Add Payment</a>
+        <a class="btn btn-primary btn-lg btn-block btn-warning" href="{{ URL::to('admin/payments/create') }}">{{FA::icon('euro')}} Add Payment</a>
     </div>
     </div>
 
@@ -123,7 +122,7 @@
     @endif
     <div class="clearfix">
         <!--TODO:Link to page for adding new sub-->
-        <a class="btn btn-primary btn-lg btn-block btn-danger" href="">{{FA::icon('plus')}} Add Subscribers</a>
+        <a class="btn btn-primary btn-lg btn-block btn-danger" href="">{{FA::icon('envelope')}} Add Subscribers</a>
     </div>
 </div>
 @stop
