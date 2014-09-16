@@ -21,7 +21,7 @@ class FeedbackTableSeeder extends Seeder {
 
                 Order::create([
                     'quantity' => $qty_ticket,
-                    'ticket_id' => $faker->numberBetween($min = 1,$max= 30),
+                    'ticket_id' => $faker->numberBetween($min = 1,$max= Ticket::all()->count()),
                     'payment_id' => $index
                ]);
 
