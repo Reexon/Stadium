@@ -93,7 +93,7 @@ class MatchesController extends BaseController {
 	 */
 	public function show($id)
 	{
-		$match = Match::findOrFail($id);
+		$match = Match::with('tickets.orders.payment.user')->findOrFail($id);
 
 		return View::make($this->viewFolder.'matches.show', compact('match'));
 	}
