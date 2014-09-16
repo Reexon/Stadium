@@ -80,7 +80,7 @@
                 <tr>
                     <td><a href="{{URL::to('admin/users/'.$order->payment->user->id_user)}}">{{ $order->payment->user->firstname }} {{ $order->payment->user->lastname }}</a></td>
                     <td>{{ $order->quantity }}</td>
-                    <td>{{ $order->payment->total}}</td>
+                    <td>{{ number_format($order->payment->total,2,',','.')}} €</td>
                     <td>{{ $order->payment->pay_date->format('d-m-Y') }}</td>
                 </tr>
             @endforeach

@@ -127,7 +127,7 @@ class TicketsController extends BaseController {
 	 */
 	public function show($id)
 	{
-        $ticket = Ticket::with('events','orders.payment.user')->findOrFail($id);
+        $ticket = Ticket::with('event','orders.payment.user')->findOrFail($id);
 		return View::make($this->viewFolder.'tickets.show', compact('ticket'));
 	}
 
