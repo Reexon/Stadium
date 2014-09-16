@@ -145,9 +145,8 @@
             <tr>
                 <td><a href="{{URL::to('admin/payments/'.$payment->id_payment)}}">#{{ $payment->id_payment }}</a></td>
                 <td>{{ $payment->pay_date->format('d.m.Y')}}</td>
-                <td>{{ $payment->total }}</td>
+                <td>{{ number_format($payment->total,2,',','.')}} €</td>
             </tr>
-
             @endforeach
             </tbody>
         </table>
