@@ -130,7 +130,7 @@ Route::group(array('prefix' => 'admin', 'before' => 'auth|admin','namespace' => 
      * Payments
      */
     Route::get('payments/search','PaymentsController@search');
-    Route::get('payments/create/{category}','PaymentsController@create');
+    Route::get('payments/create/{category_id}/{event_id?}','PaymentsController@create');
     Route::resource('payments', 'PaymentsController');
 
     /*

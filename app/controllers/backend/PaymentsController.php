@@ -15,7 +15,7 @@ use Redirect;
 use Response;
 use Mail;
 use Backend\Model\Concert;
-
+use Backend\Model\Match;
 class PaymentsController extends BaseController {
 
 	/**
@@ -35,26 +35,30 @@ class PaymentsController extends BaseController {
 	 *
 	 * @return Response
 	 */
-	public function create($category)
+	public function create($category_id)
 	{
-        if($category == 'match'){
-        $events = DB::table('events as m')
-            ->select('id_event',DB::raw('CONCAT(t1.name," - ",t2.name," (",DATE_FORMAT(date,"%d/%m/%Y"),")") AS label_match'))
-            ->join('teams as t1','t1.id_team','=','m.home_id') //prelevo nome squadra in casa
-            ->join('teams as t2','t2.id_team','=','m.guest_id') //prelevo nome squadra ospite
-            ->join('tickets','id_event','=','event_id')//solo match che hanno qualche ticket nella tabella ticket
-            ->where('quantity','>',0) //i ticket presenti nella tabella devono essere di quantita >0
-            ->orderBy('date','desc')
-            ->lists('label_match','id_event');
 
-        }else if ($category == 'concert'){
+        if(in_array($category_id,Match::$category)){
+            $events = DB::table('events as m')
+                ->select('id_event',DB::raw('CONCAT(t1.name," - ",t2.name," (",DATE_FORMAT(date,"%d/%m/%Y"),")") AS label_match'))
+                ->join('teams as t1','t1.id_team','=','m.home_id') //prelevo nome squadra in casa
+                ->join('teams as t2','t2.id_team','=','m.guest_id') //prelevo nome squadra ospite
+                ->join('tickets','id_event','=','event_id')//solo match che hanno qualche ticket nella tabella ticket
+                ->where('quantity','>',0) //i ticket presenti nella tabella devono essere di quantita >0
+                ->where('m.category_id','=',$category_id)
+                ->orderBy('date','desc')
+                ->lists('label_match','id_event');
+
+        }else if (in_array($category_id,Concert::$category)){
             $events = Concert::select('id_event',DB::raw('teams.name as name'))
                 ->join('teams','home_id','=','id_team')
                 ->join('tickets','event_id','=','id_event')
                 ->where('quantity','>',0)
+                ->where('teams.category_id','=',$category_id)
                 ->orderBy('date','desc')
                 ->lists('name','id_event');
         }
+
         $users = User::select('id_user',DB::raw('CONCAT(firstname, " ", lastname) AS name'))->lists('name','id_user');
 
 		return View::make($this->viewFolder.'payments.create',compact('events','users'));
@@ -102,11 +106,11 @@ class PaymentsController extends BaseController {
          * Salvo la relazione
          * Genero l'uuid del feedback e lo salvo
          */
+
         $payment = new Payment($dataPayment);
         $user = User::find($user_id);
         $payment->feedback()->associate($feedback);
         $payment = $user->payments()->save($payment);
-
 
         for($i = 0; $i < count($ticket_id); $i++){
 
