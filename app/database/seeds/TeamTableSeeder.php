@@ -9,6 +9,7 @@ class TeamTableSeeder extends Seeder {
     public function run()
     {
 
+
         $teams = [
             'Milan',        'Atalanta',
             'Inter',        'Bologna',
@@ -17,7 +18,7 @@ class TeamTableSeeder extends Seeder {
             'Lecce',        'Cagliari',
             'Livorno',      'Palermo',
             'Barcellona',   'Sampdoria',
-            'Real Madrid',  'Parma',
+            'Real Madrid',
             'Liverpool',    'Lazio',
             'Napoli',       'Roma',
             'Empoli',       'Fiorentina',
@@ -26,7 +27,8 @@ class TeamTableSeeder extends Seeder {
         foreach($teams as $team)
         {
             Team::create([
-                'name'  => $team
+                'name'          => $team,
+                'category_id'   => 1
             ]);
         }
     }

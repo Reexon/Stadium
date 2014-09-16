@@ -11,6 +11,7 @@ class UserTableSeeder extends Seeder {
 		$faker = Faker::create();
 
         DB::table('users')->where('id_user',"<>",1)->delete();
+        DB::statement('ALTER TABLE users AUTO_INCREMENT = 2');
 		foreach(range(1, 100) as $index)
 		{
 			User::create([
