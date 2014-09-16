@@ -1,6 +1,7 @@
 <?php
 namespace Backend\Controller;
 
+use Backend\Model\Category;
 use Backend\Model\Concert;
 use Backend\Model\Artist;
 use View;
@@ -17,7 +18,9 @@ class ConcertsController extends BaseController {
 	 */
 	public function index()
 	{
-		$concerts = Concert::join('teams','home_id','=','id_team')->paginate();
+		$concerts = Concert::with('artist')
+            ->where('events.category_id','=',Concert::$concert)
+            ->paginate();
 
 		return View::make($this->viewFolder.'concerts.index', compact('concerts'));
 	}
@@ -101,9 +104,11 @@ class ConcertsController extends BaseController {
 	 */
 	public function edit($id)
 	{
-		$concert = Concert::find($id);
+		$concert = Concert::whereBetween('category_id',Concert::$category)->find($id);
+        $artists = Artist::whereBetween('category_id',Concert::$category)->lists('name','id_team');
+        $categories = Category::whereBetween('id_category',Concert::$category)->lists('name','id_category');
 
-		return View::make($this->viewFolder.'concerts.edit', compact('concert'));
+		return View::make($this->viewFolder.'concerts.edit', compact('concert','artists','categories'));
 	}
 
 	/**
@@ -114,7 +119,11 @@ class ConcertsController extends BaseController {
 	 */
 	public function update($id)
 	{
+
 		$concert = Concert::findOrFail($id);
+
+        if(!strtotime(Input::get('date')))
+            return Redirect::back()->withErrors('Date Error');
 
 		$validator = Validator::make($data = Input::all(), Concert::$rules);
 
@@ -123,9 +132,18 @@ class ConcertsController extends BaseController {
 			return Redirect::back()->withErrors($validator)->withInput();
 		}
 
+        //converto la data solo dopo validazione
+        $data['date'] = date("Y-m-d", strtotime(Input::get('date')));
+
 		$concert->update($data);
 
-		return Redirect::route('admin.concerts.index');
+        //avvisare gli utenti che hanno acquistato biglietto, della modifica ?
+        if(Input::get('send_notifications')){
+            //TODO:inviare mail a utenti
+        }
+
+
+        return Redirect::route('admin.concerts.index');
 	}
 
 	/**
