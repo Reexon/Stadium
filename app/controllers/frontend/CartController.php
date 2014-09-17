@@ -9,7 +9,6 @@ use View;
 use Session;
 use Backend\Model\Ticket;
 use Input;
-use Auth;
 use Str;
 use Backend\Model\Feedback;
 class CartController extends BaseController{
@@ -19,15 +18,17 @@ class CartController extends BaseController{
 
         //TODO Da migliorare assolutamente, dal carrello produce una tabella riepilogativa.
         $cartItems = [];
+        $total_amount = 0;
         if($cart != null){
             foreach($cart as $ticket_id => $quantity){
                 $item = Ticket::find($ticket_id)->toArray();
+                $total_amount += $item['price'] * $quantity;
                 $item['buy_quantity'] = $quantity;
                 $cartItems[]=$item;
             }
         }
 
-        return View::make($this->viewFolder.'cart.show',compact('cartItems'));
+        return View::make($this->viewFolder.'cart.show',compact('cartItems','total_amount'));
     }
 
     /**
@@ -40,9 +41,11 @@ class CartController extends BaseController{
 
         //TODO:Da migliorare assolutamente, dal carrello produce una tabella riepilogativa.
         $cartItems = [];
+        $total_amount = 0;
         if($cart != null){
             foreach($cart as $ticket_id => $quantity){
                 $item = Ticket::find($ticket_id)->toArray();
+                $total_amount += $item['price'] * $quantity;
                 $item['buy_quantity'] = $quantity;
                 $cartItems[]=$item;
             }
@@ -67,7 +70,7 @@ class CartController extends BaseController{
             Session::put('user',$user);
 
 
-        return View::make($this->viewFolder.'cart.review',compact('cartItems'));
+        return View::make($this->viewFolder.'cart.review',compact('cartItems','total_amount'));
     }
     public function clear(){
         Session::forget('cart');
@@ -86,14 +89,16 @@ class CartController extends BaseController{
         $cart = Session::get('cart');
         //TODO Da migliorare assolutamente, dal carrello produce una tabella riepilogativa.
         $cartItems = [];
+        $total_amount = 0;
         if($cart != null){
             foreach($cart as $ticket_id => $quantity){
                 $item = Ticket::find($ticket_id)->toArray();
+                $total_amount += $item['price'] * $quantity;
                 $item['buy_quantity'] = $quantity;
                 $cartItems[]=$item;
             }
         }
-        return View::make($this->viewFolder.'cart.personalInfo',compact('cartItems'));
+        return View::make($this->viewFolder.'cart.personalInfo',compact('cartItems','total_amount'));
     }
 
     /**

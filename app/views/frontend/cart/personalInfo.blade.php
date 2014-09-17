@@ -135,10 +135,15 @@
         <td>{{$item['label']}}</td>
         <td>{{$item['buy_quantity']}}</td>
         <td>{{number_format($item['buy_quantity'] * $item['price'],2,',','.')}} €</td>
-        <td></td>
     </tr>
     @endforeach
     </tbody>
+    <tfoot>
+        <tr>
+            <td colspan="3"></td>
+            <td><b>{{number_format($total_amount,2,',','.')}} €</b></td>
+        </tr>
+    </tfoot>
 </table>
 
 

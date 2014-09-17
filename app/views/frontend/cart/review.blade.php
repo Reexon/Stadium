@@ -137,10 +137,15 @@
         <td>{{$item['label']}}</td>
         <td>{{$item['buy_quantity']}}</td>
         <td>{{number_format($item['buy_quantity'] * $item['price'],2,',','.')}} €</td>
-        <td></td>
     </tr>
     @endforeach
     </tbody>
+    <tfoot>
+        <tr>
+            <th colspan="3"></th>
+            <th><b>{{number_format($total_amount,2,',','.')}} €</b></th>
+        </tr>
+    </tfoot>
 </table>
 
 <a href="{{URL::to('cart/clear')}}" class="btn btn-primary">Clear</a>

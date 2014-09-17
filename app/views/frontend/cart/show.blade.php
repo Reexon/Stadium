@@ -37,9 +37,7 @@
             </tr>
         </thead>
         <tbody>
-            <?php $total_price = 0; ?>
             @foreach($cartItems as $item)
-            <?php $total_price += $item['price']; ?>
                 <tr>
                     <td>{{$item['label']}}</td>
                     <td>{{ Form::selectRange('quantity', 1, $item['quantity'],$item['buy_quantity']) }}</td>
@@ -54,7 +52,8 @@
         <tfoot>
             <tr>
                 <th colspan="3"></th>
-                <th><b>{{number_format($total_price,2,',',' ')}} €</b></th>
+                <th><b>{{number_format($total_amount,2,',',' ')}} €</b></th>
+                <th></th>
             </tr>
         </tfoot>
     </table>
