@@ -25,11 +25,27 @@ class PaymentsController extends BaseController {
 	 */
 	public function index()
 	{
+
 		$payments = Payment::with('orders','user')->orderBy('pay_date','desc')->paginate();
 
 		return View::make($this->viewFolder.'payments.index', compact('payments'));
 	}
 
+    /**
+     * Visualizza Tutti i pagamenti relativi alla categoria di evento.
+     *
+     * @param $category_id id della categoria da visualizzare
+     */
+    public function showCategory($category_id){
+
+        if(in_array($category_id,Match::$category)){
+            //TODO: da aggiungere: where category_id = $category_id
+            $payments = Payment::with('user','feedback','orders.ticket.category')->paginate();
+        }else if(in_array($category_id,Concert::$category)){
+            //TODO:Selezionare gli eventi di tipo concerto
+        }
+        return View::make($this->viewFolder.'payments.category', compact('payments'));
+    }
 	/**
 	 * Show the form for creating a new payment
 	 *
