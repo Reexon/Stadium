@@ -8,7 +8,7 @@ use Backend\Model\Ticket;
 use Input;
 class CartController extends BaseController{
 
-    public function info(){
+    public function show(){
         $cart = Session::get('cart');
 
         //TODO Da migliorare assolutamente, dal carrello produce una tabella riepilogativa.
@@ -21,9 +21,29 @@ class CartController extends BaseController{
             }
         }
 
-        return View::make('infoCart',compact('cartItems'));
+        return View::make($this->viewFolder.'cart.show',compact('cartItems'));
     }
 
+    /**
+     * Riepilogo delle informazioni inserite, prima di procedere con il pagamento
+     *
+     * @return \Illuminate\View\View
+     */
+    public function review(){
+        $cart = Session::get('cart');
+
+        //TODO Da migliorare assolutamente, dal carrello produce una tabella riepilogativa.
+        $cartItems = [];
+        if($cart != null){
+            foreach($cart as $ticket_id => $quantity){
+                $item = Ticket::find($ticket_id)->toArray();
+                $item['buy_quantity'] = $quantity;
+                $cartItems[]=$item;
+            }
+        }
+
+        return View::make($this->viewFolder.'cart.review',compact('cartItems'));
+    }
     public function clear(){
         Session::forget('cart');
         return \Redirect::back();
@@ -33,7 +53,11 @@ class CartController extends BaseController{
 
     }
 
-    public function checkout(){
+    /*
+     * Pagina dove viene richiesto di inserire le informazioni personali
+     * Prima di procedere al pagamento
+     */
+    public function personalInfo(){
         $cart = Session::get('cart');
         //TODO Da migliorare assolutamente, dal carrello produce una tabella riepilogativa.
         $cartItems = [];
@@ -44,26 +68,27 @@ class CartController extends BaseController{
                 $cartItems[]=$item;
             }
         }
-        return View::make('checkout',compact('cartItems'));
+        return View::make($this->viewFolder.'cart.personalInfo',compact('cartItems'));
     }
 
     /**
      * Effettua alcuni calcoli per poi indirizzare l'user alla pagina di pagamento
+     * Viene richiamata quando l'utente clicca "checkout"
      */
     public function buy(){
-        //parametri da passare a triveneto
 
         $id=89025555;           //id di connessione
         $password="test";       //password di connessione
 
-        $importo=123.45;        //importo da pagare
-        $trackid="STDBI373Y873";      //id transazione
+        //è necessario foramttare il totale in NNNNNN.NN
+        $importo= number_format($this->total(),2,'.','');//importo da pagare
+
+        $trackid="STD".time();      //id transazione
 
         $urlpositivo="http://stadium.reexon.net/cart/receipt";
         $urlnegativo="http://stadium.reexon.net/cart/error";
         $codicemoneta="978";  //euro
-        $data="id=$id&password=$password&action=4&langid=ITA&currencycode=$codicemoneta&amt=$importo&responseURL=$urlpositivo&errorURL=$urlnegativo&trackid=$trackid&udf1=AA&udf2=BB&udf3=CC&udf4=DD&udf5=EE";
-        //inizio recupero valori dal sito del consorzio
+        $data="id=$id&password=$password&action=4&langid=ITA&currencycode=$codicemoneta&amt=$importo&responseURL=$urlpositivo&errorURL=$urlnegativo&trackid=$trackid&udf1=".\Auth::user()->id_user."&udf2=".\Auth::user()->email."&udf3=CC&udf4=DD&udf5=EE";
         $curl_handle=curl_init();
         //curl_setopt($curl_handle,CURLOPT_URL,'https://www.constriv.com:443/cg/servlet/PaymentInitHTTPServlet');
         curl_setopt($curl_handle,CURLOPT_URL,'https://test4.constriv.com/cg301/servlet/PaymentInitHTTPServlet');
@@ -93,8 +118,9 @@ class CartController extends BaseController{
         }
 
     }
+
     public function result(){
-       return View::make('result');
+       return View::make($this->viewFolder.'cart.result');
     }
     //in caso di errore
     public function error(){
@@ -102,27 +128,53 @@ class CartController extends BaseController{
         echo "AAA";
     }
 
+    /**
+     * Una volta che il pagamento è stato processato dal consorzio triveneto,
+     * indipendentemente dal suo esito (fallito o successo)
+     * questo metodo viene richiamato, redirezionerà l'user alla pagina result.
+     */
     public function receipt(){
         header("Access-Control-Allow-Origin: *");
         $PayID=$_POST["paymentid"];
+        $responseCode =$_POST["responsecode"];
         $TransID=$_POST["tranid"];
         $ResCode=$_POST["result"];
-        $AutCode=$_POST["auth"];
+        $AutCode=$_POST["Auth"];
         $PosDate=$_POST["postdate"];
         $TrckID=$_POST["trackid"];
         $cardType =$_POST['cardtype'];
-        $UD1=$_POST["udf1"];
+        $user_id=$_POST["udf1"];
         $UD2=$_POST["udf2"];
         $UD3=$_POST["udf3"];
         $UD4=$_POST["udf4"];
         $UD5=$_POST["udf5"];
 
-        // Nell URL seguente inserire l'indirizzo corretto del proprio server
-        $ReceiptURL="REDIRECT=http://stadium.reexon.net/cart/result?PaymentID=".$PayID."&TransID=".$TransID."&TrackID=".$TrckID."&postdate=".$PosDate."&resultcode=".$ResCode."&cardtype=".$cardType."&auth=".$AutCode;
+        $ReceiptURL="REDIRECT=http://stadium.reexon.net/cart/result?PaymentID=".$PayID.
+            "&TransID=".$TransID.
+            "&TrackID=".$TrckID.
+            "&postdate=".$PosDate.
+            "&resultcode=".$ResCode.
+            "&cardtype=".$cardType.
+            "&auth=".$AutCode.
+            "&responseCode=".$responseCode.
+            "&user_id=".$user_id;
+
         echo $ReceiptURL;
     }
 
-    private function totalAmount(){
+    /**
+     * Calcola il prezzo dell'intero carrello
+     *
+     * @return int prezzo totale dei oggetti nel carrello
+     */
+    private function total(){
+        $cart = Session::get('cart');
+        $total = 0;
 
+        foreach($cart as $ticket_id => $quantity){
+            $ticket = Ticket::find($ticket_id);
+            $total += $ticket->price * $quantity;
+        }
+        return $total;
     }
 } 
