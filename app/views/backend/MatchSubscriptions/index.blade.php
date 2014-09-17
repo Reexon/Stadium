@@ -26,32 +26,31 @@
             <p>From here you can view all subscribers of all match</p>
         </div>
 
-        <!-- Table -->
-        <table class="table">
-            <thead>
-                <tr>
-                    <th>#</th>
-                    <th>Email</th>
-                    <th>Match</th>
-                    <th>Action</th>
-                </tr>
-            </thead>
-            <tbody>
-            @foreach($subscriptions as $subscription)
-                <tr>
-                    <td>{{$subscription->id_subscription}}</td>
-                    <td>{{$subscription->email}}</td>
-                    <td><a href="{{URL::to('admin/matches/'.$subscription->id_event)}}">{{$subscription->label_match}}</a></td>
-                    <td>
-                        {{Form::open(['url' => 'admin/MatchSubscriptions/'.$subscription->id_subscription,'method' =>'DELETE'])}}
-                        {{Form::button(FA::icon('trash-o'), array('type' => 'submit', 'class' => 'btn btn-small btn-danger'))}}
-                        {{Form::close()}}
-                    </td>
-                </tr>
-            @endforeach
-            </tbody>
-        </table>
+            <!-- Table -->
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Email</th>
+                        <th>Match</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                @foreach($subscriptions as $subscription)
+                    <tr>
+                        <td>{{$subscription->email}}</td>
+                        <td><a href="{{URL::to('admin/matches/'.$subscription->id_event)}}">{{$subscription->label_match}}</a></td>
+                        <td>
+                            {{Form::open(['url' => 'admin/MatchSubscriptions/'.$subscription->id_subscription,'method' =>'DELETE'])}}
+                            {{Form::button(FA::icon('trash-o'), array('type' => 'submit', 'class' => 'btn btn-small btn-danger'))}}
+                            {{Form::close()}}
+                        </td>
+                    </tr>
+                @endforeach
+                </tbody>
+            </table>
         {{$subscriptions->links()}}
     </div>
+
 
     @stop
