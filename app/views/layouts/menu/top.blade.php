@@ -5,7 +5,7 @@
 </li>
 <!-- Cart-->
 <li>
-    <a href="{{URL::to('cart/info')}}">
+    <a href="{{URL::to('cart/show')}}">
         {{FA::icon('shopping-cart')}} Cart
         <span class="label label-danger">{{count(Session::get('cart'))}}</span>
     </a>

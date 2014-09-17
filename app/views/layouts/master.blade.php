@@ -12,6 +12,7 @@
 
     <!-- Ionicons -->
     {{HTML::style('css/ionicons.min.css')}}
+
     <!--<link href="css/ionicons.min.css" rel="stylesheet" type="text/css" />-->
 
     <!-- Theme style -->

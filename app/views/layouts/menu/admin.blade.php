@@ -16,6 +16,7 @@
             <li><a href="{{ URL::to('admin/matches/create') }}">{{FA::icon('plus')}}  Add Match</a></li>
             <li><a href="{{ URL::to('admin/tickets/create/1')}}">{{FA::icon('ticket')}}  Add Tickets</a></li>
             <li><a href="{{ URL::to('admin/teams') }}">{{FA::icon('flag-checkered')}} Teams</a></li>
+            <li><a href="{{ URL::to('admin/payments/category/1') }}">{{FA::icon('money')}} Payments</a></li>
         </ul>
     </li>
     <!-- ./ Matches -->
@@ -30,6 +31,7 @@
             <li><a href="{{ URL::to('admin/concerts/create') }}">{{FA::icon('plus')}}  Add Concerts</a></li>
             <li><a href="{{ URL::to('admin/tickets/create/2')}}">{{FA::icon('ticket')}}  Add Tickets</a></li>
             <li><a href="{{ URL::to('admin/artists')}}">{{FA::icon('user')}}  Artists</a></li>
+            <li><a href="{{ URL::to('admin/payments/category/2') }}">{{FA::icon('money')}} Payments</a></li>
         </ul>
     </li>
     <!-- ./ Concert -->
