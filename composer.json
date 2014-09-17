@@ -9,7 +9,8 @@
         "cornford/bootstrapper": "1.*",
         "barryvdh/laravel-debugbar": "1.*",
 		"pda/pheanstalk": "3.*",
-        "fzaninotto/faker": "v1.3.0"
+        "fzaninotto/faker": "v1.3.0",
+        "kartik-v/bootstrap-star-rating": "dev-master"
 	},
     "require-dev": {
         "way/generators": "2.*"

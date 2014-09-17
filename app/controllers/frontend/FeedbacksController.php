@@ -44,7 +44,7 @@ class FeedbacksController extends BaseController{
         $feedback->comment = $comment;
         $feedback->rating = 5;
         $feedback->save();
-        return Redirect::to('/')->with('message','This Feedback has been already sent !');
+        return Redirect::to('/')->with('message','Thank you for submitting your Feedback !');
     }
 
     public function show(){

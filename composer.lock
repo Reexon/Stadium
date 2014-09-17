@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "891d03efa2a144fde0173cb7e7b66ef8",
+    "hash": "28d69866a45d1af8f9e0a9899bcfe0e0",
     "packages": [
         {
             "name": "barryvdh/laravel-debugbar",
@@ -381,6 +381,47 @@
                 "tokenizer"
             ],
             "time": "2013-10-09 04:20:00"
+        },
+        {
+            "name": "kartik-v/bootstrap-star-rating",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/kartik-v/bootstrap-star-rating.git",
+                "reference": "3ef5ee7858c5f1d543405d361e417e90bc74522a"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/kartik-v/bootstrap-star-rating/zipball/3ef5ee7858c5f1d543405d361e417e90bc74522a",
+                "reference": "3ef5ee7858c5f1d543405d361e417e90bc74522a",
+                "shasum": ""
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "kartik\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD 3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Kartik Visweswaran",
+                    "email": "kartikv2@gmail.com",
+                    "homepage": "http://www.krajee.com/"
+                }
+            ],
+            "description": "A simple yet powerful JQuery star rating plugin for Bootstrap.",
+            "homepage": "https://github.com/kartik-v/bootstrap-star-rating",
+            "keywords": [
+                "Rating",
+                "bootstrap",
+                "jquery",
+                "star"
+            ],
+            "time": "2014-08-23 00:57:12"
         },
         {
             "name": "khill/fontawesomephp",
@@ -1979,9 +2020,9 @@
 
     ],
     "minimum-stability": "stable",
-    "stability-flags": [
-
-    ],
+    "stability-flags": {
+        "kartik-v/bootstrap-star-rating": 20
+    },
     "prefer-stable": false,
     "platform": [
 
