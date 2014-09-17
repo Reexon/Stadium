@@ -45,17 +45,6 @@
             <li><a href="{{ URL::to('admin/MatchSubscriptions/create') }}">{{FA::icon('plus')}} Add Subscription Match</a></li>
         </ul>
     </li>
-    <!-- Tickets -->
-    <li class="treeview">
-        <a href="#">
-            {{FA::icon('ticket')}}<span>Tickets</span>
-            <i class="fa fa-angle-left pull-right"></i>
-        </a>
-        <ul class="treeview-menu">
-            <li><a href="{{ URL::to('admin/tickets') }}">{{FA::icon('eye')}}  Show All Tickets</a></li>
-            <li><a href="{{ URL::to('admin/tickets/create') }}">{{FA::icon('plus')}}  Add Tickets</a></li>
-        </ul>
-    </li>
     <!-- Users -->
     <li class="treeview">
         <a href="#">
@@ -68,18 +57,6 @@
         </ul>
     </li>
     <!-- ./Users -->
-    <!-- Payments -->
-    <li class="treeview">
-        <a href="#">
-            {{FA::icon('money')}}<span>Payments</span>
-            <i class="fa fa-angle-left pull-right"></i>
-        </a>
-        <ul class="treeview-menu">
-            <li><a href="{{ URL::to('admin/payments') }}">{{FA::icon('eye')}}  Show All Payment</a></li>
-            <li><a href="{{ URL::to('admin/payments/create') }}">{{FA::icon('plus')}}  Add Payment</a></li>
-        </ul>
-    </li>
-    <!-- ./Payments -->
     <!-- ./Tickets -->
     <li>
         <a href="{{URL::to('admin/gain')}}">
