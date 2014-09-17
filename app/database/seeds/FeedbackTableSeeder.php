@@ -35,7 +35,9 @@ class FeedbackTableSeeder extends Seeder {
                 'total'     =>$total,
                 'pay_date'  => $faker->unixTime,
                 'user_id'   => $faker->numberBetween($min = 1,$max=100),
-                'feedback_id'=> $index
+                'feedback_id'=> $index,
+                'trackid'   =>'STDRX'.$faker->unique()->unixTime,
+                'status'    => 'APPROVED'
             ]);
 
             //creo feedback per il payment
