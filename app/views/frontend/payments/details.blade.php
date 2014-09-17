@@ -22,7 +22,7 @@
     <!-- Default panel contents -->
     <div class="panel-heading">
         <b>Date Purchase:</b>{{$payment->pay_date->format('d.m.Y')}}
-        <span class="badge pull-right">Purchase Code: #{{$payment->id_payment}}</span>
+        <span class="badge pull-right">Track Code: #{{$payment->trackid}}</span>
     </div>
     <table class="table">
         <thead>

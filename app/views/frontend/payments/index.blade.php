@@ -50,7 +50,13 @@
                                value="{{$payment->feedback->rating}}">
                     </td>
                     <td>{{$payment->trackid}}</td>
-                    <td>{{$payment->status}}</td>
+                    <td>
+                        @if($payment->status == "APPROVED")
+                            <span class="label label-success">Success</span>
+                        @else
+                            <span class="label label-danger">Problem</span>
+                        @endif
+                    </td>
                     <td>
                         <a class="btn btn-small btn-success" href="{{ URL::to('user/payments/' . $payment->id_payment) }}" data-toggle="tooltip" data-original-title="Show Details">{{ FA::icon('eye')}}</a>
                         <a class="btn btn-small btn-warning" href="{{ URL::to('feedbacks/create/' . $payment->feedback->uuid) }}" data-toggle="tooltip" data-original-title="Feedback">{{ FA::icon('star')}}</a>

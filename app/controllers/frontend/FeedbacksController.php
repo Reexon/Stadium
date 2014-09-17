@@ -43,7 +43,7 @@ class FeedbacksController extends BaseController{
         $feedback->comment = $comment;
         $feedback->rating = Input::get('rating');
         $feedback->save();
-        
+
         return Redirect::to('user/payments')->with('message','Thank you for submitting your Feedback !');
     }
 
