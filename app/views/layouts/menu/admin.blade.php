@@ -86,5 +86,13 @@
             {{FA::icon('euro')}} <span>Gain</span>
         </a>
     </li>
+    <!-- My Payments -->
+    <li>
+        <a href="{{URL::to('user/payments')}}">
+            {{FA::icon('money')}}
+            <span>My Payments</span>
+        </a>
+    </li>
+    <!-- ./ My Payments -->
 
 </ul>
