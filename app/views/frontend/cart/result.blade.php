@@ -26,15 +26,19 @@
         <li class="progtrckr-current">Receipt</li>
     </ol>
 </div>
-
-<h1> Your Order has been placed !</h1>
+@if(Input::get('resultcode')=="APPROVED")
+    <h1> Your Order has been placed !</h1>
+@else
+    <h1> Error Encountered During Payment Process, Trackid: {{Input::get('trackid')}}</h1>
+    Please Contact The Adminsitrator <a href="mailto:info@stadium.it">info@stadium.it</a>
+@endif
 Email will be sent to you
 {{Input::get('email')}}-
 {{Input::get('mobile')}}-
 {{Input::get('firstname')}}-
 {{Input::get('lastname')}}-
 Transaction ID(Assegnato dal cons): {{Input::get('TransID')}}
-Track ID: {{Input::get('TrackID')}}
+Track ID: {{Input::get('trackid')}}
 Payment ID(Interno) : {{Input::get('PaymentID')}}
 Result: {{Input::get('resultcode')}}
 Card Type: {{Input::get('cardtype')}}

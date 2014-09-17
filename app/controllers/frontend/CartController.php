@@ -12,6 +12,7 @@ use Input;
 use Str;
 use Backend\Model\Feedback;
 use Auth;
+use Mail;
 class CartController extends BaseController{
 
     public function show(){
@@ -114,7 +115,7 @@ class CartController extends BaseController{
         //è necessario foramttare il totale in NNNNNN.NN
         $importo= number_format($this->total(),2,'.','');//importo da pagare
 
-        $trackid="STD".time();      //id transazione
+        $trackid="STDRX".time();      //id transazione
 
         $urlpositivo="http://stadium.reexon.net/cart/receipt";
         $urlnegativo="http://stadium.reexon.net/cart/error";
@@ -195,8 +196,10 @@ class CartController extends BaseController{
         $payment = new Payment([
                 'pay_date'  => time(),
                 'total'     =>  0,
-                'status'    => Input::get('resultcode')
+                'status'    => Input::get('resultcode'),
+                'trackid'   => Input::get('trackid')
         ]);
+
         $payment->user()->associate($user);
         $feedback = new Feedback(['uuid' => Str::random(32)]);
         $feedback->save();
@@ -207,6 +210,7 @@ class CartController extends BaseController{
         $orders = [];
         $cart = Session::get('cart');
         $total_amount = 0;
+
         foreach($cart as $ticket_id => $quantity){
             $ticket = Ticket::find($ticket_id);
             $temp = new Order(['quantity'  => $quantity]);
@@ -219,11 +223,23 @@ class CartController extends BaseController{
         //salvo totale
         $payment->total = $total_amount;
         $payment->save();
+
         //associo ordini al payment
         $payment->orders()->saveMany($orders);
 
-       //svuoto carrello
-       Session::forget('cart');
+        $data['payment'] = serialize($payment);
+        $data['feedback']= serialize($payment);
+        $data['user']    = serialize($user);
+
+        if(Input::get('resultcode') == "APPROVED")
+           //svuoto carrello
+           Session::forget('cart');
+
+        Mail::queue('emails.newpayment', $data, function($message) use ($payment,$user)
+        {
+            $message->to($user->email)->subject('Stadium - Problem during your payment #'.$payment->trackid );
+        });
+
        return View::make($this->viewFolder.'cart.result');
     }
 
@@ -260,7 +276,7 @@ class CartController extends BaseController{
 
         $ReceiptURL="REDIRECT=http://stadium.reexon.net/cart/result?PaymentID=".$PayID.
             "&TransID=".$TransID.
-            "&TrackID=".$TrckID.
+            "&trackid=".$TrckID.
             "&postdate=".$PosDate.
             "&resultcode=".$ResCode.
             "&cardtype=".$cardType.

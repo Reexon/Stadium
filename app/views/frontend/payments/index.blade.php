@@ -29,6 +29,8 @@
                     <th>Date</th>
                     <th>Total</th>
                     <th>Rating</th>
+                    <th>TrackID</th>
+                    <th>Status</th>
                     <th>Action</th>
                 </tr>
             </thead>
@@ -47,6 +49,8 @@
                                data-readonly="true"
                                value="{{$payment->feedback->rating}}">
                     </td>
+                    <td>{{$payment->trackid}}</td>
+                    <td>{{$payment->status}}</td>
                     <td>
                         <a class="btn btn-small btn-success" href="{{ URL::to('user/payments/' . $payment->id_payment) }}" data-toggle="tooltip" data-original-title="Show Details">{{ FA::icon('eye')}}</a>
                         <a class="btn btn-small btn-warning" href="{{ URL::to('feedbacks/create/' . $payment->feedback->uuid) }}" data-toggle="tooltip" data-original-title="Feedback">{{ FA::icon('star')}}</a>
