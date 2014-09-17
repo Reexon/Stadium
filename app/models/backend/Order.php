@@ -5,7 +5,8 @@ class Order extends \Eloquent {
 
 	// Add your validation rules here
 	public static $rules = [
-	    'quantity' => 'required'
+	    'quantity' => 'required',
+        'ticket_id'=> 'required'
 	];
 
 	// Don't forget to fill this array
