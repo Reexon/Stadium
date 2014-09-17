@@ -27,12 +27,17 @@
     </ol>
 </div>
 
+<h1> Your Order has been placed !</h1>
+Email will be sent to you
+{{Input::get('email')}}-
+{{Input::get('mobile')}}-
+{{Input::get('firstname')}}-
+{{Input::get('lastname')}}-
 Transaction ID(Assegnato dal cons): {{Input::get('TransID')}}
 Track ID: {{Input::get('TrackID')}}
 Payment ID(Interno) : {{Input::get('PaymentID')}}
-Result: {{Input::get('resultCode')}}
+Result: {{Input::get('resultcode')}}
 Card Type: {{Input::get('cardtype')}}
 Auth Code : {{Input::get('auth')}}
 Date : {{Input::get('postdate')}}
-User Id: {{Input::get('user_id')}}
 @stop

@@ -25,7 +25,6 @@ class PaymentsController extends BaseController {
 	 */
 	public function index()
 	{
-
 		$payments = Payment::with('orders','user')->orderBy('pay_date','desc')->paginate();
 
 		return View::make($this->viewFolder.'payments.index', compact('payments'));
@@ -43,6 +42,7 @@ class PaymentsController extends BaseController {
             $payments = Payment::with('user','feedback','orders.ticket.category')->paginate();
         }else if(in_array($category_id,Concert::$category)){
             //TODO:Selezionare gli eventi di tipo concerto
+            $payments = Payment::with('user','feedback','orders.ticket.category')->paginate();
         }
         return View::make($this->viewFolder.'payments.category', compact('payments'));
     }

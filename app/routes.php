@@ -54,12 +54,13 @@ Route::get('cart/clear','Frontend\Controller\CartController@clear');
 Route::get('cart/show','Frontend\Controller\CartController@show');
 Route::get('cart/personalInfo','Frontend\Controller\CartController@personalInfo');
 Route::post('cart/review','Frontend\Controller\CartController@review');
-Route::post('cart/buy','Frontend\Controller\CartController@buy');
-Route::get('cart/result','Frontend\Controller\CartController@result');
+Route::post('cart/buy','Frontend\Controller\CartController@buy');;
+//il consorzio invia i dati a questa pagina in modalità post, da non cambiare
 Route::post('cart/receipt','Frontend\Controller\CartController@receipt');
-Route::post('cart/error',function(){
-    dd(Input::all());
-});
+//dopo il receipt si viene spediti a questa pagina
+Route::get('cart/result','Frontend\Controller\CartController@result');
+//nel caso in cui non si riesca a raggiungere la pagina receipt, questa pagina verrà richiamata
+Route::get('cart/error','Frontend\Controller\CartController@error');
 
 Route::post('users/login','Backend\Controller\UsersController@login');
 

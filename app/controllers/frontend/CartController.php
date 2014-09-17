@@ -2,10 +2,16 @@
 
 namespace Frontend\Controller;
 
+use Backend\Model\Order;
+use Backend\Model\Payment;
+use Backend\Model\User;
 use View;
 use Session;
 use Backend\Model\Ticket;
 use Input;
+use Auth;
+use Str;
+use Backend\Model\Feedback;
 class CartController extends BaseController{
 
     public function show(){
@@ -32,7 +38,7 @@ class CartController extends BaseController{
     public function review(){
         $cart = Session::get('cart');
 
-        //TODO Da migliorare assolutamente, dal carrello produce una tabella riepilogativa.
+        //TODO:Da migliorare assolutamente, dal carrello produce una tabella riepilogativa.
         $cartItems = [];
         if($cart != null){
             foreach($cart as $ticket_id => $quantity){
@@ -41,6 +47,25 @@ class CartController extends BaseController{
                 $cartItems[]=$item;
             }
         }
+
+        /**
+         * Indipendentemente se l'utente è loggato o no, memorizzo tutte le informazioni che ha inserito, questo perche:
+         * - utente puo' gia essere loggato, ma vuole inserire dati diversi da quelli di registrazione
+         * - utente non è loggato, e quindi deve inserire tutte le informazioni
+         */
+
+            $user = [
+                'firstname' => Input::get('firstname'),
+                'lastname'  => Input::get('lastname'),
+                'mobile'    => Input::get('mobile'),
+                'email'     => Input::get('email'),
+                'alt_mobile'=> Input::get('alt_mobile'),
+                'address'   => Input::get('address'),
+                'city'      => Input::get('city'),
+                'cap'       => Input::get('cap'),
+            ];
+            Session::put('user',$user);
+
 
         return View::make($this->viewFolder.'cart.review',compact('cartItems'));
     }
@@ -88,7 +113,23 @@ class CartController extends BaseController{
         $urlpositivo="http://stadium.reexon.net/cart/receipt";
         $urlnegativo="http://stadium.reexon.net/cart/error";
         $codicemoneta="978";  //euro
-        $data="id=$id&password=$password&action=4&langid=ITA&currencycode=$codicemoneta&amt=$importo&responseURL=$urlpositivo&errorURL=$urlnegativo&trackid=$trackid&udf1=".\Auth::user()->id_user."&udf2=".\Auth::user()->email."&udf3=CC&udf4=DD&udf5=EE";
+        //prelevo i dati inseriti durante la fase acquisto
+        $user = (object)Session::get('user');
+
+        $data="id=$id
+            &password=$password
+            &action=4
+            &langid=ITA
+            &currencycode=$codicemoneta
+            &amt=$importo
+            &responseURL=$urlpositivo
+            &errorURL=$urlnegativo
+            &trackid=$trackid
+            &udf1=".$user->email."
+            &udf2=".$user->mobile."
+            &udf3=".$user->firstname."
+            &udf4=".$user->lastname."
+            &udf5=EE";
         $curl_handle=curl_init();
         //curl_setopt($curl_handle,CURLOPT_URL,'https://www.constriv.com:443/cg/servlet/PaymentInitHTTPServlet');
         curl_setopt($curl_handle,CURLOPT_URL,'https://test4.constriv.com/cg301/servlet/PaymentInitHTTPServlet');
@@ -119,34 +160,91 @@ class CartController extends BaseController{
 
     }
 
+    /**
+     * Pagina di visualizzazione esito transazione
+     *
+     * @return \Illuminate\View\View
+     */
     public function result(){
+       //Controllo esistenza mail gia registrata
+        $user = User::where('email','=',Input::get('email'))->get();
+
+        //se non esiste utenza, la creo
+        if($user->isEmpty()){
+          $user = User::create([
+            'firstname' =>Input::get('firstname'),
+            'lastname'  =>Input::get('lastname'),
+            'mobile'    =>Input::get('mobile'),
+            'email'     =>Input::get('email')
+          ]);
+        }
+
+        $user = $user->first();
+
+        //inizializzo il pagamento
+        $payment = new Payment([
+                'pay_date'  => time(),
+                'total'     =>  0
+        ]);
+        $payment->user()->associate($user);
+        $feedback = new Feedback(['uuid' => Str::random(32)]);
+        $feedback->save();
+        $payment->feedback()->associate($feedback);
+        $payment->save();
+
+        //inizializzo i ordini
+        $orders = [];
+        $cart = Session::get('cart');
+        $total_amount = 0;
+        foreach($cart as $ticket_id => $quantity){
+            $ticket = Ticket::find($ticket_id);
+            $temp = new Order(['quantity'  => $quantity]);
+            $temp->ticket()->associate($ticket);
+            $temp->payment()->associate($payment);
+            $orders[] = $temp;
+            $total_amount += $ticket->price * $quantity;
+
+        }
+        //salvo totale
+        $payment->total = $total_amount;
+        $payment->save();
+        //associo ordini al payment
+        $payment->orders()->saveMany($orders);
+
+       //svuoto carrello
+       Session::forget('cart');
        return View::make($this->viewFolder.'cart.result');
     }
-    //in caso di errore
+
+    /**
+     * Se il consorzio non riesce a indirizzare l'user all metodo receipt
+     * allora verrà spedito qui.
+     */
     public function error(){
         header("Access-Control-Allow-Origin: *");
-        echo "AAA";
+        dd(Input::all());
     }
 
     /**
      * Una volta che il pagamento è stato processato dal consorzio triveneto,
      * indipendentemente dal suo esito (fallito o successo)
-     * questo metodo viene richiamato, redirezionerà l'user alla pagina result.
+     * viene richiamato, redirezionerà l'user alla pagina result.
      */
     public function receipt(){
+
         header("Access-Control-Allow-Origin: *");
         $PayID=$_POST["paymentid"];
         $responseCode =$_POST["responsecode"];
         $TransID=$_POST["tranid"];
         $ResCode=$_POST["result"];
-        $AutCode=$_POST["Auth"];
+        $AutCode=$_POST["auth"];
         $PosDate=$_POST["postdate"];
         $TrckID=$_POST["trackid"];
         $cardType =$_POST['cardtype'];
-        $user_id=$_POST["udf1"];
-        $UD2=$_POST["udf2"];
-        $UD3=$_POST["udf3"];
-        $UD4=$_POST["udf4"];
+        $email=$_POST["udf1"];
+        $mobile=$_POST["udf2"];
+        $firstname=$_POST["udf3"];
+        $lastname=$_POST["udf4"];
         $UD5=$_POST["udf5"];
 
         $ReceiptURL="REDIRECT=http://stadium.reexon.net/cart/result?PaymentID=".$PayID.
@@ -157,7 +255,10 @@ class CartController extends BaseController{
             "&cardtype=".$cardType.
             "&auth=".$AutCode.
             "&responseCode=".$responseCode.
-            "&user_id=".$user_id;
+            "&email=".$email.
+            "&mobile=".$mobile.
+            "&firstname=".$firstname.
+            "&lastname=".$lastname;
 
         echo $ReceiptURL;
     }
