@@ -26,7 +26,7 @@ class UsersController extends BaseController{
     }
     public function paymentDetail($id_payment){
 
-        $payment = Payment::with('user')->where('user_id','=',Auth::id())->findOrFail($id_payment);
+        $payment = Payment::with('user','feedback')->where('user_id','=',Auth::id())->findOrFail($id_payment);
         return View::make($this->viewFolder."payments.details",compact('payment'));
     }
 

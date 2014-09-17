@@ -11,6 +11,7 @@ use Backend\Model\Ticket;
 use Input;
 use Str;
 use Backend\Model\Feedback;
+use Auth;
 class CartController extends BaseController{
 
     public function show(){
@@ -171,25 +172,30 @@ class CartController extends BaseController{
      * @return \Illuminate\View\View
      */
     public function result(){
-       //Controllo esistenza mail gia registrata
-        $user = User::where('email','=',Input::get('email'))->get();
 
-        //se non esiste utenza, la creo
-        if($user->isEmpty()){
-          $user = User::create([
-            'firstname' =>Input::get('firstname'),
-            'lastname'  =>Input::get('lastname'),
-            'mobile'    =>Input::get('mobile'),
-            'email'     =>Input::get('email')
-          ]);
-        }
+        if(!Auth::check()){
+            //Controllo esistenza mail gia registrata
+            $user = User::where('email','=',Input::get('email'))->get();
 
-        $user = $user->first();
+            //se non esiste utenza, la creo
+            if($user->isEmpty()){
+              $user = User::create([
+                'firstname' =>Input::get('firstname'),
+                'lastname'  =>Input::get('lastname'),
+                'mobile'    =>Input::get('mobile'),
+                'email'     =>Input::get('email')
+              ]);
+            }
+
+            $user = $user->first();
+        }else
+            $user = Auth::user();
 
         //inizializzo il pagamento
         $payment = new Payment([
                 'pay_date'  => time(),
-                'total'     =>  0
+                'total'     =>  0,
+                'status'    => Input::get('resultcode')
         ]);
         $payment->user()->associate($user);
         $feedback = new Feedback(['uuid' => Str::random(32)]);

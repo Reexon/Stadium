@@ -25,7 +25,6 @@ class FeedbacksController extends BaseController{
 
         $feedback = Feedback::where('uuid','=',$UUID)->with('payment.orders.ticket','payment.user')->get()->first();
 
-
         if(!is_object($feedback))
             return "No feedback found with this UUID";
 
@@ -42,9 +41,10 @@ class FeedbacksController extends BaseController{
 
         $feedback = Feedback::find($id_feedback);
         $feedback->comment = $comment;
-        $feedback->rating = 5;
+        $feedback->rating = Input::get('rating');
         $feedback->save();
-        return Redirect::to('/')->with('message','Thank you for submitting your Feedback !');
+        
+        return Redirect::to('user/payments')->with('message','Thank you for submitting your Feedback !');
     }
 
     public function show(){
