@@ -2,6 +2,7 @@
 
 @section('head')
 @parent
+{{HTML::style('css/ProgressTracker.css')}}
 @stop
 
 
@@ -16,7 +17,16 @@
 @stop
 
 @section('content')
-{{ Form::model(Auth::user(),['url' => 'cart/buy','class'=>'form-horizontal','role' => 'form']) }}
+<div style="margin-bottom: 25px;">
+    <ol class="progtrckr" data-progtrckr-steps="5">
+        <li class="progtrckr-done"><b>Check Your Cart</b></li>
+        <li class="progtrckr-current">Personal Info</li>
+        <li class="progtrckr-todo">Review</li>
+        <li class="progtrckr-todo">Checkout</li>
+        <li class="progtrckr-todo">Receipt</li>
+    </ol>
+</div>
+{{ Form::model(Auth::user(),['url' => 'cart/review','class'=>'form-horizontal','role' => 'form']) }}
 
 <div class="row">
     <div class="col-md-5">
@@ -124,7 +134,7 @@
         <td>#{{$item['id_ticket']}}</td>
         <td>{{$item['label']}}</td>
         <td>{{$item['buy_quantity']}}</td>
-        <td>{{$item['buy_quantity'] * $item['price']}}</td>
+        <td>{{number_format($item['buy_quantity'] * $item['price'],2,',','.')}} €</td>
         <td></td>
     </tr>
     @endforeach

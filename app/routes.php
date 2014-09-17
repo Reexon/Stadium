@@ -51,8 +51,9 @@ Route::post('cart/update',function(){
  * Cart Manager
  */
 Route::get('cart/clear','Frontend\Controller\CartController@clear');
-Route::get('cart/info','Frontend\Controller\CartController@info');
-Route::get('cart/checkout','Frontend\Controller\CartController@checkout');
+Route::get('cart/show','Frontend\Controller\CartController@show');
+Route::get('cart/personalInfo','Frontend\Controller\CartController@personalInfo');
+Route::post('cart/review','Frontend\Controller\CartController@review');
 Route::post('cart/buy','Frontend\Controller\CartController@buy');
 Route::get('cart/result','Frontend\Controller\CartController@result');
 Route::post('cart/receipt','Frontend\Controller\CartController@receipt');
@@ -131,6 +132,7 @@ Route::group(array('prefix' => 'admin', 'before' => 'auth|admin','namespace' => 
      */
     Route::get('payments/search','PaymentsController@search');
     Route::get('payments/create/{category_id}/{event_id?}','PaymentsController@create');
+    Route::get('payments/category/{category_id}','PaymentsController@showCategory');
     Route::resource('payments', 'PaymentsController');
 
     /*
