@@ -265,7 +265,12 @@ class CartController extends BaseController{
 
         Mail::queue('emails.newpayment', $data, function($message) use ($payment,$user)
         {
-            $message->to($user->email)->subject('Stadium - Problem during your payment #'.$payment->trackid );
+           if(Input::get('resultcode') == "APPROVED")
+                $subject = "Your order has been placed ! - #";
+            else if(Input::get('resultcode') == "NOT APPROVED")
+                $subject = "Problem processing your payment #";
+
+            $message->to($user->email)->subject('Stadium - '.$subject.$payment->trackid );
         });
 
        return View::make($this->viewFolder.'cart.result');
