@@ -13,6 +13,9 @@ use Str;
 use Backend\Model\Feedback;
 use Auth;
 use Mail;
+use Validator;
+use Redirect;
+
 class CartController extends BaseController{
 
     public function show(){
@@ -39,6 +42,26 @@ class CartController extends BaseController{
      * @return \Illuminate\View\View
      */
     public function review(){
+
+        /*
+         * devo controllare se nel form precedente sono stati compilati i campi obbligatori
+         */
+        $validator = Validator::make($data = Input::all(), [
+            'firstname' => 'required|alpha|min:3',
+            'lastname'  => 'required|alpha|min:3',
+            'mobile'    => 'required|min:6',
+            'email'     => 'required|email',
+            'address'   => 'required|min:5',
+            'city'      => 'required|min:3',
+            'cap'       => 'required'
+        ]);
+
+        if ($validator->fails())
+        {
+            return Redirect::back()->withErrors($validator)->withInput();
+        }
+        //-- fine controlli
+
         $cart = Session::get('cart');
 
         //TODO:Da migliorare assolutamente, dal carrello produce una tabella riepilogativa.
@@ -88,6 +111,7 @@ class CartController extends BaseController{
      * Prima di procedere al pagamento
      */
     public function personalInfo(){
+
         $cart = Session::get('cart');
         //TODO Da migliorare assolutamente, dal carrello produce una tabella riepilogativa.
         $cartItems = [];
@@ -180,16 +204,20 @@ class CartController extends BaseController{
 
             //se non esiste utenza, la creo
             if($user->isEmpty()){
+                $user = (object)Input::get('firstname');
               $user = User::create([
-                'firstname' =>Input::get('firstname'),
-                'lastname'  =>Input::get('lastname'),
-                'mobile'    =>Input::get('mobile'),
-                'email'     =>Input::get('email')
+                'firstname' => $user->firstname,
+                'lastname'  => $user->lastname,
+                'mobile'    => $user->mobile,
+                'email'     => $user->email,
+                'address'   => $user->address,
+                'cap'       => $user->cap,
+                'city'      => $user->city
               ]);
-            }
+            }else
+                $user = $user->first();
 
-            $user = $user->first();
-        }else
+        }else //se utente è loggato
             $user = Auth::user();
 
         //inizializzo il pagamento
@@ -228,7 +256,7 @@ class CartController extends BaseController{
         $payment->orders()->saveMany($orders);
 
         $data['payment'] = serialize($payment);
-        $data['feedback']= serialize($payment);
+        $data['feedback']= serialize($feedback);
         $data['user']    = serialize($user);
 
         if(Input::get('resultcode') == "APPROVED")

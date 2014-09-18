@@ -12,6 +12,7 @@ use Backend\Model\Feedback;
 use View;
 use Input;
 use Redirect;
+use Auth;
 
 class FeedbacksController extends BaseController{
 
@@ -44,7 +45,10 @@ class FeedbacksController extends BaseController{
         $feedback->rating = Input::get('rating');
         $feedback->save();
 
-        return Redirect::to('user/payments')->with('message','Thank you for submitting your Feedback !');
+        if(Auth::check())
+            return Redirect::to('user/payments')->with('message','Thank you for submitting your Feedback !');
+        else
+            return Redirect::to('/')->with('message','Thank you for submitting your Feedback !');
     }
 
     public function show(){

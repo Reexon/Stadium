@@ -43,8 +43,13 @@ class UsersController extends BaseController {
 	 */
 	public function store()
 	{
-
-		$validator = Validator::make($data = Input::all(), User::$rules);
+        /**
+         * TODO: Bisogna gestire il caso in cui si registra un utente
+         * che pero' precedentemente ha effettuato acquisti.
+         * si tratta di aggiornare l'user esistente, ma bisogna fare attenzione nel caso in cui
+         * sia un'altra persona a utilizzare la mail di un'altra persona.
+         */
+        $validator = Validator::make($data = Input::all(), User::$rules);
 
 		if ($validator->fails())
 		{
