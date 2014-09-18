@@ -25,11 +25,10 @@
         <table class="table">
             <thead>
                 <tr>
-                    <th>#</th>
+                    <th>ID</th>
                     <th>Date</th>
                     <th>Total</th>
                     <th>Rating</th>
-                    <th>TrackID</th>
                     <th>Status</th>
                     <th>Action</th>
                 </tr>
@@ -37,7 +36,7 @@
             <tbody>
             @foreach($userInfo->payments as $payment)
                 <tr>
-                    <td>{{$payment->id_payment}}</td>
+                    <td>{{$payment->trackid}}</td>
                     <td>{{$payment->pay_date->format('d.m.Y')}}</td>
                     <td>{{number_format($payment->total,2,',','.')}} €</td>
                     <td>
@@ -49,12 +48,19 @@
                                data-readonly="true"
                                value="{{$payment->feedback->rating}}">
                     </td>
-                    <td>{{$payment->trackid}}</td>
+
                     <td>
                         @if($payment->status == "APPROVED")
                             <span class="label label-success">Success</span>
                         @else
                             <span class="label label-danger">Problem</span>
+                        @endif
+                    </td>
+                    <td>
+                        @if($payment->trackingcode == NULL)
+                            <span class="label label-danger">Not Shipped</span>
+                        @else
+                            {{$payment->trackingcode}}
                         @endif
                     </td>
                     <td>
