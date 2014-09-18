@@ -59,7 +59,7 @@
     </table>
 
         <a href="{{URL::to('cart/clear')}}" class="btn btn-danger">{{FA::icon('trash-o')}} Clear</a>
-        <a href="{{URL::to('cart/personalInfo')}}" class="btn btn-warning">Next Step</a>
+        <a href="{{URL::to('cart/personalInfo')}}" class="btn btn-warning pull-right">Next Step</a>
 @else
 
 <div class="alert alert-warning alert-dismissable">

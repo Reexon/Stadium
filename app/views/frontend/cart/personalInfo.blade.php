@@ -147,7 +147,7 @@
 </table>
 
 
-<a href="{{URL::to('cart/clear')}}" class="btn btn-primary">Clear</a>
+<a href="{{URL::to('cart/clear')}}" class="btn btn-danger">{{FA::icon('trash-o')}} Clear</a>
 @else
 
 <div class="alert alert-warning alert-dismissable">
@@ -156,6 +156,6 @@
 </div>
 @endif
 
-{{ Form::button('Checkout',['type' => 'submit','class' =>'btn btn-warning']) }}
+{{ Form::button('Checkout',['type' => 'submit','class' =>'btn btn-warning pull-right']) }}
 {{ Form::close() }}
 @stop
