@@ -259,9 +259,17 @@ class CartController extends BaseController{
         $data['feedback']= serialize($feedback);
         $data['user']    = serialize($user);
 
-        if(Input::get('resultcode') == "APPROVED")
+        if(Input::get('resultcode') == "APPROVED"){
+            //aggiorno ticket disponibili
+            foreach($cart as $ticket_id => $quantity){
+                $ticket = Ticket::find($ticket_id);
+                $ticket->quantity -= $quantity;
+                $ticket->save();
+            }
            //svuoto carrello
            Session::forget('cart');
+        }
+
 
         Mail::queue('emails.newpayment', $data, function($message) use ($payment,$user)
         {
@@ -282,7 +290,9 @@ class CartController extends BaseController{
      */
     public function error(){
         header("Access-Control-Allow-Origin: *");
-        dd(Input::all());
+        $error['code'] = Input::get('Error');
+        $error['text'] = Input::get('ErrorText');
+        echo $error['code'];
     }
 
     /**
