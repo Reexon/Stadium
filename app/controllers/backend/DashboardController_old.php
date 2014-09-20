@@ -15,7 +15,7 @@ use Frontend\Model\MatchSubscription;
 use View;
 use Paginator;
 
-class DashboardController extends BaseController{
+class DashboardController_old extends BaseController{
 
     public function index(){
         $order_count = Payment::where('pay_date','>',DB::raw('DATE_SUB(curdate(), INTERVAL 1 WEEK)'))->count();

@@ -134,6 +134,8 @@ Route::group(array('prefix' => 'admin', 'before' => 'auth|admin','namespace' => 
     Route::get('payments/search','PaymentsController@search');
     Route::get('payments/create/{category_id}/{event_id?}','PaymentsController@create');
     Route::get('payments/category/{category_id}','PaymentsController@showCategory');
+    Route::get('payments/{event_id}/trackingCode','PaymentsController@addTrackingCode');
+    Route::post('payments/{event_id}/updateTrackingCode','PaymentsController@updateTrackingCode');
     Route::resource('payments', 'PaymentsController');
 
     /*

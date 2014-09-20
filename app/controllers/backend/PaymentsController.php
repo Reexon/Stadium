@@ -1,6 +1,7 @@
 <?php
 namespace Backend\Controller;
 
+use Backend\Model\Event;
 use Backend\Model\Feedback;
 use Backend\Model\Payment;
 use View;
@@ -25,9 +26,16 @@ class PaymentsController extends BaseController {
 	 */
 	public function index()
 	{
-		$payments = Payment::with('orders','user')->orderBy('pay_date','desc')->paginate();
+        //pagamenti andati a buon fine
+		$successPayments = Payment::with('orders','user')->orderBy('pay_date','desc')->where('status','=','APPROVED')->get();
 
-		return View::make($this->viewFolder.'payments.index', compact('payments'));
+        //pagamenti con autorizzazione negata
+        $failedPayments = Payment::with('orders','user')->orderBy('pay_date','desc')->where('status','=','NOT APPROVED')->get();
+
+        //pagamenti con errore nei dati (carta,scadenza,credito insuff, ecc)
+        $problemPayments = Payment::with('orders','user')->orderBy('pay_date','desc')->whereNull('status')->get();
+
+		return View::make($this->viewFolder.'payments.index', compact('failedPayments','problemPayments','successPayments'));
 	}
 
     /**
@@ -39,7 +47,7 @@ class PaymentsController extends BaseController {
 
         if(in_array($category_id,Match::$category)){
             //TODO: da aggiungere: where category_id = $category_id
-            $payments = Payment::with('user','feedback','orders.ticket.category')->paginate();
+            $payments = Payment::with('user','feedback','orders.ticket.category')->orderBy('pay_date','desc')->paginate();
         }else if(in_array($category_id,Concert::$category)){
             //TODO:Selezionare gli eventi di tipo concerto
             $payments = Payment::with('user','feedback','orders.ticket.category')->paginate();
@@ -278,5 +286,33 @@ class PaymentsController extends BaseController {
     public function search(){
         //$payments = Payment::orderBy('pay_date','desc')->with('orders','user')->where('firstname','LIKE','%'.Input::get('firstname').'$')->paginate(3);
         return View::make($this->viewFolder.'payments.index', compact('payments'));
+    }
+
+    /**
+     * @param $payment_id il payment a cui si sta aggiungendo il codice tracking
+     *
+     * @return \Illuminate\View\View
+     */
+    public function addTrackingCode($payment_id){
+        $payment = Payment::find($payment_id);
+        return View::make($this->viewFolder.'payments.trackingcode',compact('payment'));
+    }
+
+    /**
+     * @param $payment_id Il codice payment a cui si sta modificando il tracking code
+     */
+    public function updateTrackingCode($payment_id){
+
+        //modifico tracking code e lo salvo
+        $payment = Payment::with('user','orders.ticket')->findOrFail($payment_id);
+        $payment->trackingcode = Input::get('trackingcode');
+        $payment->save();
+
+        //TODO: controllo se e a chi devo inviare avviso
+
+
+        //prelevo categoria evento, per fare indirizzamento
+        $category_id = $payment->orders->first()->ticket->category_id;
+        return Redirect::to("admin/payments/category/$category_id")->with('success','Codice Tracking Modificato/Inserito con successo !');
     }
 }

@@ -29,7 +29,8 @@
                     <th>Date</th>
                     <th>Total</th>
                     <th>Rating</th>
-                    <th>Status</th>
+                    <th>Pay Status</th>
+                    <th>Tracking Code</th>
                     <th>Action</th>
                 </tr>
             </thead>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="DataSourceManagerImpl" format="xml" hash="4176833935">
+  <component name="DataSourceManagerImpl" format="xml" hash="4201702599">
     <data-source source="LOCAL" name="MySQL - thrcodes_stadium@localhost" uuid="2fd42975-b430-4851-945d-ad4c8e56be8e">
       <driver-ref>mysql</driver-ref>
       <synchronize>true</synchronize>
@@ -10,6 +10,19 @@
       <user-password>dfd8dfc5dfc5dfde</user-password>
       <schema-pattern>stadium.*</schema-pattern>
       <default-schemas>stadium.*</default-schemas>
+      <driver-properties>
+        <property name="zeroDateTimeBehavior" value="convertToNull" />
+        <property name="tinyInt1isBit" value="false" />
+      </driver-properties>
+      <libraries />
+    </data-source>
+    <data-source source="LOCAL" name="MySQL - thrcodes_stadium@Bluehost" uuid="c8919b20-f8cd-4baf-90c4-f86b8b3b2257">
+      <driver-ref>mysql</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>com.mysql.jdbc.Driver</jdbc-driver>
+      <jdbc-url>jdbc:mysql://ftp.3codestudio.net:3306/thrcodes_stadium</jdbc-url>
+      <user-name>thrcodes</user-name>
+      <user-password>dfdcdffcdfcfdf9ddfe4df99df98df9edfcbdf80dfea</user-password>
       <driver-properties>
         <property name="zeroDateTimeBehavior" value="convertToNull" />
         <property name="tinyInt1isBit" value="false" />

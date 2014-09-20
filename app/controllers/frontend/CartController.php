@@ -204,15 +204,16 @@ class CartController extends BaseController{
 
             //se non esiste utenza, la creo
             if($user->isEmpty()){
-                $user = (object)Input::get('firstname');
+
+              $userObj = (object)Session::get('user');
               $user = User::create([
-                'firstname' => $user->firstname,
-                'lastname'  => $user->lastname,
-                'mobile'    => $user->mobile,
-                'email'     => $user->email,
-                'address'   => $user->address,
-                'cap'       => $user->cap,
-                'city'      => $user->city
+                'firstname' => $userObj->firstname,
+                'lastname'  => $userObj->lastname,
+                'mobile'    => $userObj->mobile,
+                'email'     => $userObj->email,
+                'address'   => $userObj->address,
+                'cap'       => $userObj->cap,
+                'city'      => $userObj->city
               ]);
             }else
                 $user = $user->first();
@@ -220,12 +221,20 @@ class CartController extends BaseController{
         }else //se utente è loggato
             $user = Auth::user();
 
-        //inizializzo il pagamento
+        //inizializzo il pagamento inserendo i dati di spedizione del form e non quelli dell'user
+        $userObj = (object)Session::get('user');
         $payment = new Payment([
                 'pay_date'  => time(),
                 'total'     =>  0,
                 'status'    => Input::get('resultcode'),
-                'trackid'   => Input::get('trackid')
+                'trackid'   => Input::get('trackid'),
+                'firstname' => $userObj->firstname,
+                'lastname'  => $userObj->lastname,
+                'mobile'    => $userObj->mobile,
+                'email'     => $userObj->email,
+                'city'      => $userObj->city,
+                'cap'       => $userObj->cap,
+                'address'   => $userObj->address
         ]);
 
         $payment->user()->associate($user);
@@ -270,18 +279,21 @@ class CartController extends BaseController{
            Session::forget('cart');
         }
 
+        $errorText = Input::get('ErrorText');
+        $data['errorCode'] = Input::get('Error');
+        $data['errorText'] = $errorText;
 
-        Mail::queue('emails.newpayment', $data, function($message) use ($payment,$user)
+        Mail::queue('emails.newpayment', $data, function($message) use ($payment,$userObj)
         {
            if(Input::get('resultcode') == "APPROVED")
-                $subject = "Your order has been placed ! - #";
-            else if(Input::get('resultcode') == "NOT APPROVED")
-                $subject = "Problem processing your payment #";
+                $subject = "Your order has been placed ! - #".$payment->trackid;
+           else
+                $subject = "Problem processing your payment !";
 
-            $message->to($user->email)->subject('Stadium - '.$subject.$payment->trackid );
+            $message->to($userObj->email)->subject('Stadium - '.$subject);
         });
 
-       return View::make($this->viewFolder.'cart.result');
+       return View::make($this->viewFolder.'cart.result',compact('payment','user','errorText'));
     }
 
     /**
@@ -303,34 +315,42 @@ class CartController extends BaseController{
     public function receipt(){
 
         header("Access-Control-Allow-Origin: *");
-        $PayID=$_POST["paymentid"];
-        $responseCode =$_POST["responsecode"];
-        $TransID=$_POST["tranid"];
-        $ResCode=$_POST["result"];
-        $AutCode=$_POST["auth"];
-        $PosDate=$_POST["postdate"];
-        $TrckID=$_POST["trackid"];
-        $cardType =$_POST['cardtype'];
-        $email=$_POST["udf1"];
-        $mobile=$_POST["udf2"];
-        $firstname=$_POST["udf3"];
-        $lastname=$_POST["udf4"];
-        $UD5=$_POST["udf5"];
 
-        $ReceiptURL="REDIRECT=http://stadium.reexon.net/cart/result?PaymentID=".$PayID.
-            "&TransID=".$TransID.
-            "&trackid=".$TrckID.
-            "&postdate=".$PosDate.
-            "&resultcode=".$ResCode.
-            "&cardtype=".$cardType.
-            "&auth=".$AutCode.
-            "&responseCode=".$responseCode.
-            "&email=".$email.
-            "&mobile=".$mobile.
-            "&firstname=".$firstname.
-            "&lastname=".$lastname;
+        if(isset($_POST['Error'])){
+            echo "REDIRECT=http://stadium.reexon.net/cart/result?PaymentID=".$_POST["paymentid"].
+                "&Error=".$_POST['Error'].
+                "&ErrorText=".$_POST['ErrorText'];
+        }else{
+            $PayID=$_POST["paymentid"];
+            $responseCode =$_POST["responsecode"];
+            $TransID=$_POST["tranid"];
+            $ResCode=$_POST["result"];
+            $AutCode=$_POST["auth"];
+            $PosDate=$_POST["postdate"];
+            $TrckID=$_POST["trackid"];
+            $cardType =$_POST['cardtype'];
+            $email=$_POST["udf1"];
+            $mobile=$_POST["udf2"];
+            $firstname=$_POST["udf3"];
+            $lastname=$_POST["udf4"];
 
-        echo $ReceiptURL;
+            $UD5=$_POST["udf5"];
+
+            $ReceiptURL="REDIRECT=http://stadium.reexon.net/cart/result?PaymentID=".$PayID.
+                "&TransID=".$TransID.
+                "&trackid=".$TrckID.
+                "&postdate=".$PosDate.
+                "&resultcode=".$ResCode.
+                "&cardtype=".$cardType.
+                "&auth=".$AutCode.
+                "&responseCode=".$responseCode.
+                "&email=".$email.
+                "&mobile=".$mobile.
+                "&firstname=".$firstname.
+                "&lastname=".$lastname;
+
+            echo $ReceiptURL;
+        }
     }
 
     /**

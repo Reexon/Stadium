@@ -26,22 +26,31 @@
         <li class="progtrckr-current">Receipt</li>
     </ol>
 </div>
-@if(Input::get('resultcode')=="APPROVED")
+@if($payment->status =="APPROVED")
     <h1> Your Order has been placed !</h1>
-@else
-    <h1> Error Encountered During Payment Process, Trackid: {{Input::get('trackid')}}</h1>
+@elseif($payment->status == "NOT APPROVED")
+    <h1> Error Encountered During Payment Process, Trackid: {{$payment->trackid}}</h1>
     Please Contact The Adminsitrator <a href="mailto:info@stadium.it">info@stadium.it</a>
 @endif
-Email will be sent to you
-{{Input::get('email')}}-
-{{Input::get('mobile')}}-
-{{Input::get('firstname')}}-
-{{Input::get('lastname')}}-
-Transaction ID(Assegnato dal cons): {{Input::get('TransID')}}
-Track ID: {{Input::get('trackid')}}
-Payment ID(Interno) : {{Input::get('PaymentID')}}
-Result: {{Input::get('resultcode')}}
-Card Type: {{Input::get('cardtype')}}
-Auth Code : {{Input::get('auth')}}
-Date : {{Input::get('postdate')}}
+
+@if($errorText != "")
+    <h1>{{$errorText}}</h1>
+@else
+    Email will be sent to you
+    {{$user->email}}<br>
+    {{$user->mobile}}<br>
+    {{$user->firstname}}<br>
+    {{$user->lastname}}<br>
+    {{$user->addresss}}<br>
+    {{$user->city}}<br>
+
+    Transaction ID(Assegnato dal cons): {{Input::get('TransID')}}
+    Track ID: {{Input::get('trackid')}}
+    Payment ID(Interno) : {{Input::get('PaymentID')}}
+    Result: {{Input::get('resultcode')}}
+    Card Type: {{Input::get('cardtype')}}
+    Auth Code : {{Input::get('auth')}}
+    Date : {{Input::get('postdate')}}
+@endif
+
 @stop

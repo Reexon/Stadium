@@ -13,14 +13,24 @@ Hi {{$user->firstname}} {{$user->lastname}},<br>
 
     Please, after you've received the tickets, <a href="{{URL::to('feedbacks/create/'.$feedback->uuid )}}">leave us a feedback</a>.<br>
 
-@else
+@elseif($payment->status =="NOT APPROVED")
 
     During your payment we've encountered some problem.<br>
-
-    Please contact the administrator at <a href="mailto:info@stadium.it">info@stadium.it</a><br>
 
     Your Payment status is : {{$payment->status}} <br>
 
     Your Payment Trackid is : {{$payment->trackid}} <br>
+
+    Please contact the administrator at <a href="mailto:info@stadium.it">info@stadium.it</a><br>
+
+@elseif($errorCode != "")
+
+    During your payment we've encountered some problem.<br>
+
+    Error: {{$errorCode}} <br>
+
+    Description: {{$errorText}} <br>
+
+    Please contact the administrator at <a href="mailto:info@stadium.it">info@stadium.it</a><br>
 
 @endif

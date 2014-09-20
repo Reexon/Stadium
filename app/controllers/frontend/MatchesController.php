@@ -9,6 +9,7 @@
 namespace Frontend\Controller;
 
 
+use Backend\Model\Concert;
 use Backend\Model\Match;
 use Frontend\Model\MatchSubscription;
 use View;
@@ -34,7 +35,11 @@ class MatchesController extends BaseController{
                         ->orderBy('date','desc')
                         ->paginate();
 
-        return View::make('index',compact('matches'));
+        $concerts = Concert::where('category_id','=',Concert::$concert)
+                    ->orderBy('date','desc')
+                    ->paginate();
+
+        return View::make('index',compact('matches','concerts'));
     }
 
     public function info($id){

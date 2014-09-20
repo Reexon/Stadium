@@ -11,6 +11,7 @@ return array(
     'Backend\\Controller\\BaseController' => $baseDir . '/app/controllers/backend/BaseController.php',
     'Backend\\Controller\\ConcertsController' => $baseDir . '/app/controllers/backend/ConcertsController.php',
     'Backend\\Controller\\DashboardController' => $baseDir . '/app/controllers/backend/DashboardController.php',
+    'Backend\\Controller\\DashboardController_old' => $baseDir . '/app/controllers/backend/DashboardController_old.php',
     'Backend\\Controller\\GainController' => $baseDir . '/app/controllers/backend/GainController.php',
     'Backend\\Controller\\MailMessageController' => $baseDir . '/app/controllers/backend/MailMessageController.php',
     'Backend\\Controller\\MatchSubscriptionsController' => $baseDir . '/app/controllers/backend/MatchSubscriptionsController.php',
