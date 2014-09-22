@@ -20,8 +20,8 @@ class DatabaseSeeder extends Seeder {
         DB::table('feedbacks')->truncate();
         DB::table('payments')->truncate();
 
-        $this->call('CategoryTableSeeder');
-        /*$this->call('UserTableSeeder');
+        //$this->call('CategoryTableSeeder');
+        $this->call('UserTableSeeder');
 
         $this->call('TeamTableSeeder');
         $this->call('ArtistTableSeeder');
@@ -30,7 +30,7 @@ class DatabaseSeeder extends Seeder {
         $this->call('ConcertTableSeeder');
         $this->call('SubscriptionTableSeeder');
         $this->call('TicketTableSeeder');
-        $this->call('FeedbackTableSeeder');*/
+        $this->call('FeedbackTableSeeder');
 
         DB::statement('SET FOREIGN_KEY_CHECKS = 1'); // disable foreign key constraints
 

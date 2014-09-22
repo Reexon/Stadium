@@ -1,6 +1,26 @@
+<!-- Home -->
+<li>
+    <a href="{{URL::to('/')}}">
+        {{FA::icon('home')}} <span> Home</span>
+    </a>
+</li>
+<!-- Services -->
+<li>
+    <a href="{{URL::to('services')}}">
+        {{FA::icon('thumbs-o-up')}} <span> Services</span>
+    </a>
+</li>
+<!-- Contact -->
 <li>
     <a href="{{URL::to('contact')}}">
-        {{FA::icon('envelope-o')}}<span>Contact us</span>
+        {{FA::icon('envelope-o')}} <span> Contact us</span>
+    </a>
+</li>
+
+<!-- Where we Area -->
+<li>
+    <a href="{{URL::to('location')}}">
+        {{FA::icon('map-marker')}} <span> Location</span>
     </a>
 </li>
 <!-- Cart-->

@@ -31,13 +31,26 @@ class FeedbackTableSeeder extends Seeder {
             }
 
 
+            if($faker->boolean()){
+                $status = "APPROVED";
+            }else
+                $status = "NOT APPROVED";
+
             Payment::create([
                 'total'     =>$total,
                 'pay_date'  => $faker->unixTime,
                 'user_id'   => $faker->numberBetween($min = 1,$max=100),
                 'feedback_id'=> $index,
                 'trackid'   =>'STDRX'.$faker->unique()->unixTime,
-                'status'    => 'APPROVED'
+                'status'    => $status,
+                 //Informazioni per la spedizione
+                'firstname' => $faker->firstName,
+                'lastname'  => $faker->lastName,
+                'city'      => $faker->city,
+                'address'   => $faker->address,
+                'cap'       => $faker->postcode,
+                'email'     => $faker->email,
+                'mobile'    => $faker->phoneNumber
             ]);
 
             //creo feedback per il payment

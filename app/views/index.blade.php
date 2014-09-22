@@ -32,10 +32,10 @@
                         @foreach($matches as $match)
                             <tr>
                                 <td>
-                                        {{$match->homeTeam->name }} vs {{ $match->guestTeam->name}}
+                                    {{FA::icon('soccer-ball-o')}} {{$match->homeTeam->name }} vs {{ $match->guestTeam->name}}
                                 </td>
                                 <td>{{$match->date->format('d-m-Y')}}</td>
-                                <td><a href="{{URL::to('match/info/'.$match->id_event)}}" class="btn btn-small btn-success">{{FA::icon('eye')}}</a></td>
+                                <td><a href="{{URL::to('event/info/'.$match->category_id.'/'.$match->id_event)}}" class="btn btn-small btn-success">{{FA::icon('eye')}}</a></td>
                             </tr>
                         @endforeach
                     </tbody>
@@ -64,10 +64,10 @@
                     @foreach($concerts as $concert)
                     <tr>
                         <td>
-                            {{$concert->homeTeam->name }} vs {{ $concert->guestTeam->name}}
+                          {{FA::icon('microphone')}}  {{$concert->artist->name }}
                         </td>
                         <td>{{$concert->date->format('d-m-Y')}}</td>
-                        <td><a href="{{URL::to('match/info/'.$concert->id_event)}}" class="btn btn-small btn-success">{{FA::icon('eye')}}</a></td>
+                        <td><a href="{{URL::to('event/info/'.$concert->category_id.'/'.$concert->id_event)}}" class="btn btn-small btn-success">{{FA::icon('eye')}}</a></td>
                     </tr>
                     @endforeach
                     </tbody>

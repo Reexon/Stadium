@@ -43,4 +43,8 @@ class User extends \Eloquent implements UserInterface, RemindableInterface {
     public function payments(){
         return $this->hasMany('Backend\Model\Payment');
     }
+
+    public function getFullnameAttribute(){
+        return $this->firstname." ".$this->lastname;
+    }
 }

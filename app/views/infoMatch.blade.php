@@ -12,23 +12,23 @@
 
 @section('header-title')
 <h1>
-    @if(count($match->tickets) > 0 )
-        Match Information - {{$match->homeTeam->name}} vs {{$match->guestTeam->name}}
+    @if(count($event->tickets) > 0 )
+            Event Information - {{$event->title}}
     @else
         No Tickets Available !
     @endif
-    <small>#{{$match->id_event}}</small>
+    <small>#{{$event->id_event}}</small>
 </h1>
 @stop
 
 @section('content')
 
-<?php $total = 0;?>
-@foreach($match->tickets as $ticket)
+<?php $total = 0; ?>
+@foreach($event->tickets as $ticket)
     <?php $total += $ticket->quantity;?>
 @endforeach
 
-@if(count($match->tickets)==0 || $total == 0)
+@if(count($event->tickets)==0 || $total == 0)
 <div class="box box-danger">
     <div class="box-header">
         <i class="fa fa-warning"></i>
@@ -36,7 +36,7 @@
     </div>
     <div class="box-body">There aren't tickets available for this match at the moment ! <br>
         If you want to be notified when new tickets are available, please insert your eMail here
-        {{Form::open(['url' => 'match/signup/'.$match->id_event],['class' =>'form-inline']) }}
+        {{Form::open(['url' => 'match/signup/'.$event->id_event],['class' =>'form-inline']) }}
 
         <div class="input-group">
                 <span class="input-group-btn">
@@ -50,9 +50,9 @@
 </div>
 @endif
 
-@if(count($match->tickets) >0 )
+@if(count($event->tickets) >0 )
 
-<table class="table">
+<table class="table table-striped table-hover">
     <thead>
     <tr>
         <th>Ticket Type</th>
@@ -63,7 +63,7 @@
     </tr>
     </thead>
     <tbody>
-    @foreach($match->tickets as $ticket)
+    @foreach($event->tickets as $ticket)
     <tr>
         {{ Form::open(array('url' => 'cart/update','class' => 'form-inline')) }}
             {{ Form::hidden('ticket_id',$ticket->id_ticket) }}

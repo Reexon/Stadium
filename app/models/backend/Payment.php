@@ -16,7 +16,7 @@ class Payment extends \Eloquent {
     protected $primaryKey = 'id_payment';
 
 	// Don't forget to fill this array
-	protected $fillable = ['pay_date','total','trackid','status','trackingcode','city','cap','address','email','mobile'];
+	protected $fillable = ['pay_date','total','trackid','status','trackingcode','firstname','lastname','city','cap','address','email','mobile'];
 
     //campi in formato data
     protected $dates = ['pay_date'];

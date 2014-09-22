@@ -248,6 +248,7 @@ class CartController extends BaseController{
         $cart = Session::get('cart');
         $total_amount = 0;
 
+        //calcolo il totale del carrello per salvarlo nel "payment"
         foreach($cart as $ticket_id => $quantity){
             $ticket = Ticket::find($ticket_id);
             $temp = new Order(['quantity'  => $quantity]);
@@ -286,11 +287,12 @@ class CartController extends BaseController{
         Mail::queue('emails.newpayment', $data, function($message) use ($payment,$userObj)
         {
            if(Input::get('resultcode') == "APPROVED")
-                $subject = "Your order has been placed ! - #".$payment->trackid;
+                $subject = "Order has been placed ! - #".$payment->trackid;
            else
-                $subject = "Problem processing your payment !";
+                $subject = "Problem processing payment !";
 
             $message->to($userObj->email)->subject('Stadium - '.$subject);
+            $message->to(\Config::get('administrator.email'))->subject('Stadium - '.$subject);
         });
 
        return View::make($this->viewFolder.'cart.result',compact('payment','user','errorText'));

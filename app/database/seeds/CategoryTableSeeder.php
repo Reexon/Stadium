@@ -8,8 +8,9 @@ class CategoryTableSeeder extends Seeder {
 	{
 
         $categories = [
-            'Calcio',   'Concerti',     'Hockey'    ,'Rugby',    'NBA',
-            'Show'
+            'Calcio',
+            'Concerti',     'Hockey'    ,'Rugby',    'NBA',
+            'Show',     'Moto GP',      'Formula 1'
         ];
 
 		foreach($categories as $category)

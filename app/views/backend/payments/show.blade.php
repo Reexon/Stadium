@@ -25,7 +25,15 @@
         <div class="col-xs-12">
             <h2 class="page-header">
                 <i class="fa fa-globe"></i> Stadium Srl.
-                <small class="pull-right">Date: {{$payment->pay_date->format('d/m/Y')}}</small>
+                <small class="pull-right"><b>Status:</b>
+                    @if($payment->status == "APPROVED")
+                        <span class="label label-success">Payed</span>
+                    @elseif($payment->status =="NOT APPROVED")
+                        <span class="label label-warning">Not Payed Yet</span>
+                    @else
+                        <span class="label label-danger">Payment Error</span>
+                    @endif
+                </small>
             </h2>
         </div><!-- /.col -->
     </div>
@@ -55,7 +63,7 @@
             <br>
             <br>
             <b>Order ID:</b> {{$payment->trackid}}<br>
-            <b>Payment Due:</b> {{$payment->pay_date->format('d/m/Y')}}<br>
+            <b>Payment Date:</b> {{$payment->pay_date->format('d/m/Y')}}<br>
             <b>Tracking Code:</b>
                 <?php echo $payment->trackingcode == null ? "N/A" : $payment->trackingcode; ?>
         </div><!-- /.col -->

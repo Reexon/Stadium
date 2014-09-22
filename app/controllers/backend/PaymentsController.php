@@ -139,7 +139,8 @@ class PaymentsController extends BaseController {
         for($i = 0; $i < count($ticket_id); $i++){
 
             $dataOrder = [
-                'quantity' => $quantity[$i]
+                'quantity' => $quantity[$i],
+                'ticket_id'=> $ticket_id[$i]
             ];
 
             $validateOrder = Validator::make($data = $dataOrder, Order::$rules);

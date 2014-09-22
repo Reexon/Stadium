@@ -42,11 +42,20 @@ class MatchesController extends BaseController{
         return View::make('index',compact('matches','concerts'));
     }
 
-    public function info($id){
+    public function info($id_category,$id_event){
 
-        $match = Match::with('tickets')->findOrFail($id);
+        if(in_array($id_category,Match::$category)){//se è una tipologia Match
+            $event = Match::with('tickets')->findOrFail($id_event);
+            $event->title = $event->homeTeam->name. " vs ".$event->guestTeam->name;
+        }else if(in_array($id_category,Concert::$category)){//se è tipologia Concert
+            $event = Concert::with('tickets')->findOrFail($id_event);
+            $event->title = $event->artist->name;
+        }else{//TODO: se è tipologia Races
 
-        return View::make('infoMatch',compact('match'));
+        }
+
+        return View::make('infoMatch',compact('event'));
+
     }
 
     public function signup($id){

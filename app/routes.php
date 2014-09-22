@@ -13,8 +13,15 @@
 
 Route::get('/','Frontend\Controller\MatchesController@index');
 Route::get('contact',function(){return View::make('contact');});
-Route::get('/match/info/{id_event}','Frontend\Controller\MatchesController@info');
+
+/*
+ * Eventi di Tipo Match
+ */
+//Route::get('match/info/{id_event}','Frontend\Controller\MatchesController@info');
+Route::get('event/info/{id_category}/{id_event}','Frontend\Controller\MatchesController@info');
 Route::post('match/signup/{id_event}','Frontend\Controller\MatchesController@signup');
+
+
 /*
  * Gestione del carrello dei ticket
  */
@@ -44,7 +51,7 @@ Route::post('cart/update',function(){
     //sostituisco con il nuovo carrello
     Session::put('cart',$userCart);
 
-    return Redirect::back();
+    return Redirect::back()->with('success','Tickets Added To Cart !');
 });
 
 /*
