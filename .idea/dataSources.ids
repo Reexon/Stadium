@@ -2069,6 +2069,23 @@
       <exported-key name="fk_teams_categories1" table="teams" schema="" catalog="thrcodes_stadium" columns="category_id"/>
       <exported-key name="fk_tickets_categories1" table="tickets" schema="" catalog="thrcodes_stadium" columns="category_id"/>
     </table>
+    <table name="consumers" schema="" catalog="thrcodes_stadium" type="TABLE">
+      <column name="id_consumer" sqlType="INT" length="10" precision="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="firstname" sqlType="VARCHAR" length="45" precision="0" nullable="true" jdbcType="12"/>
+      <column name="lastname" sqlType="VARCHAR" length="45" precision="0" nullable="true" jdbcType="12"/>
+      <column name="res_via" sqlType="VARCHAR" length="45" precision="0" nullable="true" jdbcType="12"/>
+      <column name="res_cap" sqlType="VARCHAR" length="45" precision="0" nullable="true" jdbcType="12"/>
+      <column name="res_com" sqlType="VARCHAR" length="45" precision="0" nullable="true" jdbcType="12"/>
+      <column name="res_prov" sqlType="VARCHAR" length="45" precision="0" nullable="true" jdbcType="12"/>
+      <column name="born_date" sqlType="VARCHAR" length="45" precision="0" nullable="true" jdbcType="12"/>
+      <column name="born_location" sqlType="VARCHAR" length="45" precision="0" nullable="true" jdbcType="12"/>
+      <column name="order_id" sqlType="INT" length="10" precision="0" nullable="false" jdbcType="4"/>
+      <column name="updated_at" sqlType="TIMESTAMP" length="19" precision="0" nullable="true" jdbcType="93" def="Q1VSUkVOVF9USU1FU1RBTVA=" version="true"/>
+      <column name="created_at" sqlType="TIMESTAMP" length="19" precision="0" nullable="true" jdbcType="93" def="Q1VSUkVOVF9USU1FU1RBTVA="/>
+      <primary-key name="PRIMARY" columns="id_consumer"/>
+      <foreign-key name="fk_consumer_orders1" columns="order_id" ref-table="orders" ref-schema="" ref-catalog="thrcodes_stadium" ref-columns="id_order" update-rule="3" delete-rule="3" deferrability="2"/>
+      <index name="fk_consumer_orders1_idx" unique="false" columns="order_id"/>
+    </table>
     <table name="event_subscriptions" schema="" catalog="thrcodes_stadium" type="TABLE">
       <column name="id_subscription" sqlType="INT" length="10" precision="0" nullable="false" jdbcType="4" autoIncrement="true"/>
       <column name="email" sqlType="VARCHAR" length="45" precision="0" nullable="false" jdbcType="12"/>
@@ -2131,6 +2148,7 @@
       <primary-key name="PRIMARY" columns="id_order"/>
       <foreign-key name="fk_orders_payments1" columns="payment_id" ref-table="payments" ref-schema="" ref-catalog="thrcodes_stadium" ref-columns="id_payment" update-rule="3" delete-rule="0" deferrability="2"/>
       <foreign-key name="fk_orders_tickets" columns="ticket_id" ref-table="tickets" ref-schema="" ref-catalog="thrcodes_stadium" ref-columns="id_ticket" update-rule="3" delete-rule="0" deferrability="2"/>
+      <exported-key name="fk_consumer_orders1" table="consumers" schema="" catalog="thrcodes_stadium" columns="order_id"/>
       <index name="fk_orders_payments1_idx" unique="false" columns="payment_id"/>
       <index name="fk_orders_tickets_idx" unique="false" columns="ticket_id"/>
     </table>
@@ -2138,12 +2156,20 @@
       <column name="id_payment" sqlType="INT" length="10" precision="0" nullable="false" jdbcType="4" autoIncrement="true"/>
       <column name="user_id" sqlType="INT" length="10" precision="0" nullable="false" jdbcType="4"/>
       <column name="pay_date" sqlType="TIMESTAMP" length="19" precision="0" nullable="true" jdbcType="93" def="Q1VSUkVOVF9USU1FU1RBTVA="/>
-      <column name="total" sqlType="FLOAT" length="12" precision="0" nullable="true" jdbcType="7" def="MA=="/>
+      <column name="total" sqlType="FLOAT" length="10" precision="2" nullable="true" jdbcType="7" def="MC4wMA=="/>
       <column name="trackid" sqlType="VARCHAR" length="45" precision="0" nullable="true" jdbcType="12"/>
       <column name="status" sqlType="VARCHAR" length="45" precision="0" nullable="true" jdbcType="12"/>
+      <column name="trackingcode" sqlType="VARCHAR" length="45" precision="0" nullable="true" jdbcType="12"/>
       <column name="updated_at" sqlType="TIMESTAMP" length="19" precision="0" nullable="true" jdbcType="93" def="Q1VSUkVOVF9USU1FU1RBTVA=" version="true"/>
       <column name="created_at" sqlType="TIMESTAMP" length="19" precision="0" nullable="true" jdbcType="93" def="Q1VSUkVOVF9USU1FU1RBTVA="/>
       <column name="feedback_id" sqlType="INT" length="10" precision="0" nullable="false" jdbcType="4"/>
+      <column name="city" sqlType="VARCHAR" length="45" precision="0" nullable="true" jdbcType="12"/>
+      <column name="cap" sqlType="VARCHAR" length="45" precision="0" nullable="true" jdbcType="12"/>
+      <column name="address" sqlType="VARCHAR" length="45" precision="0" nullable="true" jdbcType="12"/>
+      <column name="mobile" sqlType="VARCHAR" length="45" precision="0" nullable="true" jdbcType="12"/>
+      <column name="email" sqlType="VARCHAR" length="45" precision="0" nullable="true" jdbcType="12"/>
+      <column name="firstname" sqlType="VARCHAR" length="45" precision="0" nullable="true" jdbcType="12"/>
+      <column name="lastname" sqlType="VARCHAR" length="45" precision="0" nullable="true" jdbcType="12"/>
       <primary-key name="PRIMARY" columns="id_payment"/>
       <foreign-key name="fk_payments_feedbacks" columns="feedback_id" ref-table="feedbacks" ref-schema="" ref-catalog="thrcodes_stadium" ref-columns="id_feedback" update-rule="3" delete-rule="3" deferrability="2"/>
       <foreign-key name="fk_payments_users" columns="user_id" ref-table="users" ref-schema="" ref-catalog="thrcodes_stadium" ref-columns="id_user" update-rule="3" delete-rule="0" deferrability="2"/>
@@ -2169,7 +2195,7 @@
     <table name="tickets" schema="" catalog="thrcodes_stadium" type="TABLE">
       <column name="id_ticket" sqlType="INT" length="10" precision="0" nullable="false" jdbcType="4" autoIncrement="true"/>
       <column name="label" sqlType="VARCHAR" length="45" precision="0" nullable="false" jdbcType="12"/>
-      <column name="price" sqlType="FLOAT" length="12" precision="0" nullable="false" jdbcType="7"/>
+      <column name="price" sqlType="FLOAT" length="5" precision="2" nullable="false" jdbcType="7"/>
       <column name="quantity" sqlType="INT" length="10" precision="0" nullable="false" jdbcType="4"/>
       <column name="event_id" sqlType="INT" length="10" precision="0" nullable="false" jdbcType="4"/>
       <column name="updated_at" sqlType="TIMESTAMP" length="19" precision="0" nullable="true" jdbcType="93" def="Q1VSUkVOVF9USU1FU1RBTVA=" version="true"/>

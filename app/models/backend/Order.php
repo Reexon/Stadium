@@ -22,4 +22,7 @@ class Order extends \Eloquent {
         return $this->belongsTo('Backend\Model\Payment');
     }
 
+    public function consumers(){
+        return $this->hasMany('Backend\Model\Consumer');
+    }
 }

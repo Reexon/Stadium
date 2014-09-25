@@ -28,7 +28,7 @@
 </div>
 
 <!-- Informazioni Generali -->
-{{ Form::open(['url' => 'cart/buy','class'=>'form-horizontal','role' => 'form']) }}
+{{ Form::open(['url' => 'cart/consumerInfo','class'=>'form-horizontal','role' => 'form','method' => 'get']) }}
 
 <div class="row">
     <div class="col-md-5">

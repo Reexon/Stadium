@@ -2,9 +2,11 @@
 
 namespace Frontend\Controller;
 
+use Backend\Model\Match;
 use Backend\Model\Order;
 use Backend\Model\Payment;
 use Backend\Model\User;
+use Backend\Model\Consumer;
 use View;
 use Session;
 use Backend\Model\Ticket;
@@ -15,6 +17,7 @@ use Auth;
 use Mail;
 use Validator;
 use Redirect;
+use Backend\Controller\StadiumCart;
 
 class CartController extends BaseController{
 
@@ -97,6 +100,57 @@ class CartController extends BaseController{
 
         return View::make($this->viewFolder.'cart.review',compact('cartItems','total_amount'));
     }
+
+    /**
+     * Controllo se il carrello contiene dei biglietti di calcio
+     * Se li contiene , devrò far inserire tanti nominativi quanti sono i ticket calcio
+     */
+    public function consumerAnag(){
+
+        $hasFootballTicket = StadiumCart::hasFootballTickets();
+        $total_ticket = StadiumCart::footballTicketsCount();
+        $ticket_id_list= StadiumCart::arrayTicketsID();
+
+        $selectOptionTickets= Ticket::whereIn('id_ticket',$ticket_id_list)->lists('label','id_ticket');
+
+        if($hasFootballTicket){
+            return View::make($this->viewFolder.'cart.consumerAnag',compact('total_ticket','selectOptionTickets'));
+        }else
+            return Redirect::to('cart/buy');
+
+    }
+
+    /**
+     * Salva i dati per il cambio nome
+     */
+    public function consumerAnagSave(){
+        $consumer = Input::get('consumer');
+
+        $session_consummer = StadiumCart::arrangeConsumerArray($consumer);
+
+        //Controllo Errori, eventualmente viene creato un errore.
+        $bool = StadiumCart::checkConsumerCountError($session_consummer);
+
+        if(!$bool)
+            return Redirect::back()->withErrors('Problema sulle quantità');
+
+        Session::set('consumers',$session_consummer);
+
+        //TODO: Da Migliorare assolutamente
+        $cart = Session::get('cart');
+        $cartItems = [];
+        $total_amount = 0;
+        if($cart != null){
+            foreach($cart as $ticket_id => $quantity){
+                $item = Ticket::find($ticket_id)->toArray();
+                $total_amount += $item['price'] * $quantity;
+                $item['buy_quantity'] = $quantity;
+                $cartItems[]=$item;
+            }
+        }
+        return View::make($this->viewFolder.'cart.overview',compact('cartItems','total_amount'));
+    }
+
     public function clear(){
         Session::forget('cart');
         return \Redirect::back();
@@ -137,7 +191,7 @@ class CartController extends BaseController{
         $password="test";       //password di connessione
 
         //è necessario foramttare il totale in NNNNNN.NN
-        $importo= number_format($this->total(),2,'.','');//importo da pagare
+        $importo= number_format(StadiumCart::total(),2,'.','');//importo da pagare
 
         $trackid="STDRX".time();      //id transazione
 
@@ -265,6 +319,20 @@ class CartController extends BaseController{
         //associo ordini al payment
         $payment->orders()->saveMany($orders);
 
+        //associo i consumer ai order
+        $customers_session = Session::get('consumers');
+        foreach($orders as $order){
+            if($order->ticket->category_id == Match::$football){
+                $consumers = [];//lista di consumer
+                foreach($customers_session as $cust){
+                    if($cust['ticket_id'] == $order->ticket_id)
+                        $consumers[] = new Consumer($cust);
+                }
+                if(!empty($consumers))
+                    $order->consumers()->saveMany($consumers);
+            }
+        }
+
         $data['payment'] = serialize($payment);
         $data['feedback']= serialize($feedback);
         $data['user']    = serialize($user);
@@ -353,21 +421,5 @@ class CartController extends BaseController{
 
             echo $ReceiptURL;
         }
-    }
-
-    /**
-     * Calcola il prezzo dell'intero carrello
-     *
-     * @return int prezzo totale dei oggetti nel carrello
-     */
-    private function total(){
-        $cart = Session::get('cart');
-        $total = 0;
-
-        foreach($cart as $ticket_id => $quantity){
-            $ticket = Ticket::find($ticket_id);
-            $total += $ticket->price * $quantity;
-        }
-        return $total;
     }
 } 

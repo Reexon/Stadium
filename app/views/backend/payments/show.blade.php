@@ -136,8 +136,32 @@
     <div class="row no-print">
         <div class="col-xs-12">
             <button class="btn btn-default" onclick="window.print();"><i class="fa fa-print"></i> Print</button>
-            <button class="btn btn-success pull-right"><i class="fa fa-credit-card"></i> Submit Payment</button>
+            <button class="btn btn-warning pull-right" data-toggle="modal" data-target="#myModal" >{{FA::icon('barcode')}} Add Tracking Code</button>
+            <button class="btn btn-success pull-right" style="margin-right: 5px;"><i class="fa fa-credit-card"></i> Submit Payment</button>
             <button class="btn btn-primary pull-right" style="margin-right: 5px;"><i class="fa fa-download"></i> Generate PDF</button>
+        </div>
+    </div>
+
+
+
+    <!-- Modal -->
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <h4 class="modal-title" id="myModalLabel">Add Tracking Code</h4>
+                </div>
+                {{Form::open(['action' => ['Backend\Controller\PaymentsController@updateTrackingCode',$payment->id_payment]])}}
+                <div class="modal-body">
+                    {{Form::text('trackingcode',Input::old('trackingcode'),['class' => 'form-control','placeholder' => 'Tracking Code'])}}
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    {{Form::button('Save Tracking Code',['class' => 'btn btn-primary','type'=>'submit'])}}
+                </div>
+                {{Form::close()}}
+            </div>
         </div>
     </div>
 </section>

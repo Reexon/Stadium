@@ -61,7 +61,9 @@ Route::get('cart/clear','Frontend\Controller\CartController@clear');
 Route::get('cart/show','Frontend\Controller\CartController@show');
 Route::get('cart/personalInfo','Frontend\Controller\CartController@personalInfo');
 Route::post('cart/review','Frontend\Controller\CartController@review');
-Route::post('cart/buy','Frontend\Controller\CartController@buy');;
+Route::post('cart/buy','Frontend\Controller\CartController@buy');
+Route::post('cart/consumerInfo','Frontend\Controller\CartController@consumerAnagSave');
+Route::get('cart/consumerInfo','Frontend\Controller\CartController@consumerAnag');
 //il consorzio invia i dati a questa pagina in modalità post, da non cambiare
 Route::post('cart/receipt','Frontend\Controller\CartController@receipt');
 //dopo il receipt si viene spediti a questa pagina
