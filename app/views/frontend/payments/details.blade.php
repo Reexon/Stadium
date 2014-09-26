@@ -40,7 +40,12 @@
             @foreach($payment->orders as $order)
             <tr>
                 <td>{{$order->id_order}}</td>
-                <td>{{$order->ticket->match->homeTeam->name}} - {{$order->ticket->match->guestTeam->name}} ({{$order->ticket->match->date->format('d.m.Y')}})</td>
+                <?php $category_id = $order->ticket->category_id; ?>
+                @if(in_array($category_id,Backend\Model\Match::$category))
+                    <td>{{$order->ticket->match->homeTeam->name}} - {{$order->ticket->match->guestTeam->name}} ({{$order->ticket->match->date->format('d.m.Y')}})</td>
+                @elseif(in_array($category_id,Backend\Model\Concert::$category))
+                    <td>{{$order->ticket->concert->artist->name}} - ({{$order->ticket->concert->date->format('d.m.Y')}})</td>
+                @endif
                 <td>{{$order->ticket->label}}</td>
                 <td>{{$order->quantity}}</td>
                 <td>{{number_format($order->quantity * $order->ticket->price,2,',','.')}}</td>
