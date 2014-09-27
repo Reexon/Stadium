@@ -27,7 +27,14 @@ class DashboardController extends BaseController{
         Paginator::setPageName('pfailed');
         $data['failPayCount'] = Payment::where('status','=','NOT APPROVED')->whereNull('status','or')->count();
         $failPayments = Payment::where('status','=','NOT APPROVED')->whereNull('status','or')->paginate();
-        return View::make($this->viewFolder."dashboard",compact('shipPayments','failPayments','data'));
+
+        //pagamenti non ancora guardati
+        Paginator::setPageName('pnew');
+        $data['newPayCount'] = Payment::where('visited','=','0')->count();
+        $newPayments = Payment::where('visited','=','0')->paginate();
+
+        return View::make($this->viewFolder."dashboard",compact('shipPayments','failPayments','newPayments','data'));
+
     }
 
 } 
