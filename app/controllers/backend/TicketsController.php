@@ -38,25 +38,33 @@ class TicketsController extends BaseController {
 
         //se la categoria è una di quelle da gestire tipo concerto...
         if(in_array($category_id,Concert::$category)){
-            $match = Concert::find($match_id);
-            $events = Match::join('teams','home_id','=','id_team')
+            $match = Concert::with('subscribers')->find($match_id);
+            $events = Concert::join('teams','home_id','=','id_team')
                 ->select('id_event',DB::raw('CONCAT(name," (",DATE_FORMAT(date,"%d/%m/%Y"),")") as name'))
-                ->where('teams.category_id','=',$category_id)
-                ->orderBy('date','desc')
+                ->where('teams.category_id','=',$category_id);
+
+            if($match_id != 0)
+                $events = $events->where('id_event','=',$match_id);
+
+            $events = $events->orderBy('date','desc')
                 ->lists('name','id_event');
 
-            //se la categoria è una di quelle da gestire come match..
+        //se la categoria è una di quelle da gestire come match..
         }else if(in_array($category_id,Match::$category)){
-            $match = Match::find($match_id);
+            $match = Match::with('subscribers')->find($match_id);
 
             $events = DB::table('events as m')
                 ->select('id_event',DB::raw('CONCAT(t1.name," - ",t2.name," (",DATE_FORMAT(date,"%d/%m/%Y"),")") AS label_match'))
                 ->join('teams as t1','t1.id_team','=','m.home_id')
                 ->join('teams as t2','t2.id_team','=','m.guest_id')
-                ->where('m.category_id','=',$category_id)
-                ->orderBy('date','desc')
-                ->lists('label_match','id_event');
+                ->where('m.category_id','=',$category_id);
+
+            if($match_id != 0)//in questo modo uno avrà solo un match nella select
+                $events = $events->where('m.id_event','=',$match_id);
+
+            $events = $events->orderBy('date','desc')->lists('label_match','id_event');
         }
+
 
         return View::make($this->viewFolder.'tickets.create', compact('events','match','match_id','category_id'));
 	}

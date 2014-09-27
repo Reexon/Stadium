@@ -2,7 +2,7 @@
 
 @section('head')
 @parent
-<script>
+<script xmlns="http://www.w3.org/1999/html">
     $(document).on('click','.datepicker',function(){
         $(this).datetimepicker({ pickTime: false, format: "DD-MM-YYYY" });
     });
@@ -98,11 +98,15 @@
     </tr>
     </tbody>
 </table>
-@if(is_object($match))
-    @if (count($match->subscribers) > 0)
-        {{ Form::checkbox('send_notifications', 'yes')}} Send Notification to subscribers
-    @endif
-@endif
+<div class="row">
+    <div class="col-md-3">
+        @if(is_object($match))
+            @if (count($match->subscribers) > 0)
+                {{ Form::checkbox('send_notifications', 'yes')}} Send Notification to {{count($match->subscribers)}} subscribers
+            @endif
+        @endif
+    </div>
+</div>
 
 {{ Form::button(FA::icon('check').' Create Tickets!', ['class' => 'btn btn-success','type' => 'submit']) }}
 
