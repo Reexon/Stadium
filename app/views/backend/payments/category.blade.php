@@ -56,6 +56,9 @@
                 @else
                 <a href="{{URL::to('admin/payments/'.$payment->id_payment.'/trackingCode')}}" class="btn btn-small btn-primary">{{FA::icon('pencil')}}</a>
                 @endif
+                @if(in_array($category->id_category,Backend\Model\Match::$category))
+                <a href="{{URL::to('admin/payments/'.$payment->id_payment.'/consumers')}}" class="btn btn-small btn-danger">{{FA::icon('users')}}</a>
+                @endif
             </td>
 
         </tr>
