@@ -128,11 +128,7 @@
                 <tr>
                     <td><a href="{{URL::to('admin/payments/'.$payment->id_payment)}}">{{$payment->id_payment}}</a></td>
                     <td>
-                        @if($payment->status == "APPROVED")
-                        <span class="label label-success">Success</span>
-                        @else
                         <span class="label label-danger">Error</span>
-                        @endif
                     </td>
                     <td>{{ number_format($payment->total,2,',','.') }} €</td>
                 </tr>
@@ -161,7 +157,7 @@
                 <tr>
                     <td><a href="{{URL::to('admin/payments/'.$payment->id_payment)}}">{{$payment->id_payment}}</a></td>
                     <td>
-                        @if($payment->status == "APPROVED")
+                        @if($payment->isPaid)
                         <span class="label label-success">Success</span>
                         @else
                         <span class="label label-danger">Error</span>

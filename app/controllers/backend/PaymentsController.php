@@ -329,4 +329,28 @@ class PaymentsController extends BaseController {
 
         return View::make($this->viewFolder.'payments.consumers',compact('payment'));
     }
+
+    /**
+     * Segnala il pagamento come gia pagato
+     *
+     * @param $payment_id
+     *
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function markAsPaid($payment_id){
+        Payment::find($payment_id)->markAsPaid();
+
+        return Redirect::back()->with('success','Payment #'.$payment_id.' marked as Paid !');
+    }
+    /**
+     * Segnala il pagamento come NON pagato
+     *
+     * @param $payment_id
+     *
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function markAsUnpaid($payment_id){
+        Payment::find($payment_id)->markAsUnpaid();
+        return Redirect::back()->with('success','Payment #'.$payment_id.' marked as <b>Not paid </b>!');
+    }
 }
