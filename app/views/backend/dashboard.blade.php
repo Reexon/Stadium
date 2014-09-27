@@ -33,7 +33,7 @@
             <div class="icon">
                 {{FA::icon('truck')}}
             </div>
-            <a href="#" class="small-box-footer">
+            <a href="{{URL::to('admin/shipment/waiting')}}" class="small-box-footer">
                 More info <i class="fa fa-arrow-circle-right"></i>
             </a>
         </div>
@@ -51,6 +51,25 @@
             </div>
             <div class="icon">
                 {{FA::icon('bug')}}
+            </div>
+            <a href="#" class="small-box-footer">
+                More info <i class="fa fa-arrow-circle-right"></i>
+            </a>
+        </div>
+    </div><!-- ./col -->
+    <div class="col-lg-3 col-xs-6">
+        <!-- small box -->
+        <div class="small-box bg-green">
+            <div class="inner">
+                <h3>
+                    {{$data['newPayCount']}}
+                </h3>
+                <p>
+                    New Payment
+                </p>
+            </div>
+            <div class="icon">
+                {{FA::icon('star')}}
             </div>
             <a href="#" class="small-box-footer">
                 More info <i class="fa fa-arrow-circle-right"></i>
@@ -76,9 +95,11 @@
                 <?php Paginator::setPageName('pshippings'); ?>
                 @foreach($shipPayments as $payment)
                 <tr>
-                    <td><a href="{{URL::to('admin/payments/'.$payment->id_payment)}}">{{$payment->id_payment}}</a></td>
                     <td>
-                        {{$payment->user->fullname}}
+                        <a href="{{URL::to('admin/payments/'.$payment->id_payment)}}">{{$payment->id_payment}}</a>
+                    </td>
+                    <td>
+                        <a href="{{URL::to('admin/users/'.$payment->user_id)}}">{{$payment->user->fullname}}</a>
                     </td>
                     <td>{{ number_format($payment->total,2,',','.') }} €</td>
                 </tr>
@@ -104,6 +125,39 @@
                 <tbody>
                 <?php Paginator::setPageName('pfailed'); ?>
                 @foreach($failPayments as $payment)
+                <tr>
+                    <td><a href="{{URL::to('admin/payments/'.$payment->id_payment)}}">{{$payment->id_payment}}</a></td>
+                    <td>
+                        @if($payment->status == "APPROVED")
+                        <span class="label label-success">Success</span>
+                        @else
+                        <span class="label label-danger">Error</span>
+                        @endif
+                    </td>
+                    <td>{{ number_format($payment->total,2,',','.') }} €</td>
+                </tr>
+                @endforeach
+                </tbody>
+            </table>
+        </div>
+        {{$failPayments->appends(['pshippings' => Input::get('pshippings',1)])->links()}}
+    </div><!-- ./col -->
+    <div class="col-lg-3"><!-- Nuovi Pagamenti non ancora guardati -->
+        <div class="panel panel-success">
+            <div class="panel-heading bg-green">
+                <b>New Payments</b>
+            </div>
+            <table class="table">
+                <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Pay</th>
+                    <th>Total</th>
+                </tr>
+                </thead>
+                <tbody>
+                <?php Paginator::setPageName('pnew'); ?>
+                @foreach($newPayments as $payment)
                 <tr>
                     <td><a href="{{URL::to('admin/payments/'.$payment->id_payment)}}">{{$payment->id_payment}}</a></td>
                     <td>

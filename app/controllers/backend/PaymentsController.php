@@ -196,8 +196,10 @@ class PaymentsController extends BaseController {
 	 */
 	public function show($id)
 	{
-		//$payment = Payment::findOrFail($id);
+
         $payment = Payment::with('user','orders.ticket.match')->findOrFail($id);
+        if($payment->visited == false)
+            $payment->markAsVisited();
 		return View::make($this->viewFolder.'payments.show', compact('payment'));
 	}
 
@@ -312,5 +314,19 @@ class PaymentsController extends BaseController {
         //TODO: controllo se e a chi devo inviare avviso
 
         return Redirect::back()->with('success','Codice Tracking Modificato/Inserito con successo !');
+    }
+
+    /**
+     * Dato il pagamento rileva tutti i cambi nomi da fare
+     * (solo se nel pagamento sono compresi biglietti per partite di calcio italiane)
+     *
+     * @param $payment_id
+     *
+     * @return \Illuminate\View\View
+     */
+    public function showConsumers($payment_id){
+        $payment = Payment::with('orders.consumers','orders.ticket')->find($payment_id);
+
+        return View::make($this->viewFolder.'payments.consumers',compact('payment'));
     }
 }

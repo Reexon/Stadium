@@ -10,7 +10,10 @@
 | and give it the Closure to execute when that URI is requested.
 |
 */
-
+Route::get('/into',function(){
+   phpinfo();
+});
+Route::get('/track','Backend\Controller\UPSCourrier@start');
 Route::get('/','Frontend\Controller\MatchesController@index');
 Route::get('contact',function(){return View::make('contact');});
 
@@ -99,11 +102,16 @@ Route::post('feedbacks','Frontend\Controller\FeedbacksController@submit');
  */
 Route::group(array('prefix' => 'admin', 'before' => 'auth|admin','namespace' => 'Backend\Controller'), function() {
     /*
-     *
+     * DashBoard
      */
 
     Route::get('dashboard','DashboardController@index');
 
+    /*
+     * Payment Shipment Tracking
+     */
+    Route::get('shipment/waiting','ShipmentsController@waitShipment');
+    Route::get('shipment/tracking','ShipmentsController@trackShipment');
     /*
      * Matches
      */
@@ -145,7 +153,10 @@ Route::group(array('prefix' => 'admin', 'before' => 'auth|admin','namespace' => 
     Route::get('payments/category/{category_id}','PaymentsController@showCategory');
     Route::get('payments/{event_id}/trackingCode','PaymentsController@addTrackingCode');
     Route::post('payments/{event_id}/updateTrackingCode','PaymentsController@updateTrackingCode');
+    //per trovare i cambi nominativi associati a quel payment
+    Route::get('payments/{payment_id}/consumers','PaymentsController@showConsumers');
     Route::resource('payments', 'PaymentsController');
+
 
     /*
      * MailMessage
