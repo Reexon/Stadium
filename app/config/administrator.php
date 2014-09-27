@@ -8,4 +8,5 @@
 return [
     'fullname'  =>  'Franco Amaltea',
     'email'     =>  'loris@reexon.net',
+    'UPSTrackingLink'   =>  'http://wwwapps.ups.com/WebTracking/track?track=yes&trackNums=',
 ];
