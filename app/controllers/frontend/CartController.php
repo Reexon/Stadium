@@ -18,6 +18,7 @@ use Mail;
 use Validator;
 use Redirect;
 use Backend\Controller\StadiumCart;
+use DB;
 
 class CartController extends BaseController{
 
@@ -111,7 +112,15 @@ class CartController extends BaseController{
         $total_ticket = StadiumCart::footballTicketsCount();
         $ticket_id_list= StadiumCart::arrayTicketsID();
 
-        $selectOptionTickets= Ticket::whereIn('id_ticket',$ticket_id_list)->lists('label','id_ticket');
+        //$selectOptionTickets= Ticket::join('matches','','')->whereIn('id_ticket',$ticket_id_list)->lists('label','id_ticket');
+
+        $selectOptionTickets = DB::table('events as m')
+            ->select('id_ticket',DB::raw('CONCAT(tickets.label," ",t1.name," - ",t2.name," (",DATE_FORMAT(date,"%d/%m/%Y"),")") AS label_ticket'))
+            ->join('teams as t1','t1.id_team','=','m.home_id') //prelevo nome squadra in casa
+            ->join('teams as t2','t2.id_team','=','m.guest_id') //prelevo nome squadra ospite
+            ->join('tickets','id_event','=','event_id')//solo match che hanno qualche ticket nella tabella ticket
+            ->whereIn('id_ticket',$ticket_id_list)
+            ->lists('label_ticket','id_ticket');
 
         if($hasFootballTicket){
             return View::make($this->viewFolder.'cart.consumerAnag',compact('total_ticket','selectOptionTickets'));
@@ -131,8 +140,14 @@ class CartController extends BaseController{
         //Controllo Errori, eventualmente viene creato un errore.
         $bool = StadiumCart::checkConsumerCountError($session_consummer);
 
-        if(!$bool)
-            return Redirect::back()->withErrors('Problema sulle quantità');
+        if(!$bool){
+            $error="";
+            foreach(Session::get('cart') as $ticket_id => $quantity){
+                $ticket = Ticket::with('match')->findOrFail($ticket_id);
+                $error .= "Stai acquistando:  ".$quantity ." Biglietti per ".$ticket->match->homeTeam->name ." vs ".$ticket->match->guestTeam->name." (".$ticket->label.")<br>";
+            }
+            return Redirect::back()->withErrors(['Problema sulle quantità',$error]);
+        }
 
         Session::set('consumers',$session_consummer);
 
