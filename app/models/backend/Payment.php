@@ -44,6 +44,31 @@ class Payment extends \Eloquent {
     }
 
     /**
+     * Per qualsiasi motivo l'admin puo' segnare un pagamento come avvenuto
+     */
+    public function markAsPaid(){
+        $this->status = "APPROVED";
+        $this->save();
+    }
+
+    /**
+     * Per qualsiasi motivo l'admin puo' segnare un pagamento come avvenuto
+     */
+    public function markAsUnpaid(){
+        $this->status = "NOT APPROVED";
+        $this->save();
+    }
+
+    /**
+     * Ritorna lo stato del pagamento
+     *
+     * @return bool
+     */
+    public function getisPaidAttribute(){
+        return $this->status == "APPROVED" ? true : false;
+    }
+
+    /**
      *
      * Prelevo tutti gli ordini presenti nel pagamento
      * Ogni ordine identifica una tipologia di ticket

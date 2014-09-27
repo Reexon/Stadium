@@ -155,6 +155,10 @@ Route::group(array('prefix' => 'admin', 'before' => 'auth|admin','namespace' => 
     Route::post('payments/{event_id}/updateTrackingCode','PaymentsController@updateTrackingCode');
     //per trovare i cambi nominativi associati a quel payment
     Route::get('payments/{payment_id}/consumers','PaymentsController@showConsumers');
+    //per markare un pagamento come gia pagato/non pagato
+    Route::get('payments/{payment_id}/markAsPaid','PaymentsController@markAsPaid');
+    Route::get('payments/{payment_id}/markAsUnpaid','PaymentsController@markAsUnpaid');
+
     Route::resource('payments', 'PaymentsController');
 
 

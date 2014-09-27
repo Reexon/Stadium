@@ -65,7 +65,9 @@
             <b>Order ID:</b> {{$payment->trackid}}<br>
             <b>Payment Date:</b> {{$payment->pay_date->format('d/m/Y')}}<br>
             <b>Tracking Code:</b>
-                <?php echo $payment->trackingcode == null ? "N/A" : $payment->trackingcode; ?>
+                <?php echo $payment->trackingcode == null ? "N/A" : $payment->trackingcode; ?><br>
+            <b>Signed By:</b>
+                <?php echo $payment->signedBy == null ? "N/A" : $payment->signedBy;?>
         </div><!-- /.col -->
     </div><!-- /.row -->
 
@@ -137,7 +139,11 @@
         <div class="col-xs-12">
             <button class="btn btn-default" onclick="window.print();"><i class="fa fa-print"></i> Print</button>
             <button class="btn btn-warning pull-right" data-toggle="modal" data-target="#myModal" >{{FA::icon('barcode')}} Add Tracking Code</button>
-            <button class="btn btn-success pull-right" style="margin-right: 5px;"><i class="fa fa-credit-card"></i> Submit Payment</button>
+            @if($payment->isPaid)
+                <a class="btn btn-danger pull-right" style="margin-right: 5px;" href="{{URL::to('admin/payments/'.$payment->id_payment.'/markAsUnpaid')}}">{{FA::icon('credit-card')}} Mark as Unpaid</a>
+            @else
+                 <a class="btn btn-success pull-right" style="margin-right: 5px;" href="{{URL::to('admin/payments/'.$payment->id_payment.'/markAsPaid')}}">{{FA::icon('credit-card')}} Mark as Paid</a>
+            @endif
             <button class="btn btn-primary pull-right" style="margin-right: 5px;"><i class="fa fa-download"></i> Generate PDF</button>
         </div>
     </div>
@@ -155,6 +161,15 @@
                 {{Form::open(['action' => ['Backend\Controller\PaymentsController@updateTrackingCode',$payment->id_payment]])}}
                 <div class="modal-body">
                     {{Form::text('trackingcode',Input::old('trackingcode'),['class' => 'form-control','placeholder' => 'Tracking Code'])}}
+                    <div class="form-group">
+                        {{Form::label('Send Notification to:')}}<br>
+                        @if($payment->email == $payment->user->email)
+                            {{Form::checkbox('send_notifications_buyer','yes', true,['class' => 'form-control'])}} Buyer ({{$payment->email}})<br>
+                        @else
+                            {{Form::checkbox('send_notifications_buyer','yes',true,['class' => 'form-control'])}} Buyer ({{$payment->user->email}})<br>
+                            {{Form::checkbox('send_notifications_ship','yes', true,['class' => 'form-control'])}} Shipping ({{$payment->email}})<br>
+                        @endif
+                    </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
