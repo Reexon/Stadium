@@ -311,9 +311,6 @@ class PaymentsController extends BaseController {
 
         //TODO: controllo se e a chi devo inviare avviso
 
-
-        //prelevo categoria evento, per fare indirizzamento
-        $category_id = $payment->orders->first()->ticket->category_id;
-        return Redirect::to("admin/payments/category/$category_id")->with('success','Codice Tracking Modificato/Inserito con successo !');
+        return Redirect::back()->with('success','Codice Tracking Modificato/Inserito con successo !');
     }
 }
