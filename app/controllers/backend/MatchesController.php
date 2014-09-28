@@ -5,6 +5,7 @@ namespace Backend\Controller;
 use Backend\Model\Category;
 use Backend\Model\Event;
 use Backend\Model\Events;
+use Backend\Model\SubCategory;
 use View;
 use Validator;
 use Redirect;
@@ -24,7 +25,10 @@ class MatchesController extends BaseController {
 	{
         //prendo i match che non sono scaduti
 		//$matches = Match::where('date','>',time())->paginate(15);
-        $matches = Match::with('homeTeam','guestTeam')->whereBetween('category_id', Match::$category)->paginate();
+        $matches = Match::with('homeTeam','guestTeam')
+            ->whereIn('category_id', Match::$category)
+            ->orderBy('date','desc')
+            ->paginate();
 
 		return View::make($this->viewFolder.'matches.index', compact('matches'));
 
@@ -37,8 +41,8 @@ class MatchesController extends BaseController {
 	 */
 	public function create()
 	{
-        $teams = Team::whereBetween('category_id',Match::$category)->lists('name', 'id_team');
-        $category = Category::whereBetween('id_category',Match::$category)->lists('name','id_category');
+        $teams = Team::whereIn('category_id',Match::$category)->lists('name', 'id_team');
+        $category = Category::whereIn('id_category',Match::$category)->lists('name','id_category');
 		return View::make($this->viewFolder.'matches.create',compact('teams','category'));
 	}
 
@@ -60,6 +64,7 @@ class MatchesController extends BaseController {
         $stadium = Input::get('stadium');
         $date = Input::get('date');
         $category = Input::get('category_id');
+        $subcategory = Input::get('subcategory_id');
 
         for($i = 0 ; $i < count($guest_id); $i++){
             $dataMatches = [
@@ -69,6 +74,7 @@ class MatchesController extends BaseController {
                 'stadium'       =>  $stadium[$i],
                 'date'          => date('Y-m-d',strtotime($date[$i])),
                 'category_id'   => $category[$i],
+                'subcategory_id'=> $subcategory[$i]
             ];
 
             $validator = Validator::make($data = $dataMatches, Match::$rules);
@@ -108,9 +114,13 @@ class MatchesController extends BaseController {
 	{
 
 		$match = Match::find($id);
-        $teams = Team::whereBetween('category_id',Match::$category)->lists('name', 'id_team');
-        $categories = Category::whereBetween('id_category',Match::$category)->lists('name','id_category');
-		return View::make($this->viewFolder.'matches.edit', compact('match','teams','categories'));
+        $teams = Team::whereIn('category_id',Match::$category)->lists('name', 'id_team');
+
+        $categories = Category::whereIn('id_category',Match::$category);
+        $subcategories = SubCategory::where('category_id','=',$categories->first()->id_category)->lists('name','id_subcategory');
+        $categories = $categories->lists('name','id_category');
+
+		return View::make($this->viewFolder.'matches.edit', compact('match','teams','categories','subcategories'));
 	}
 
 	/**

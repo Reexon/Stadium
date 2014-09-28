@@ -32,7 +32,7 @@ class DatabaseSeeder extends Seeder {
         $this->call('TicketTableSeeder');
         $this->call('FeedbackTableSeeder');
 
-        DB::statement('SET FOREIGN_KEY_CHECKS = 1'); // disable foreign key constraints
+        DB::statement('SET FOREIGN_KEY_CHECKS = 1'); // enable foreign key constraints
 
 	}
 

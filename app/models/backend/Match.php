@@ -9,17 +9,18 @@ class Match extends Event {
            'guest_id'       => 'required',
            'date'           => 'required',
            'stadium'        => 'required',
-           'category_id'    => 'required'
+           'category_id'    => 'required',
+           'subcategory_id'=> 'required'
 	];
 
 
     //viene inserito array per poter gestire diverse categorie (hockey,rugby,nba ecc)
-    public static $category = [1,1];
+    public static $category = [1,3,4];
 
     public static $football = 1;
 
 	// Don't forget to fill this array
-	protected $fillable = ['home_id','guest_id','date','stadium','category_id'];
+	protected $fillable = ['home_id','guest_id','date','stadium','category_id','subcategory_id'];
 
     public function homeTeam(){
         return $this->belongsTo('Backend\Model\Team','home_id');
@@ -27,6 +28,10 @@ class Match extends Event {
 
     public function guestTeam(){
         return $this->belongsTo('Backend\Model\Team','guest_id');
+    }
+
+    public function subcategory(){
+        return $this->belongsTo('Backend\Model\SubCategory');
     }
 
 

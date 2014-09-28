@@ -104,9 +104,9 @@ class ConcertsController extends BaseController {
 	 */
 	public function edit($id)
 	{
-		$concert = Concert::whereBetween('category_id',Concert::$category)->find($id);
-        $artists = Artist::whereBetween('category_id',Concert::$category)->lists('name','id_team');
-        $categories = Category::whereBetween('id_category',Concert::$category)->lists('name','id_category');
+		$concert = Concert::whereIn('category_id',Concert::$category)->find($id);
+        $artists = Artist::whereIn('category_id',Concert::$category)->lists('name','id_team');
+        $categories = Category::whereIn('id_category',Concert::$category)->lists('name','id_category');
 
 		return View::make($this->viewFolder.'concerts.edit', compact('concert','artists','categories'));
 	}

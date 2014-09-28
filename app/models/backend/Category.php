@@ -21,4 +21,7 @@ class Category extends \Eloquent{
 
     public $timestamps = false;
 
+    public function subcategories(){
+        return $this->hasMany('Backend\Model\SubCategory');
+    }
 } 
