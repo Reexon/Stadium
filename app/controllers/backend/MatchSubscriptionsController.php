@@ -7,6 +7,7 @@ use Validator;
 use Input;
 use Redirect;
 use DB;
+use Backend\Model\Match;
 
 class MatchSubscriptionsController extends BaseController {
 
@@ -22,6 +23,7 @@ class MatchSubscriptionsController extends BaseController {
             ->join('teams as t1','t1.id_team','=','m.home_id') //prelevo nome squadra in casa
             ->join('teams as t2','t2.id_team','=','m.guest_id') //prelevo nome squadra ospite
             ->join('event_subscriptions','event_id','=','id_event')
+            ->whereIn('m.category_id',Match::$category)
             ->paginate(10);
 
         return View::make($this->viewFolder.'MatchSubscriptions.index', compact('subscriptions'));
@@ -40,6 +42,7 @@ class MatchSubscriptionsController extends BaseController {
             ->join('teams as t2','t2.id_team','=','m.guest_id') //prelevo nome squadra ospite
             ->orderBy('date','desc')
             ->where('date','>',DB::raw('CURDATE()'))
+            ->whereIn('m.category_id',Match::$category)
             ->lists('label_match','id_event');
 
         return View::make($this->viewFolder.'MatchSubscriptions.create',compact('matches'));

@@ -18,6 +18,7 @@ class ShipmentsController extends BaseController {
         $shipments = Payment::with('user')
             ->whereNull('trackingcode')
             ->where('status','=','APPROVED')
+            ->orderBy('updated_at','desc')
             ->paginate();
 
 		return View::make('shipments.waiting', compact('shipments'));
@@ -33,16 +34,9 @@ class ShipmentsController extends BaseController {
         $shipments = Payment::with('user')
             ->whereNotNull('trackingcode')
             ->where('status','=','APPROVED')
-            ->orderBy('pay_date','desc')
+            ->orderBy('updated_at','desc')
             ->paginate();
 
-        //per ogni shipment aggiungo l'attributo che indica lo stato della spedizione
-        foreach($shipments as $ship){
-            $track = new UPSCourrier($ship->trackingcode);
-            $ship->currentStatus = $track->currentStatus;
-            $ship->signedBy = $track->signedBy;
-
-        }
         return View::make('shipments.track',compact('shipments'));
 	}
 

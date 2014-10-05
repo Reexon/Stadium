@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="dataSourceStorageLocal">
+    <data-source name="MySQL - thrcodes_stadium@Bluehost" uuid="c8919b20-f8cd-4baf-90c4-f86b8b3b2257">
+      <user-name>thrcodes</user-name>
+      <user-password>dfdcdffcdfcfdf9ddfe4df99df98df9edfcbdf80dfea</user-password>
+      <schema-pattern>thrcodes_stadium.*</schema-pattern>
+      <default-schemas>thrcodes_stadium.*</default-schemas>
+    </data-source>
+  </component>
+</project>
+

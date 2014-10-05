@@ -144,6 +144,9 @@
             @else
                  <a class="btn btn-success pull-right" style="margin-right: 5px;" href="{{URL::to('admin/payments/'.$payment->id_payment.'/markAsPaid')}}">{{FA::icon('credit-card')}} Mark as Paid</a>
             @endif
+            @if($payment->hasFootballEvent)
+                <a href="{{URL::to('admin/payments/'.$payment->id_payment.'/consumers')}}" class="btn btn-danger pull-right" style="margin-right: 5px;">{{FA::icon('users')}} Consumers</a>
+            @endif
             <button class="btn btn-primary pull-right" style="margin-right: 5px;"><i class="fa fa-download"></i> Generate PDF</button>
         </div>
     </div>

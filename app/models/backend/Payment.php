@@ -98,4 +98,30 @@ class Payment extends \Eloquent {
         return $this->belongsTo('Backend\Model\Feedback');
     }
 
+
+    public function hasEventOfCategory($category_id){
+        //$payment = Payment::with('orders.ticket.event')->where('id_payment','=',$this->id_payment)->get();
+        foreach ($this->orders as $order){
+            if($order->ticket->event->category->id_category == $category_id) return true;
+        }
+        return false;
+    }
+
+    public function getHasFootballEventAttribute(){
+        return $this->hasEventOfCategory(Match::$football);
+    }
+
+    /**
+     * Restituisce il Nome e Cognome della persona a cui deve essere spedito il pacco
+     */
+    public function getFullnameAttribute(){
+        return $this->firstname." ".$this->lastname;
+    }
+
+    /**
+     * Restituisce lo stato del pacco , se consegnato o no
+     */
+    public function getIsDeliveredAttribute(){
+        return !is_null($this->signedBy);
+    }
 }

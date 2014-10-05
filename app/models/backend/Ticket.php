@@ -31,9 +31,9 @@ class Ticket extends \Eloquent {
         return $this->belongsTo('Backend\Model\Concert','event_id');
     }
 
-    public function category(){//in automatico cerca sulla chaive category_id
+    /*public function category(){//in automatico cerca sulla chaive category_id
         return $this->belongsTo('Backend\Model\Category');
-    }
+    }*/
 
     public function orders(){//in automatico cerca sulla chaive order_id
         return $this->hasMany('Backend\Model\Order');

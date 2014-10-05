@@ -12,7 +12,7 @@
 
     @section('header-title')
     <h1>
-        Title
+        Payments Waiting
         <small></small>
     </h1>
     @stop
@@ -35,7 +35,7 @@
                 <td>
                     <a href="{{URL::to('admin/payments/'.$shipment->id_payment)}}">{{$shipment->id_payment}}</a>
                 </td>
-                <td>{{$shipment->user->firstname}} {{$shipment->user->lastname}}</td>
+                <td><a href="{{URL::to('admin/users/'.$shipment->user_id)}}">{{$shipment->user->fullname}}</a></td>
                 <td>{{$shipment->pay_date->format('d.m.Y')}}</td>
                 <td>
                     {{Form::button(FA::icon('truck'),['class' => 'btn btn-warning','data-toggle'=>'modal', 'data-target'=>'#trackModal'.$i])}}

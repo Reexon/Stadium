@@ -18,7 +18,6 @@
     <table class="table table-striped table-bordered">
         <thead>
         <tr>
-            <th>ID</th>
             <th>Home</th>
             <th>Guest</th>
             <th>Stadium</th>
@@ -29,7 +28,6 @@
         <tbody>
         @foreach($matches as $match)
         <tr>
-            <td>{{ $match->id_event }}</td>
             <td><a href="{{ URL::to('admin/teams/'.$match->homeTeam->id_team)}}">{{ $match->homeTeam->name }}</a></td>
             <td><a href="{{ URL::to('admin/teams/'.$match->guestTeam->id_team)}}">{{ $match->guestTeam->name }}</a></td>
             <td>{{ $match->stadium }}</td>

@@ -30,9 +30,5 @@ class Match extends Event {
         return $this->belongsTo('Backend\Model\Team','guest_id');
     }
 
-    public function subcategory(){
-        return $this->belongsTo('Backend\Model\SubCategory');
-    }
-
 
 }

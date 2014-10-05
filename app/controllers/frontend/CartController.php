@@ -19,7 +19,7 @@ use Validator;
 use Redirect;
 use Backend\Controller\StadiumCart;
 use DB;
-
+use Backend\Model\Concert;
 class CartController extends BaseController{
 
     public function show(){
@@ -144,9 +144,22 @@ class CartController extends BaseController{
             $error="";
             foreach(Session::get('cart') as $ticket_id => $quantity){
                 $ticket = Ticket::with('match')->findOrFail($ticket_id);
-                $error .= "Stai acquistando:  ".$quantity ." Biglietti per ".$ticket->match->homeTeam->name ." vs ".$ticket->match->guestTeam->name." (".$ticket->label.")<br>";
+                if(in_array($ticket->category_id,Match::$category))
+                    $error .= "Stai acquistando:  ".$quantity ." Biglietti per ".$ticket->match->homeTeam->name ." vs ".$ticket->match->guestTeam->name." (".$ticket->label.")<br>";
+                elseif(in_array($ticket->category_id,Concert::$category))
+                    $error .= "Stai acquistando:  ".$quantity ." Biglietti per ".$ticket->concert->artist->name." (".$ticket->label.")<br>";
             }
             return Redirect::back()->withErrors(['Problema sulle quantità',$error]);
+        }
+
+        /*
+         * prima di indirizzare l'utente al pagamento, devo controllare che le date inserite per ogni customer
+         * siano in un formato valido, altrimenti una volta che l'utente ha effettuato il apgamento, quando
+         * viene indirizzato al result.php durante il salvataggio dei consumer si verifica un'errore per via della data.
+         */
+        foreach($session_consummer as $consumer_sess){
+            if(!strtotime($consumer_sess['born_date']))
+                return Redirect::back()->withErrors('Formato data non corretto ');
         }
 
         Session::set('consumers',$session_consummer);
@@ -340,8 +353,10 @@ class CartController extends BaseController{
             if($order->ticket->category_id == Match::$football){
                 $consumers = [];//lista di consumer
                 foreach($customers_session as $cust){
-                    if($cust['ticket_id'] == $order->ticket_id)
+                    if($cust['ticket_id'] == $order->ticket_id){
+                        $cust['born_date'] = strtotime($cust['born_date']);
                         $consumers[] = new Consumer($cust);
+                    }
                 }
                 if(!empty($consumers))
                     $order->consumers()->saveMany($consumers);

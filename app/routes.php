@@ -10,11 +10,17 @@
 | and give it the Closure to execute when that URI is requested.
 |
 */
+
 Route::get('/into',function(){
    phpinfo();
 });
+
+Route::get('task/courrier/run',function(){
+    Artisan::call('shipments:update');
+});
 Route::get('/track','Backend\Controller\UPSCourrier@start');
 Route::get('/','Frontend\Controller\MatchesController@index');
+
 Route::get('contact',function(){return View::make('contact');});
 
 /*
@@ -64,7 +70,7 @@ Route::get('cart/clear','Frontend\Controller\CartController@clear');
 Route::get('cart/show','Frontend\Controller\CartController@show');
 Route::get('cart/personalInfo','Frontend\Controller\CartController@personalInfo');
 Route::post('cart/review','Frontend\Controller\CartController@review');
-Route::post('cart/buy','Frontend\Controller\CartController@buy');
+Route::any('cart/buy','Frontend\Controller\CartController@buy');
 Route::post('cart/consumerInfo','Frontend\Controller\CartController@consumerAnagSave');
 Route::get('cart/consumerInfo','Frontend\Controller\CartController@consumerAnag');
 //il consorzio invia i dati a questa pagina in modalità post, da non cambiare
@@ -102,6 +108,10 @@ Route::post('feedbacks','Frontend\Controller\FeedbacksController@submit');
  */
 Route::group(array('prefix' => 'admin', 'before' => 'auth|admin','namespace' => 'Backend\Controller'), function() {
     /*
+     * AJAX Richiesta SubCategoreis
+     */
+    Route::post('categories/findSubCategories','CategoriesController@findSubCategories');
+    /*
      * DashBoard
      */
 
@@ -110,8 +120,8 @@ Route::group(array('prefix' => 'admin', 'before' => 'auth|admin','namespace' => 
     /*
      * Payment Shipment Tracking
      */
-    Route::get('shipment/waiting','ShipmentsController@waitShipment');
-    Route::get('shipment/tracking','ShipmentsController@trackShipment');
+    Route::get('shipments/waiting','ShipmentsController@waitShipment');
+    Route::get('shipments/tracking','ShipmentsController@trackShipment');
     /*
      * Matches
      */
@@ -154,7 +164,7 @@ Route::group(array('prefix' => 'admin', 'before' => 'auth|admin','namespace' => 
     Route::get('payments/{event_id}/trackingCode','PaymentsController@addTrackingCode');
     Route::post('payments/{event_id}/updateTrackingCode','PaymentsController@updateTrackingCode');
     //per trovare i cambi nominativi associati a quel payment
-    Route::get('payments/{payment_id}/consumers','PaymentsController@showConsumers');
+    Route::get('payments/{payment_id}/consumers','ConsumersController@show');
     //per markare un pagamento come gia pagato/non pagato
     Route::get('payments/{payment_id}/markAsPaid','PaymentsController@markAsPaid');
     Route::get('payments/{payment_id}/markAsUnpaid','PaymentsController@markAsUnpaid');

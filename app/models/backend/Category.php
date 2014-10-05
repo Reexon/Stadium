@@ -24,4 +24,9 @@ class Category extends \Eloquent{
     public function subcategories(){
         return $this->hasMany('Backend\Model\SubCategory');
     }
+
+    public function events(){
+        return $this->hasMany('Backend\Model\Event');
+    }
+
 } 

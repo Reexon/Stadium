@@ -27,7 +27,10 @@ class SubCategory extends \Eloquent{
         return $this->belongsTo('Backend\Model\Category');
     }
 
-    public function matches(){
+   /* public function matches(){
         return $this->hasMany('Backend\Model\Match');
+    }*/
+    public function events(){
+        return $this->hasMany('Backend\Model\Event');
     }
 } 

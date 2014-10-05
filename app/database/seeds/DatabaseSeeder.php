@@ -19,7 +19,7 @@ class DatabaseSeeder extends Seeder {
         DB::table('event_subscriptions')->truncate();
         DB::table('feedbacks')->truncate();
         DB::table('payments')->truncate();
-
+        DB::table('sub_categories')->truncate();
         //$this->call('CategoryTableSeeder');
         $this->call('UserTableSeeder');
 

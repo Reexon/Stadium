@@ -88,7 +88,7 @@ class TicketsController extends BaseController {
         $ticket_quantity = Input::get('quantity');
 
         //campo nascosto nel form per capire di che categoria è l'evento
-        $category_event = Input::get('category_id');
+        //$category_event = Input::get('category_id');
 
         for($i = 0; $i < count($ticket_type); $i++){
 
@@ -97,8 +97,7 @@ class TicketsController extends BaseController {
                 'label'         => $ticket_type[$i],
                 'price'         => $ticket_price[$i],
                 'event_id'      => $ticket_eventID[$i],
-                'quantity'      => $ticket_quantity[$i],
-                'category_id'   => $category_event,
+                'quantity'      => $ticket_quantity[$i]
             ];
 
            $validator = Validator::make($data = $dataTicket, Ticket::$rules);

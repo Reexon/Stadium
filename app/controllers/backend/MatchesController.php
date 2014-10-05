@@ -24,7 +24,6 @@ class MatchesController extends BaseController {
 	public function index()
 	{
         //prendo i match che non sono scaduti
-		//$matches = Match::where('date','>',time())->paginate(15);
         $matches = Match::with('homeTeam','guestTeam')
             ->whereIn('category_id', Match::$category)
             ->orderBy('date','desc')

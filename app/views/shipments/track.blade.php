@@ -12,7 +12,7 @@
 
     @section('header-title')
     <h1>
-        Title
+        Shipments Status
         <small></small>
     </h1>
     @stop
@@ -43,10 +43,10 @@
                     <a href="{{Config::get('administrator.UPSTrackingLink')}}{{$shipment->trackingcode}}">{{$shipment->trackingcode}}</a>
                 </td>
                 <td>
-                    <?php $status = $shipment->currentStatus;?>
+                    <?php $status = $shipment->shipmentStatus;?>
                     @if($status == "DELIVERED")
                         <span class="label label-success">{{$status}}</span>
-                    @elseif($status == "In Transit")
+                    @elseif($status == "In Transit" || $status == "OUT FOR DELIVERY")
                         <span class="label label-warning">{{$status}}</span>
                     @else
                         <span class="label label-danger">{{$status}}</span>

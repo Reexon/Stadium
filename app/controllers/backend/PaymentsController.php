@@ -27,13 +27,13 @@ class PaymentsController extends BaseController {
 	public function index()
 	{
         //pagamenti andati a buon fine
-		$successPayments = Payment::with('orders','user')->orderBy('pay_date','desc')->where('status','=','APPROVED')->get();
+		$successPayments = Payment::with('orders','user')->orderBy('pay_date','desc')->where('status','=','APPROVED')->paginate();
 
         //pagamenti con autorizzazione negata
-        $failedPayments = Payment::with('orders','user')->orderBy('pay_date','desc')->where('status','=','NOT APPROVED')->get();
+        $failedPayments = Payment::with('orders','user')->orderBy('pay_date','desc')->where('status','=','NOT APPROVED')->paginate();
 
         //pagamenti con errore nei dati (carta,scadenza,credito insuff, ecc)
-        $problemPayments = Payment::with('orders','user')->orderBy('pay_date','desc')->whereNull('status')->get();
+        $problemPayments = Payment::with('orders','user')->orderBy('pay_date','desc')->whereNull('status')->paginate();
 
 		return View::make($this->viewFolder.'payments.index', compact('failedPayments','problemPayments','successPayments'));
 	}
@@ -47,10 +47,12 @@ class PaymentsController extends BaseController {
 
         if(in_array($category_id,Match::$category)){
             //TODO: da aggiungere: where category_id = $category_id
-            $payments = Payment::with('user','feedback','orders.ticket.category')->orderBy('pay_date','desc')->paginate();
+            $payments = Payment::with('user','feedback','orders.ticket.event.category')
+                ->orderBy('pay_date','desc')
+                ->paginate();
         }else if(in_array($category_id,Concert::$category)){
             //TODO:Selezionare gli eventi di tipo concerto
-            $payments = Payment::with('user','feedback','orders.ticket.category')->paginate();
+            $payments = Payment::with('user','feedback','orders.ticket.event.category')->paginate();
         }
         return View::make($this->viewFolder.'payments.category', compact('payments'));
     }

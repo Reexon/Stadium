@@ -25,4 +25,5 @@ class Order extends \Eloquent {
     public function consumers(){
         return $this->hasMany('Backend\Model\Consumer');
     }
+
 }

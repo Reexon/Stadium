@@ -22,4 +22,12 @@ class Event extends \Eloquent{
         return $this->hasMany('Frontend\Model\MatchSubscription','event_id');
     }
 
+    public function category(){
+        return $this->belongsTo('Backend\Model\Category');
+    }
+
+    public function subcategory(){
+        return $this->belongsTo('Backend\Model\SubCategory');
+    }
+
 } 

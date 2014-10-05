@@ -12,18 +12,17 @@ class TicketTableSeeder extends Seeder {
 
 		foreach(range(1, 30) as $index)//per ogni evento
 		{
-            if($index < 21)//20 eventi calcio
+            /*if($index < 21)//20 eventi calcio
                 $cat_id = 1;
             else            //9 eventi concerti
-                $cat_id = 2;
+                $cat_id = 2;*/
 
             foreach(range(1,4) as $boh){//creo 3 ticket
                 Ticket::create([
                     'label'     => $faker->company,
                     'price'     => $faker->randomFloat($min = 20 ,$max = 300),
                     'event_id'  => $index,
-                    'quantity'  => $faker->numberBetween($min = 1, $max = 100),
-                    'category_id'=> $cat_id
+                    'quantity'  => $faker->numberBetween($min = 1, $max = 100)
                 ]);
             }
 		}

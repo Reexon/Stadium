@@ -11,3 +11,7 @@
 |
 */
 
+/**
+ * Cron Job che aggiorna localmente gli stati delle spedizioni
+ */
+Artisan::add(new ShipmentsUpdateCommand);

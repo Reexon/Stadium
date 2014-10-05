@@ -18,7 +18,6 @@
 <table class="table table-striped table-bordered">
     <thead>
     <tr>
-        <th>ID</th>
         <th>Home</th>
         <th>Stadium</th>
         <th>Date</th>
@@ -28,7 +27,6 @@
     <tbody>
     @foreach($concerts as $concert)
     <tr>
-        <td>{{ $concert->id_event }}</td>
         <td><a href="{{ URL::to('admin/artists/'.$concert->artist->id_team)}}">{{ $concert->artist->name }}</a></td>
         <td>{{ $concert->stadium }}</td>
         <td>{{ $concert->date->format('d-m-Y') }}</td>

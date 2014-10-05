@@ -47,6 +47,17 @@
             <li><a href="{{ URL::to('admin/MatchSubscriptions/create') }}">{{FA::icon('plus')}} Add Subscription Match</a></li>
         </ul>
     </li>
+    <!-- ./ Shipment -->
+    <li class="treeview">
+        <a href="#">
+            {{FA::icon('truck')}}<span>Shipments</span>
+            <i class="fa fa-angle-left pull-right"></i>
+        </a>
+        <ul class="treeview-menu">
+            <li><a href="{{ URL::to('admin/shipments/tracking') }}">{{FA::icon('eye')}} Shipped</a></li>
+            <li><a href="{{ URL::to('admin/shipments/waiting') }}">{{FA::icon('eye')}} Not Shipped</a></li>
+        </ul>
+    </li>
     <!-- Users -->
     <li class="treeview">
         <a href="#">

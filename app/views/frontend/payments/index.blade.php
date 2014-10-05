@@ -67,6 +67,9 @@
                     <td>
                         <a class="btn btn-small btn-success" href="{{ URL::to('user/payments/' . $payment->id_payment) }}" data-toggle="tooltip" data-original-title="Show Details">{{ FA::icon('eye')}}</a>
                         <a class="btn btn-small btn-warning" href="{{ URL::to('feedbacks/create/' . $payment->feedback->uuid) }}" data-toggle="tooltip" data-original-title="Feedback">{{ FA::icon('star')}}</a>
+                        @if($payment->hasFootballEvent)
+                            <a class="btn btn-small btn-danger" href="{{URL::to('user/payments/' . $payment->id_payment.'/consumers')}}">{{FA::icon('users')}}</a>
+                        @endif
                     </td>
                 </tr>
             @endforeach

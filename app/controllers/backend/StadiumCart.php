@@ -47,6 +47,7 @@ class StadiumCart {
     public static function arrangeConsumerArray($consumers){
         //input name, provenienti dal form con le informazioni dei utenti finali (cambio-nominativo)
         $fields = ['born_date','born_location','res_prov','res_via','res_cap','res_com','ticket_id'];
+
         $tot_consumer = count($consumers['born_date']);
 
         $session_consumer = [];
@@ -73,11 +74,14 @@ class StadiumCart {
         //leggo quanti ticket sono stati assegnati durante l'inserimento dei consumer
         $ticket = [];
         foreach ($consumersData as $consumer){
-            //se la chiave gia esiste nell'array, lo incremento, senno setto a 1 xk è nuovo
-            if(array_key_exists($consumer['ticket_id'],$ticket))
-                $ticket[$consumer['ticket_id']] +=1;
-            else
-                $ticket[$consumer['ticket_id']] =1;
+            $temp = Ticket::with('match')->find($consumer['ticket_id']);
+            if($temp->match->category_id == Match::$football){
+                //se la chiave gia esiste nell'array, lo incremento, senno setto a 1 xk è nuovo
+                if(array_key_exists($consumer['ticket_id'],$ticket))
+                    $ticket[$consumer['ticket_id']] +=1;
+                else
+                    $ticket[$consumer['ticket_id']] =1;
+            }
         }
         return $ticket;
     }
@@ -94,9 +98,17 @@ class StadiumCart {
         $ticket = self::howManyTicketType($consumersData);
 
         $cart = Session::get('cart');
-        foreach($cart as $ticket_id => $quantity){//per ogni ticket nel carrello
+        /*foreach($cart as $ticket_id => $quantity){//per ogni ticket nel carrello
             if(array_key_exists($ticket_id,$ticket)){
                 if($ticket[$ticket_id] != $quantity)//prima di controllare se i numeri corrispondono, devo prima controllare che la chiave esista
+                    return false;
+            }else
+                return false;
+        }*/
+
+        foreach($ticket as $ticket_id => $quantity){//per ogni ticket footbal
+            if(array_key_exists($ticket_id,$cart)){
+                if($cart[$ticket_id] != $quantity)//prima di controllare se i numeri corrispondono, devo prima controllare che la chiave esista
                     return false;
             }else
                 return false;

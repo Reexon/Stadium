@@ -28,7 +28,7 @@
             <thead>
             <tr>
                 <th>#</th>
-                <th>Match</th>
+                <th>Event</th>
                 <th>Ticket</th>
                 <th>Quantity</th>
                 <th>Total</th>
@@ -40,10 +40,11 @@
             @foreach($payment->orders as $order)
             <tr>
                 <td>{{$order->id_order}}</td>
-                <?php $category_id = $order->ticket->category_id; ?>
-                @if(in_array($category_id,Backend\Model\Match::$category))
+                <?php $category = $order->ticket->event->category; ?>
+                <td>{{$category->name}}</td>
+                @if(in_array($category->id_category,Backend\Model\Match::$category))
                     <td>{{$order->ticket->match->homeTeam->name}} - {{$order->ticket->match->guestTeam->name}} ({{$order->ticket->match->date->format('d.m.Y')}})</td>
-                @elseif(in_array($category_id,Backend\Model\Concert::$category))
+                @elseif(in_array($category->id_category,Backend\Model\Concert::$category))
                     <td>{{$order->ticket->concert->artist->name}} - ({{$order->ticket->concert->date->format('d.m.Y')}})</td>
                 @endif
                 <td>{{$order->ticket->label}}</td>
@@ -54,7 +55,7 @@
             </tbody>
             <tfoot>
             <tr>
-                <td colspan="4"></td>
+                <td colspan="5"></td>
                 <td><b>{{number_format($payment->total,2,',','.')}} €</b></td>
             </tr>
             </tfoot>

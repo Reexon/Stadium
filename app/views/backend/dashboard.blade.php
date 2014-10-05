@@ -33,7 +33,7 @@
             <div class="icon">
                 {{FA::icon('truck')}}
             </div>
-            <a href="{{URL::to('admin/shipment/waiting')}}" class="small-box-footer">
+            <a href="{{URL::to('admin/shipments/waiting')}}" class="small-box-footer">
                 More info <i class="fa fa-arrow-circle-right"></i>
             </a>
         </div>

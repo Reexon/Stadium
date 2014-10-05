@@ -9,7 +9,10 @@
 namespace Backend\Controller;
 
 
+use Backend\Model\Payment;
+
 class UPSCourrier{
+
     //Dati Di accesso per utilizzo delle API (NON MODIFICARE)
     private $userID = "amaltea";
     private $password = "Fra62nco";
@@ -17,7 +20,7 @@ class UPSCourrier{
 
     //Dati relativi al tipo di richiesta
     private $trackingEndPoint = "https://wwwcie.ups.com/ups.app/xml/Track";
-    private $trackingCode = "1Z49E03Y6840212318"; //in shipping
+    private $trackingCode = "1Z49E03Y6840179212"; //in shipping
     //private $trackingCode = "1Z49E03Y6840211873"; //delivered
     //private $trackingCode = "990728071";//in transit
     //private $trackingCode = "1Z12345E029198079";//invalid tracking number (error)
@@ -40,7 +43,7 @@ class UPSCourrier{
     //boolean
     public $isDelivered;
     //nome di chi ha firmato (se è stato consegnato)
-    public $signedBy;
+    public $signedBy = null;
     //data ultimo aggiornamento
     public $lastUpdateDate;
     //ora ultimo aggiornamento
@@ -50,7 +53,6 @@ class UPSCourrier{
      *
      */
     public $shipTo;
-
 
     public function __construct($tracking){
         $this->trackingCode = $tracking;
@@ -83,9 +85,9 @@ class UPSCourrier{
     }
 
     public function start(){
-        /*ini_set('xdebug.var_display_max_depth', -1);
+        ini_set('xdebug.var_display_max_depth', -1);
         ini_set('xdebug.var_display_max_children', -1);
-        ini_set('xdebug.var_display_max_data', -1);*/
+        ini_set('xdebug.var_display_max_data', -1);
         $ch = curl_init($this->trackingEndPoint);
         curl_setopt($ch, CURLOPT_FOLLOWLOCATION, FALSE);
         curl_setopt ($ch, CURLOPT_SSL_VERIFYHOST, FALSE);
@@ -108,7 +110,7 @@ class UPSCourrier{
         if($xml->Response->ResponseStatusCode == 0){
             $this->errorCode = $xml->Response->Error->ErrorCode;
             $this->errorDescription = $xml->Response->Error->ErrorDescription;
-            echo $this->errorCode . " - ".$this->errorDescription;
+            $this->currentStatus = $this->errorDescription;
             return;
         }
 
@@ -140,14 +142,17 @@ class UPSCourrier{
          *   P = Pickup
          *   M = Manifest Pickup.
          */
+
         if($xml->Shipment->Package->Activity != null){
             foreach($xml->Shipment->Package->Activity as $activityData){
 
                 //consegnato o no
                 $statusCode = $activityData->Status->StatusType->Code;
+
                 if($statusCode == "D"){
                     $this->isDelivered = true;
                     $this->signedBy = $activityData->ActivityLocation->SignedForByName;
+
                 }else
                     $this->isDelivered = false;
 
