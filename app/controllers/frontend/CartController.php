@@ -434,8 +434,6 @@ class CartController extends BaseController{
             $firstname=$_POST["udf3"];
             $lastname=$_POST["udf4"];
 
-            $UD5=$_POST["udf5"];
-
             $ReceiptURL="REDIRECT=http://stadium.reexon.net/cart/result?PaymentID=".$PayID.
                 "&TransID=".$TransID.
                 "&trackid=".$TrckID.

@@ -127,8 +127,8 @@ class StadiumCart {
         if($cart != null){
             foreach($cart as $ticket_id => $quantity){
                 $ticket_id_list[] = $ticket_id;
-                $item = Ticket::find($ticket_id);
-                if($item->category_id == Match::$football){
+                $event = Ticket::find($ticket_id)->event;
+                if($event->category_id == Match::$football){
                     return true;
                 }
             }
@@ -163,8 +163,8 @@ class StadiumCart {
         $cart = Session::get('cart');
         if($cart != null){
             foreach($cart as $ticket_id => $quantity){
-                $item = Ticket::find($ticket_id);
-                if($item->category_id == Match::$football){
+                $event = Ticket::find($ticket_id)->event;
+                if($event->category_id == Match::$football){
                     $football_tickets +=  $quantity; //salvo quanti ticket di calcio ha nel carrello
                 }
             }

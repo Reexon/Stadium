@@ -3,37 +3,37 @@ namespace Backend\Controller;
 
 use Backend\Model\Category;
 use Backend\Model\Concert;
-use Backend\Model\Artist;
 use View;
 use Validator;
 use Input;
 use Redirect;
+use Backend\Model\Race;
+use Backend\Model\SubCategory;
+use DB;
 use Backend\Model\Event;
-
-class ConcertsController extends BaseController {
+class RacesController extends BaseController {
 
 	/**
-	 * Display a listing of concerts
+	 * Display a listing of races
 	 *
 	 * @return Response
 	 */
 	public function index()
 	{
-		$concerts = Event::concert()->with('artist')
-            ->paginate();
+		$races = Event::race()->paginate();
 
-		return View::make($this->viewFolder.'concerts.index', compact('concerts'));
+		return View::make($this->viewFolder.'races.index', compact('races'));
 	}
 
 	/**
-	 * Show the form for creating a new concert
+	 * Show the form for creating a new race
 	 *
 	 * @return Response
 	 */
 	public function create()
 	{
-        $artists = Artist::all()->lists('name','id_team');
-		return View::make($this->viewFolder.'concerts.create',compact('artists'));
+        $category = Category::race()->lists('name','id_category');
+		return View::make($this->viewFolder.'races.create',compact('category'));
 	}
 
 	/**
@@ -48,9 +48,10 @@ class ConcertsController extends BaseController {
          * @see  http://laravel.io/forum/08-26-2014-inputold-with-array-of-input
          */
 
-        $artist_id = Input::get('artist_id');
         $stadium = Input::get('stadium');
         $date = Input::get('date');
+        $category = Input::get('category_id');
+        $subcategory = Input::get('subcategory_id');
 
         //loop sul formato delle date
         foreach ($date as $data){
@@ -58,17 +59,16 @@ class ConcertsController extends BaseController {
                 return Redirect::back()->withErrors('Date Error');
         }
 
-        for($i = 0 ; $i < count($artist_id); $i++){
+        for($i = 0 ; $i < count($stadium); $i++){
 
-            $dataMatches = [
-                '_token'        => Input::get('_token'),
-                'home_id'       => $artist_id[$i],
+            $dataRaces = [
                 'stadium'       => $stadium[$i],
                 'date'          => date('Y-m-d',strtotime($date[$i])),
-                'category_id'   => Concert::$concert
+                'category_id'   => $category[$i],
+                'subcategory_id'=> $subcategory[$i]
             ];
 
-            $validator = Validator::make($data = $dataMatches, Concert::$rules);
+            $validator = Validator::make($data = $dataRaces, Race::$rules);
 
             if ($validator->fails())
             {
@@ -76,10 +76,10 @@ class ConcertsController extends BaseController {
             }
 
             //TODO: Bisogna Validare i dati prima di creare il match
-            Concert::create($dataMatches);
+            Race::create($dataRaces);
         }
 
-        return Redirect::route('admin.concerts.index');
+        return Redirect::route('admin.races.index');
 
 	}
 
@@ -91,9 +91,9 @@ class ConcertsController extends BaseController {
 	 */
 	public function show($id)
 	{
-		$concert = Concert::findOrFail($id);
+		$race = Race::findOrFail($id);
 
-		return View::make($this->viewFolder.'concerts.show', compact('concert'));
+		return View::make($this->viewFolder.'races.show',compact('race'));
 	}
 
 	/**
@@ -104,16 +104,24 @@ class ConcertsController extends BaseController {
 	 */
 	public function edit($id)
 	{
-		//$concert = Concert::whereIn('category_id',Concert::$category)->find($id);
-        $concert = Event::concert()->find($id);
-        $artists = Artist::whereIn('category_id',Concert::$category)->lists('name','id_team');
-        $categories = Category::concert()->lists('name','id_category');
+		$race = Event::race()->find($id);
+        $categories = Category::race()->lists('name','id_category');
+        $subcategories = SubCategory::whereIn('category_id',Race::$category)->lists('name','id_subcategory');
 
-		return View::make($this->viewFolder.'concerts.edit', compact('concert','artists','categories'));
+
+        $usersToBeNotified =DB::select(
+            DB::raw('SELECT * FROM users
+                      INNER JOIN payments ON id_user = payments.user_id
+                      INNER JOIN orders ON id_payment = orders.payment_id
+                      INNER JOIN tickets ON id_ticket = orders.ticket_id
+                      INNER JOIN events ON id_event = tickets.event_id
+                      WHERE events.id_event = ?')
+            ,[$id]);
+		return View::make($this->viewFolder.'races.edit', compact('race','categories','usersToBeNotified','subcategories'));
 	}
 
 	/**
-	 * Update the specified concert in storage.
+	 * Update the specified race in storage.
 	 *
 	 * @param  int  $id
 	 * @return Response
@@ -121,12 +129,12 @@ class ConcertsController extends BaseController {
 	public function update($id)
 	{
 
-		$concert = Concert::findOrFail($id);
+		$race = Race::findOrFail($id);
 
         if(!strtotime(Input::get('date')))
             return Redirect::back()->withErrors('Date Error');
 
-		$validator = Validator::make($data = Input::all(), Concert::$rules);
+		$validator = Validator::make($data = Input::all(), Race::$rules);
 
 		if ($validator->fails())
 		{
@@ -136,27 +144,27 @@ class ConcertsController extends BaseController {
         //converto la data solo dopo validazione
         $data['date'] = date("Y-m-d", strtotime(Input::get('date')));
 
-		$concert->update($data);
+		$race->update($data);
 
         //avvisare gli utenti che hanno acquistato biglietto, della modifica ?
         if(Input::get('send_notifications')){
             //TODO:inviare mail a utenti
         }
 
-        return Redirect::route('admin.concerts.index');
+        return Redirect::route('admin.races.index');
 	}
 
 	/**
-	 * Remove the specified concert from storage.
+	 * Remove the specified races from storage.
 	 *
 	 * @param  int  $id
 	 * @return Response
 	 */
 	public function destroy($id)
 	{
-		Concert::destroy($id);
+		Race::destroy($id);
 
-		return Redirect::route('admin.concerts.index');
+		return Redirect::route('admin.races.index');
 	}
 
 }

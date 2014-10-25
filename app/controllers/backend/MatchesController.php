@@ -24,8 +24,8 @@ class MatchesController extends BaseController {
 	public function index()
 	{
         //prendo i match che non sono scaduti
-        $matches = Match::with('homeTeam','guestTeam')
-            ->whereIn('category_id', Match::$category)
+        $matches = Event::match()
+            ->with('homeTeam','guestTeam')
             ->orderBy('date','desc')
             ->paginate();
 
@@ -41,7 +41,7 @@ class MatchesController extends BaseController {
 	public function create()
 	{
         $teams = Team::whereIn('category_id',Match::$category)->lists('name', 'id_team');
-        $category = Category::whereIn('id_category',Match::$category)->lists('name','id_category');
+        $category = Category::match()->lists('name','id_category');
 		return View::make($this->viewFolder.'matches.create',compact('teams','category'));
 	}
 
@@ -115,7 +115,7 @@ class MatchesController extends BaseController {
 		$match = Match::findOrFail($id);
         $teams = Team::whereIn('category_id',Match::$category)->lists('name', 'id_team');
 
-        $categories = Category::whereIn('id_category',Match::$category);
+        $categories = Category::match();
         $subcategories = SubCategory::where('category_id','=',$categories->first()->id_category)->lists('name','id_subcategory');
         $categories = $categories->lists('name','id_category');
 

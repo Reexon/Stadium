@@ -19,7 +19,7 @@
 @section('content')
 <div style="margin-bottom: 25px;">
     <ol class="progtrckr" data-progtrckr-steps="5">
-        <li class="progtrckr-done">Check Your Cart</b></li>
+        <li class="progtrckr-done">Check Your Cart</li>
         <li class="progtrckr-done">Personal Info</li>
         <li class="progtrckr-current"><b>Review</b></li>
         <li class="progtrckr-todo">Checkout</li>

@@ -30,4 +30,16 @@ class Event extends \Eloquent{
         return $this->belongsTo('Backend\Model\SubCategory');
     }
 
+    public function scopeConcert($query){
+        return Concert::whereIn('category_id',Concert::$category);
+    }
+
+    public function scopeRace($query){
+        return Race::whereIn('category_id',Race::$category);
+    }
+
+    public function scopeMatch($query){
+        return Match::whereIn('category_id', Match::$category);
+    }
+
 } 

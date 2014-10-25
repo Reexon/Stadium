@@ -29,4 +29,16 @@ class Category extends \Eloquent{
         return $this->hasMany('Backend\Model\Event');
     }
 
+    public function scopeConcert($query){
+        return $query->whereIn('id_category',Concert::$category);
+    }
+
+    public function scopeRace($query){
+        return $query->whereIn('id_category',Race::$category);
+    }
+
+    public function scopeMatch($query){
+        return $query->whereIn('id_category',Match::$category);
+    }
+
 } 
