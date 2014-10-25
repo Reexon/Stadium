@@ -17,7 +17,8 @@
 
 @section('content')
 
-{{ Form::open(array('url'=>'register', 'class'=>'form-horizontal', 'role' => 'form')) }}
+{{ Form::open( ['url'=>'register', 'class'=>'form-horizontal', 'role' => 'form']) }}
+
 <!--TODO:register e create fanno la stessa cosa -->
 <h2 class="form-signup-heading">Add new User</h2>
 <div class="form-group">

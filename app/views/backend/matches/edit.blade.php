@@ -55,12 +55,17 @@
             {{ Bootstrap::date('date', '', $match->date->format('d-m-Y'), $errors, ['class' => 'form-control datepicker'], ['format' => 'DD-MM-YYYY'])}}
         </div>
     </div>
+
+    @if(count($usersToBeNotified) > 0)
     <div class="form-group">
         {{ Form::label('send_notifications','Send Notifications',['class' => 'col-sm-2 control-label']) }}
         <div class="col-sm-10">
-            {{Form::checkbox('send_notifications','yes',false)}}  Avvisa gli utenti della modifica
+            {{Form::checkbox('send_notifications','yes',false)}}  Avvisa gli utenti della modifica ({{count($usersToBeNotified)}})
+            {{Form::button(FA::icon('info'),['data-container' => 'body', 'data-toggle'=>'popover','data-placement'=>'right', 'data-content'=>'Vivamus sagittis lacus vel augue laoreet rutrum faucibus.'])}}
         </div>
     </div>
+    @endif
+
     <div class="form-group">
         <div class="col-sm-offset-2 col-sm-10">
             {{ Form::button(FA::icon('check').' Edit Match!', array('class' => 'btn btn-success','type' => 'submit')) }}

@@ -67,10 +67,10 @@
 
 <table class="table">
     <thead>
-    <tr>
-        <th>Artist Name</th>
-        <th>Actions</th>
-    </tr>
+        <tr>
+            <th>Artist Name</th>
+            <th>Actions</th>
+        </tr>
     </thead>
     <tbody>
     <tr>

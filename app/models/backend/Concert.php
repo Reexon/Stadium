@@ -4,9 +4,9 @@ namespace Backend\Model;
 class Concert extends Event {
 
 
-    public static $category = [2,2];
+    public static $category = [5,6];
 
-    public static $concert = 2;
+    public static $concert = 5;
 
 	// Add your validation rules here
 	public static $rules = [

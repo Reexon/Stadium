@@ -26,4 +26,5 @@ class ConsumersController extends BaseController{
         $payment = Payment::with('orders.consumers','orders.ticket.event')->find($payment_id);
         return View::make($this->viewFolder.'payments.consumers',compact('payment'));
     }
+
 }

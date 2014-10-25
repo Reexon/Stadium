@@ -15,7 +15,7 @@ class Match extends Event {
 
 
     //viene inserito array per poter gestire diverse categorie (hockey,rugby,nba ecc)
-    public static $category = [1,3,4];
+    public static $category = [1,2,3,4];
 
     public static $football = 1;
 

@@ -3,7 +3,6 @@
 // Composer: "fzaninotto/faker": "v1.3.0"
 use Faker\Factory as Faker;
 use Backend\Model\Match;
-
 class MatchTableSeeder extends Seeder {
 
 	public function run()
@@ -17,7 +16,7 @@ class MatchTableSeeder extends Seeder {
                 'guest_id'  => ($index+1),
                 'date'      => $faker->unixTime,
                 'stadium'   => $faker->city,
-                'category_id'=> 1
+                'category_id'=> Match::$football
 			]);
 		}
 	}

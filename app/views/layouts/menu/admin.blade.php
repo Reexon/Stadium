@@ -37,6 +37,21 @@
         </ul>
     </li>
     <!-- ./ Concert -->
+    <!-- Races -->
+    <li class="treeview">
+        <a href="#">
+            {{FA::icon('car')}}<span>Races</span>
+            <i class="fa fa-angle-left pull-right"></i>
+        </a>
+        <ul class="treeview-menu">
+            <?php $raceCategory = \Backend\Model\Race::$race; ?>
+            <li><a href="{{ URL::to('admin/races') }}">{{FA::icon('eye')}}  Show All Races</a></li>
+            <li><a href="{{ URL::to('admin/races/create') }}">{{FA::icon('plus')}}  Add Races</a></li>
+            <li><a href="{{ URL::to('admin/tickets/create/'.$raceCategory)}}">{{FA::icon('ticket')}}  Add Tickets</a></li>
+            <li><a href="{{ URL::to('admin/payments/category/'.$raceCategory) }}">{{FA::icon('money')}} Payments</a></li>
+        </ul>
+    </li>
+    <!-- ./ Races -->
     <li class="treeview">
         <a href="#">
             {{FA::icon('envelope-o')}}<span>Subscriptions</span>
@@ -84,5 +99,12 @@
         </a>
     </li>
     <!-- ./ My Payments -->
+    <!-- Cron Job -->
+    <li>
+        <a href="{{URL::to('cronjobs')}}">
+            {{FA::icon('tasks')}} <span>Cron Job</span>
+        </a>
+    </li>
+    <!-- ./ Cron Job-->
 
 </ul>

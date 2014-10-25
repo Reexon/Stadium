@@ -6,7 +6,7 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
-    'kartik\\' => array($vendorDir . '/kartik-v/bootstrap-star-rating'),
+    'kartik\\plugins\\rating\\' => array($vendorDir . '/kartik-v/bootstrap-star-rating'),
     'Pheanstalk\\' => array($vendorDir . '/pda/pheanstalk/src'),
     'Monolog\\' => array($vendorDir . '/monolog/monolog/src/Monolog'),
     'Barryvdh\\Debugbar\\' => array($vendorDir . '/barryvdh/laravel-debugbar/src'),

@@ -16,7 +16,7 @@ class ConcertTableSeeder extends Seeder {
                 'home_id'   => $index,
                 'date'      => $faker->unixTime,
                 'stadium'   => $faker->city,
-                'category_id'=> 2
+                'category_id'=> Concert::$concert
 			]);
 		}
 	}

@@ -3,8 +3,8 @@
 namespace Backend\Controller;
 
 use Backend\Model\Category;
+use DB;
 use Backend\Model\Event;
-use Backend\Model\Events;
 use Backend\Model\SubCategory;
 use View;
 use Validator;
@@ -112,14 +112,23 @@ class MatchesController extends BaseController {
 	public function edit($id)
 	{
 
-		$match = Match::find($id);
+		$match = Match::findOrFail($id);
         $teams = Team::whereIn('category_id',Match::$category)->lists('name', 'id_team');
 
         $categories = Category::whereIn('id_category',Match::$category);
         $subcategories = SubCategory::where('category_id','=',$categories->first()->id_category)->lists('name','id_subcategory');
         $categories = $categories->lists('name','id_category');
 
-		return View::make($this->viewFolder.'matches.edit', compact('match','teams','categories','subcategories'));
+        $usersToBeNotified =DB::select(
+            DB::raw('SELECT * FROM users
+                      INNER JOIN payments ON id_user = payments.user_id
+                      INNER JOIN orders ON id_payment = orders.payment_id
+                      INNER JOIN tickets ON id_ticket = orders.ticket_id
+                      INNER JOIN events ON id_event = tickets.event_id
+                      WHERE events.id_event = ?')
+          ,[$id]);
+
+		return View::make($this->viewFolder.'matches.edit', compact('match','teams','categories','subcategories','usersToBeNotified'));
 	}
 
 	/**

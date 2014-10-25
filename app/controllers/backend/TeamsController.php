@@ -16,7 +16,7 @@ class TeamsController extends BaseController {
 	 */
 	public function index()
 	{
-		$teams = Team::where('category_id','=','1')->paginate();
+		$teams = Team::where('category_id','=',Match::$football)->paginate();
 
 		return View::make($this->viewFolder.'teams.index', compact('teams'));
 	}

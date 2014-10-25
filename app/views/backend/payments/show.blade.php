@@ -45,8 +45,8 @@
                 <strong>{{$user->firstname}} {{$user->lastname}}</strong><br>
                 {{$user->city}}, {{$user->cap}}<br>
                 {{$user->address}}<br>
-                Phone: {{$user->mobile}}<br>
-                Email: {{$user->email}}
+                <b>Phone:</b> {{$user->mobile}}<br>
+                <b>Email:</b> {{$user->email}}
             </address>
         </div><!-- /.col -->
         <div class="col-sm-4 invoice-col">
@@ -55,8 +55,8 @@
                 <strong>{{$payment->firstname}} {{$payment->lastname}}</strong><br>
                 {{$payment->city}}, {{$payment->cap}}<br>
                 {{$payment->address}}<br>
-                Phone: {{$payment->mobile}}<br>
-                Email: {{$payment->email}}
+                <b>Phone:</b> {{$payment->mobile}}<br>
+                <b>Email:</b> {{$payment->email}}
             </address>
         </div><!-- /.col -->
         <div class="col-sm-4 invoice-col">

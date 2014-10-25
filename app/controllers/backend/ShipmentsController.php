@@ -21,7 +21,7 @@ class ShipmentsController extends BaseController {
             ->orderBy('updated_at','desc')
             ->paginate();
 
-		return View::make('shipments.waiting', compact('shipments'));
+		return View::make($this->viewFolder.'shipments.waiting', compact('shipments'));
 	}
 
 	/**
@@ -37,7 +37,7 @@ class ShipmentsController extends BaseController {
             ->orderBy('updated_at','desc')
             ->paginate();
 
-        return View::make('shipments.track',compact('shipments'));
+        return View::make($this->viewFolder.'shipments.track',compact('shipments'));
 	}
 
 	/**
@@ -56,7 +56,7 @@ class ShipmentsController extends BaseController {
 
 		Shipment::create($data);
 
-		return Redirect::route('shipments.index');
+		return Redirect::route($this->viewFolder.'shipments.index');
 	}
 
 	/**
@@ -69,7 +69,7 @@ class ShipmentsController extends BaseController {
 	{
 		$shipment = Shipment::findOrFail($id);
 
-		return View::make('shipments.show', compact('shipment'));
+		return View::make($this->viewFolder.'shipments.show', compact('shipment'));
 	}
 
 	/**
@@ -82,7 +82,7 @@ class ShipmentsController extends BaseController {
 	{
 		$shipment = Shipment::find($id);
 
-		return View::make('shipments.edit', compact('shipment'));
+		return View::make($this->viewFolder.'shipments.edit', compact('shipment'));
 	}
 
 	/**
@@ -104,7 +104,7 @@ class ShipmentsController extends BaseController {
 
 		$shipment->update($data);
 
-		return Redirect::route('shipments.index');
+		return Redirect::route($this->viewFolder.'shipments.index');
 	}
 
 	/**
@@ -117,7 +117,7 @@ class ShipmentsController extends BaseController {
 	{
 		Shipment::destroy($id);
 
-		return Redirect::route('shipments.index');
+		return Redirect::route($this->viewFolder.'shipments.index');
 	}
 
 }

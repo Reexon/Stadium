@@ -6,10 +6,10 @@
 	"require": {
 		"laravel/framework": "4.2.*",
         "khill/fontawesomephp" : "1.0.x",
-        "cornford/bootstrapper": "1.*",
         "barryvdh/laravel-debugbar": "1.*",
-		"pda/pheanstalk": "3.*",
         "fzaninotto/faker": "v1.3.0",
+        "cornford/bootstrapper": "1.*",
+		"pda/pheanstalk": "3.*",
         "kartik-v/bootstrap-star-rating": "dev-master"
 
 	},

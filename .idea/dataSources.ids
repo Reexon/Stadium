@@ -32,6 +32,14 @@
       <foreign-key name="fk_consumer_orders1" columns="order_id" ref-table="orders" ref-schema="" ref-catalog="thrcodes_stadium" ref-columns="id_order" update-rule="3" delete-rule="3" deferrability="2"/>
       <index name="fk_consumer_orders1_idx" unique="false" columns="order_id"/>
     </table>
+    <table name="cronjobs" schema="" catalog="thrcodes_stadium" type="TABLE">
+      <column name="id_cronjob" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="name" sqlType="VARCHAR" precision="45" scale="0" nullable="true" jdbcType="12"/>
+      <column name="description" sqlType="VARCHAR" precision="45" scale="0" nullable="true" jdbcType="12"/>
+      <primary-key name="PRIMARY" columns="id_cronjob"/>
+      <exported-key name="fk_job_history_cronjobs1" table="job_history" schema="" catalog="thrcodes_stadium" columns="cronjob_id"/>
+      <index name="name_UNIQUE" unique="true" columns="name"/>
+    </table>
     <table name="event_subscriptions" schema="" catalog="thrcodes_stadium" type="TABLE">
       <column name="id_subscription" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
       <column name="email" sqlType="VARCHAR" precision="45" scale="0" nullable="false" jdbcType="12"/>
@@ -77,6 +85,15 @@
       <primary-key name="PRIMARY" columns="id_feedback"/>
       <exported-key name="fk_payments_feedbacks" table="payments" schema="" catalog="thrcodes_stadium" columns="feedback_id"/>
     </table>
+    <table name="job_history" schema="" catalog="thrcodes_stadium" type="TABLE">
+      <column name="id_history" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="result" sqlType="VARCHAR" precision="45" scale="0" nullable="false" jdbcType="12"/>
+      <column name="last_execution" sqlType="TIMESTAMP" precision="19" scale="0" nullable="false" jdbcType="93" def="Q1VSUkVOVF9USU1FU1RBTVA="/>
+      <column name="cronjob_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <primary-key name="PRIMARY" columns="id_history"/>
+      <foreign-key name="fk_job_history_cronjobs1" columns="cronjob_id" ref-table="cronjobs" ref-schema="" ref-catalog="thrcodes_stadium" ref-columns="id_cronjob" update-rule="3" delete-rule="3" deferrability="2"/>
+      <index name="fk_job_history_cronjobs1_idx" unique="false" columns="cronjob_id"/>
+    </table>
     <table name="mail_messages" schema="" catalog="thrcodes_stadium" type="TABLE">
       <column name="id_message" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
       <column name="title" sqlType="VARCHAR" precision="45" scale="0" nullable="false" jdbcType="12"/>
@@ -120,6 +137,8 @@
       <column name="firstname" sqlType="VARCHAR" precision="45" scale="0" nullable="true" jdbcType="12"/>
       <column name="lastname" sqlType="VARCHAR" precision="45" scale="0" nullable="true" jdbcType="12"/>
       <column name="visited" sqlType="TINYINT" precision="3" scale="0" nullable="true" jdbcType="-6" def="MA=="/>
+      <column name="shipmentStatus" sqlType="VARCHAR" precision="45" scale="0" nullable="true" jdbcType="12"/>
+      <column name="signedby" sqlType="VARCHAR" precision="45" scale="0" nullable="true" jdbcType="12"/>
       <primary-key name="PRIMARY" columns="id_payment"/>
       <foreign-key name="fk_payments_feedbacks" columns="feedback_id" ref-table="feedbacks" ref-schema="" ref-catalog="thrcodes_stadium" ref-columns="id_feedback" update-rule="3" delete-rule="3" deferrability="2"/>
       <foreign-key name="fk_payments_users" columns="user_id" ref-table="users" ref-schema="" ref-catalog="thrcodes_stadium" ref-columns="id_user" update-rule="3" delete-rule="0" deferrability="2"/>
@@ -148,6 +167,209 @@
       <foreign-key name="fk_teams_categories1" columns="category_id" ref-table="categories" ref-schema="" ref-catalog="thrcodes_stadium" ref-columns="id_category" update-rule="3" delete-rule="3" deferrability="2"/>
       <exported-key name="FK_guest" table="events" schema="" catalog="thrcodes_stadium" columns="guest_id"/>
       <exported-key name="FK_home" table="events" schema="" catalog="thrcodes_stadium" columns="home_id"/>
+      <index name="name_UNIQUE" unique="true" columns="name"/>
+      <index name="fk_teams_categories1_idx" unique="false" columns="category_id"/>
+    </table>
+    <table name="tickets" schema="" catalog="thrcodes_stadium" type="TABLE">
+      <column name="id_ticket" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="label" sqlType="VARCHAR" precision="45" scale="0" nullable="false" jdbcType="12"/>
+      <column name="price" sqlType="FLOAT" precision="5" scale="2" nullable="false" jdbcType="7"/>
+      <column name="quantity" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="event_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="updated_at" sqlType="TIMESTAMP" precision="19" scale="0" nullable="true" jdbcType="93" def="Q1VSUkVOVF9USU1FU1RBTVA=" version="true"/>
+      <column name="created_at" sqlType="TIMESTAMP" precision="19" scale="0" nullable="true" jdbcType="93" def="Q1VSUkVOVF9USU1FU1RBTVA="/>
+      <primary-key name="PRIMARY" columns="id_ticket"/>
+      <foreign-key name="FKevent_id" columns="event_id" ref-table="events" ref-schema="" ref-catalog="thrcodes_stadium" ref-columns="id_event" update-rule="3" delete-rule="0" deferrability="2"/>
+      <exported-key name="fk_orders_tickets" table="orders" schema="" catalog="thrcodes_stadium" columns="ticket_id"/>
+      <index name="FKmatch_id_idx" unique="false" columns="event_id"/>
+    </table>
+    <table name="users" schema="" catalog="thrcodes_stadium" type="TABLE">
+      <column name="id_user" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="firstname" sqlType="VARCHAR" precision="45" scale="0" nullable="false" jdbcType="12"/>
+      <column name="lastname" sqlType="VARCHAR" precision="45" scale="0" nullable="false" jdbcType="12"/>
+      <column name="address" sqlType="VARCHAR" precision="45" scale="0" nullable="true" jdbcType="12"/>
+      <column name="email" sqlType="VARCHAR" precision="45" scale="0" nullable="true" jdbcType="12"/>
+      <column name="city" sqlType="VARCHAR" precision="45" scale="0" nullable="true" jdbcType="12"/>
+      <column name="cap" sqlType="VARCHAR" precision="45" scale="0" nullable="true" jdbcType="12"/>
+      <column name="mobile" sqlType="VARCHAR" precision="45" scale="0" nullable="true" jdbcType="12"/>
+      <column name="alt_mobile" sqlType="VARCHAR" precision="45" scale="0" nullable="true" jdbcType="12"/>
+      <column name="birth_date" sqlType="TIMESTAMP" precision="19" scale="0" nullable="true" jdbcType="93"/>
+      <column name="password" sqlType="VARCHAR" precision="60" scale="0" nullable="false" jdbcType="12"/>
+      <column name="password_confirmation" sqlType="VARCHAR" precision="60" scale="0" nullable="true" jdbcType="12"/>
+      <column name="remember_token" sqlType="VARCHAR" precision="100" scale="0" nullable="true" jdbcType="12"/>
+      <column name="created_at" sqlType="TIMESTAMP" precision="19" scale="0" nullable="true" jdbcType="93" def="Q1VSUkVOVF9USU1FU1RBTVA="/>
+      <column name="updated_at" sqlType="TIMESTAMP" precision="19" scale="0" nullable="true" jdbcType="93" def="Q1VSUkVOVF9USU1FU1RBTVA=" version="true"/>
+      <primary-key name="PRIMARY" columns="id_user"/>
+      <exported-key name="fk_payments_users" table="payments" schema="" catalog="thrcodes_stadium" columns="user_id"/>
+    </table>
+  </data-source>
+  <data-source name="MySQL - thrcodes_stadium@localhost" uuid="cd0b9ff6-3f92-4afe-964b-455197eb417c">
+    <database-info product="MySQL" version="5.6.17" jdbc-version="4.0" driver-name="MySQL Connector Java" driver-version="mysql-connector-java-5.1.31 ( Revision: alexander.soklakov@oracle.com-20140520065950-groqzzbvxprqdmnz )">
+      <extra-name-characters>#@</extra-name-characters>
+      <identifier-quote-string>`</identifier-quote-string>
+    </database-info>
+    <case-sensitivity plain-identifiers="mixed" quoted-identifiers="upper"/>
+    <schema name="" catalog="thrcodes_stadium"/>
+    <table name="categories" schema="" catalog="thrcodes_stadium" type="TABLE">
+      <column name="id_category" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="name" sqlType="VARCHAR" precision="45" scale="0" nullable="true" jdbcType="12"/>
+      <primary-key name="PRIMARY" columns="id_category"/>
+      <exported-key name="fk_matches_categories1" table="events" schema="" catalog="thrcodes_stadium" columns="category_id"/>
+      <exported-key name="fk_subcategories_categories1" table="sub_categories" schema="" catalog="thrcodes_stadium" columns="category_id"/>
+      <exported-key name="fk_teams_categories1" table="teams" schema="" catalog="thrcodes_stadium" columns="category_id"/>
+    </table>
+    <table name="consumers" schema="" catalog="thrcodes_stadium" type="TABLE">
+      <column name="id_consumer" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="firstname" sqlType="VARCHAR" precision="45" scale="0" nullable="true" jdbcType="12"/>
+      <column name="lastname" sqlType="VARCHAR" precision="45" scale="0" nullable="true" jdbcType="12"/>
+      <column name="res_via" sqlType="VARCHAR" precision="45" scale="0" nullable="true" jdbcType="12"/>
+      <column name="res_cap" sqlType="VARCHAR" precision="45" scale="0" nullable="true" jdbcType="12"/>
+      <column name="res_com" sqlType="VARCHAR" precision="45" scale="0" nullable="true" jdbcType="12"/>
+      <column name="res_prov" sqlType="VARCHAR" precision="45" scale="0" nullable="true" jdbcType="12"/>
+      <column name="born_date" sqlType="TIMESTAMP" precision="19" scale="0" nullable="true" jdbcType="93"/>
+      <column name="born_location" sqlType="VARCHAR" precision="45" scale="0" nullable="true" jdbcType="12"/>
+      <column name="order_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="updated_at" sqlType="TIMESTAMP" precision="19" scale="0" nullable="true" jdbcType="93" def="Q1VSUkVOVF9USU1FU1RBTVA=" version="true"/>
+      <column name="created_at" sqlType="TIMESTAMP" precision="19" scale="0" nullable="true" jdbcType="93" def="Q1VSUkVOVF9USU1FU1RBTVA="/>
+      <primary-key name="PRIMARY" columns="id_consumer"/>
+      <foreign-key name="fk_consumer_orders1" columns="order_id" ref-table="orders" ref-schema="" ref-catalog="thrcodes_stadium" ref-columns="id_order" update-rule="3" delete-rule="3" deferrability="2"/>
+      <index name="fk_consumer_orders1_idx" unique="false" columns="order_id"/>
+    </table>
+    <table name="cronjobs" schema="" catalog="thrcodes_stadium" type="TABLE">
+      <column name="id_cronjob" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="name" sqlType="VARCHAR" precision="45" scale="0" nullable="true" jdbcType="12"/>
+      <column name="description" sqlType="VARCHAR" precision="45" scale="0" nullable="true" jdbcType="12"/>
+      <primary-key name="PRIMARY" columns="id_cronjob"/>
+      <exported-key name="fk_job_history_cronjobs1" table="job_history" schema="" catalog="thrcodes_stadium" columns="cronjob_id"/>
+      <index name="name_UNIQUE" unique="true" columns="name"/>
+    </table>
+    <table name="event_subscriptions" schema="" catalog="thrcodes_stadium" type="TABLE">
+      <column name="id_subscription" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="email" sqlType="VARCHAR" precision="45" scale="0" nullable="false" jdbcType="12"/>
+      <column name="event_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="subscription_date" sqlType="TIMESTAMP" precision="19" scale="0" nullable="true" jdbcType="93" def="Q1VSUkVOVF9USU1FU1RBTVA="/>
+      <column name="updated_at" sqlType="TIMESTAMP" precision="19" scale="0" nullable="true" jdbcType="93" def="Q1VSUkVOVF9USU1FU1RBTVA=" version="true"/>
+      <column name="created_at" sqlType="TIMESTAMP" precision="19" scale="0" nullable="true" jdbcType="93" def="Q1VSUkVOVF9USU1FU1RBTVA="/>
+      <primary-key name="PRIMARY" columns="id_subscription"/>
+      <foreign-key name="FK_event" columns="event_id" ref-table="events" ref-schema="" ref-catalog="thrcodes_stadium" ref-columns="id_event" update-rule="3" delete-rule="0" deferrability="2"/>
+      <index name="email_UNIQUE" unique="true" columns="email"/>
+      <index name="FK_match_idx" unique="false" columns="event_id"/>
+    </table>
+    <table name="events" schema="" catalog="thrcodes_stadium" type="TABLE">
+      <column name="id_event" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="home_id" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <column name="guest_id" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <column name="date" sqlType="TIMESTAMP" precision="19" scale="0" nullable="true" jdbcType="93" def="Q1VSUkVOVF9USU1FU1RBTVA="/>
+      <column name="stadium" sqlType="VARCHAR" precision="45" scale="0" nullable="true" jdbcType="12"/>
+      <column name="city" sqlType="VARCHAR" precision="45" scale="0" nullable="true" jdbcType="12"/>
+      <column name="updated_at" sqlType="TIMESTAMP" precision="19" scale="0" nullable="true" jdbcType="93" def="Q1VSUkVOVF9USU1FU1RBTVA=" version="true"/>
+      <column name="created_at" sqlType="TIMESTAMP" precision="19" scale="0" nullable="true" jdbcType="93" def="Q1VSUkVOVF9USU1FU1RBTVA="/>
+      <column name="category_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="subcategory_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <primary-key name="PRIMARY" columns="id_event"/>
+      <foreign-key name="FK_home" columns="home_id" ref-table="teams" ref-schema="" ref-catalog="thrcodes_stadium" ref-columns="id_team" update-rule="3" delete-rule="3" deferrability="2"/>
+      <foreign-key name="FK_guest" columns="guest_id" ref-table="teams" ref-schema="" ref-catalog="thrcodes_stadium" ref-columns="id_team" update-rule="3" delete-rule="3" deferrability="2"/>
+      <foreign-key name="fk_matches_categories1" columns="category_id" ref-table="categories" ref-schema="" ref-catalog="thrcodes_stadium" ref-columns="id_category" update-rule="3" delete-rule="3" deferrability="2"/>
+      <foreign-key name="fk_events_sub_categories1" columns="subcategory_id" ref-table="sub_categories" ref-schema="" ref-catalog="thrcodes_stadium" ref-columns="id_subcategory" update-rule="3" delete-rule="3" deferrability="2"/>
+      <exported-key name="FK_event" table="event_subscriptions" schema="" catalog="thrcodes_stadium" columns="event_id"/>
+      <exported-key name="FKevent_id" table="tickets" schema="" catalog="thrcodes_stadium" columns="event_id"/>
+      <index name="fk_events_sub_categories1_idx" unique="false" columns="subcategory_id"/>
+      <index name="FK_guest_idx" unique="false" columns="guest_id"/>
+      <index name="FK_home_idx" unique="false" columns="home_id"/>
+      <index name="fk_matches_categories1_idx" unique="false" columns="category_id"/>
+    </table>
+    <table name="feedbacks" schema="" catalog="thrcodes_stadium" type="TABLE">
+      <column name="id_feedback" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="comment" sqlType="VARCHAR" precision="45" scale="0" nullable="true" jdbcType="12"/>
+      <column name="rating" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <column name="uuid" sqlType="VARCHAR" precision="45" scale="0" nullable="true" jdbcType="12"/>
+      <column name="created_at" sqlType="VARCHAR" precision="45" scale="0" nullable="true" jdbcType="12"/>
+      <column name="updated_at" sqlType="VARCHAR" precision="45" scale="0" nullable="true" jdbcType="12"/>
+      <primary-key name="PRIMARY" columns="id_feedback"/>
+      <exported-key name="fk_payments_feedbacks" table="payments" schema="" catalog="thrcodes_stadium" columns="feedback_id"/>
+    </table>
+    <table name="job_history" schema="" catalog="thrcodes_stadium" type="TABLE">
+      <column name="id_history" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="result" sqlType="VARCHAR" precision="45" scale="0" nullable="false" jdbcType="12"/>
+      <column name="last_execution" sqlType="TIMESTAMP" precision="19" scale="0" nullable="false" jdbcType="93" def="Q1VSUkVOVF9USU1FU1RBTVA="/>
+      <column name="cronjob_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <primary-key name="PRIMARY" columns="id_history"/>
+      <foreign-key name="fk_job_history_cronjobs1" columns="cronjob_id" ref-table="cronjobs" ref-schema="" ref-catalog="thrcodes_stadium" ref-columns="id_cronjob" update-rule="3" delete-rule="3" deferrability="2"/>
+      <index name="fk_job_history_cronjobs1_idx" unique="false" columns="cronjob_id"/>
+    </table>
+    <table name="mail_messages" schema="" catalog="thrcodes_stadium" type="TABLE">
+      <column name="id_message" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="title" sqlType="VARCHAR" precision="45" scale="0" nullable="false" jdbcType="12"/>
+      <column name="to" sqlType="VARCHAR" precision="45" scale="0" nullable="false" jdbcType="12"/>
+      <column name="subject" sqlType="VARCHAR" precision="45" scale="0" nullable="false" jdbcType="12"/>
+      <column name="body" sqlType="TEXT" precision="65535" scale="0" nullable="false" jdbcType="-1"/>
+      <column name="created_at" sqlType="TIMESTAMP" precision="19" scale="0" nullable="true" jdbcType="93" def="Q1VSUkVOVF9USU1FU1RBTVA="/>
+      <column name="updated_at" sqlType="TIMESTAMP" precision="19" scale="0" nullable="true" jdbcType="93" def="Q1VSUkVOVF9USU1FU1RBTVA=" version="true"/>
+      <primary-key name="PRIMARY" columns="id_message"/>
+    </table>
+    <table name="orders" schema="" catalog="thrcodes_stadium" type="TABLE">
+      <column name="id_order" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="ticket_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="quantity" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <column name="payment_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="created_at" sqlType="TIMESTAMP" precision="19" scale="0" nullable="true" jdbcType="93" def="Q1VSUkVOVF9USU1FU1RBTVA="/>
+      <column name="updated_at" sqlType="TIMESTAMP" precision="19" scale="0" nullable="true" jdbcType="93" def="Q1VSUkVOVF9USU1FU1RBTVA=" version="true"/>
+      <primary-key name="PRIMARY" columns="id_order"/>
+      <foreign-key name="fk_orders_payments1" columns="payment_id" ref-table="payments" ref-schema="" ref-catalog="thrcodes_stadium" ref-columns="id_payment" update-rule="3" delete-rule="0" deferrability="2"/>
+      <foreign-key name="fk_orders_tickets" columns="ticket_id" ref-table="tickets" ref-schema="" ref-catalog="thrcodes_stadium" ref-columns="id_ticket" update-rule="3" delete-rule="0" deferrability="2"/>
+      <exported-key name="fk_consumer_orders1" table="consumers" schema="" catalog="thrcodes_stadium" columns="order_id"/>
+      <index name="fk_orders_payments1_idx" unique="false" columns="payment_id"/>
+      <index name="fk_orders_tickets_idx" unique="false" columns="ticket_id"/>
+    </table>
+    <table name="payments" schema="" catalog="thrcodes_stadium" type="TABLE">
+      <column name="id_payment" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="user_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="pay_date" sqlType="TIMESTAMP" precision="19" scale="0" nullable="true" jdbcType="93" def="Q1VSUkVOVF9USU1FU1RBTVA="/>
+      <column name="total" sqlType="FLOAT" precision="10" scale="2" nullable="true" jdbcType="7" def="MC4wMA=="/>
+      <column name="trackid" sqlType="VARCHAR" precision="45" scale="0" nullable="true" jdbcType="12"/>
+      <column name="status" sqlType="VARCHAR" precision="45" scale="0" nullable="true" jdbcType="12"/>
+      <column name="trackingcode" sqlType="VARCHAR" precision="45" scale="0" nullable="true" jdbcType="12"/>
+      <column name="updated_at" sqlType="TIMESTAMP" precision="19" scale="0" nullable="true" jdbcType="93" def="Q1VSUkVOVF9USU1FU1RBTVA=" version="true"/>
+      <column name="created_at" sqlType="TIMESTAMP" precision="19" scale="0" nullable="true" jdbcType="93" def="Q1VSUkVOVF9USU1FU1RBTVA="/>
+      <column name="feedback_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="city" sqlType="VARCHAR" precision="45" scale="0" nullable="true" jdbcType="12"/>
+      <column name="cap" sqlType="VARCHAR" precision="45" scale="0" nullable="true" jdbcType="12"/>
+      <column name="address" sqlType="VARCHAR" precision="45" scale="0" nullable="true" jdbcType="12"/>
+      <column name="mobile" sqlType="VARCHAR" precision="45" scale="0" nullable="true" jdbcType="12"/>
+      <column name="email" sqlType="VARCHAR" precision="45" scale="0" nullable="true" jdbcType="12"/>
+      <column name="firstname" sqlType="VARCHAR" precision="45" scale="0" nullable="true" jdbcType="12"/>
+      <column name="lastname" sqlType="VARCHAR" precision="45" scale="0" nullable="true" jdbcType="12"/>
+      <column name="visited" sqlType="TINYINT" precision="3" scale="0" nullable="true" jdbcType="-6" def="MA=="/>
+      <column name="shipmentStatus" sqlType="VARCHAR" precision="45" scale="0" nullable="true" jdbcType="12"/>
+      <column name="signedby" sqlType="VARCHAR" precision="45" scale="0" nullable="true" jdbcType="12"/>
+      <primary-key name="PRIMARY" columns="id_payment"/>
+      <foreign-key name="fk_payments_users" columns="user_id" ref-table="users" ref-schema="" ref-catalog="thrcodes_stadium" ref-columns="id_user" update-rule="3" delete-rule="0" deferrability="2"/>
+      <foreign-key name="fk_payments_feedbacks" columns="feedback_id" ref-table="feedbacks" ref-schema="" ref-catalog="thrcodes_stadium" ref-columns="id_feedback" update-rule="3" delete-rule="3" deferrability="2"/>
+      <exported-key name="fk_orders_payments1" table="orders" schema="" catalog="thrcodes_stadium" columns="payment_id"/>
+      <index name="trackid_UNIQUE" unique="true" columns="trackid"/>
+      <index name="fk_payments_feedbacks_idx" unique="false" columns="feedback_id"/>
+      <index name="fk_payments_users_idx" unique="false" columns="user_id"/>
+    </table>
+    <table name="sub_categories" schema="" catalog="thrcodes_stadium" type="TABLE">
+      <column name="id_subcategory" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="name" sqlType="VARCHAR" precision="45" scale="0" nullable="true" jdbcType="12"/>
+      <column name="category_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <primary-key name="PRIMARY" columns="id_subcategory"/>
+      <foreign-key name="fk_subcategories_categories1" columns="category_id" ref-table="categories" ref-schema="" ref-catalog="thrcodes_stadium" ref-columns="id_category" update-rule="3" delete-rule="3" deferrability="2"/>
+      <exported-key name="fk_events_sub_categories1" table="events" schema="" catalog="thrcodes_stadium" columns="subcategory_id"/>
+      <index name="fk_subcategories_categories1_idx" unique="false" columns="category_id"/>
+    </table>
+    <table name="teams" schema="" catalog="thrcodes_stadium" type="TABLE">
+      <column name="id_team" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="name" sqlType="VARCHAR" precision="45" scale="0" nullable="false" jdbcType="12"/>
+      <column name="img" sqlType="VARCHAR" precision="45" scale="0" nullable="true" jdbcType="12"/>
+      <column name="created_at" sqlType="TIMESTAMP" precision="19" scale="0" nullable="true" jdbcType="93" def="Q1VSUkVOVF9USU1FU1RBTVA="/>
+      <column name="updated_at" sqlType="TIMESTAMP" precision="19" scale="0" nullable="true" jdbcType="93" def="Q1VSUkVOVF9USU1FU1RBTVA=" version="true"/>
+      <column name="category_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <primary-key name="PRIMARY" columns="id_team"/>
+      <foreign-key name="fk_teams_categories1" columns="category_id" ref-table="categories" ref-schema="" ref-catalog="thrcodes_stadium" ref-columns="id_category" update-rule="3" delete-rule="3" deferrability="2"/>
+      <exported-key name="FK_home" table="events" schema="" catalog="thrcodes_stadium" columns="home_id"/>
+      <exported-key name="FK_guest" table="events" schema="" catalog="thrcodes_stadium" columns="guest_id"/>
       <index name="name_UNIQUE" unique="true" columns="name"/>
       <index name="fk_teams_categories1_idx" unique="false" columns="category_id"/>
     </table>

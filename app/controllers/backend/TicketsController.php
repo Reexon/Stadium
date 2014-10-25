@@ -12,7 +12,7 @@ use Validator;
 use Redirect;
 use Response;
 use Mail;
-
+use Backend\Model\Race;
 class TicketsController extends BaseController {
 
 	/**
@@ -63,6 +63,18 @@ class TicketsController extends BaseController {
                 $events = $events->where('m.id_event','=',$match_id);
 
             $events = $events->orderBy('date','desc')->lists('label_match','id_event');
+
+            //se la categoria è una di quelle da gestire come race
+        }else if(in_array($category_id,Race::$category)){
+            $match = Race::with('subscribers')->find($match_id);
+
+            $events = Race::select(['name','id_event'])->join('categories','id_category','=','category_id')->where('id_category','=',$category_id);
+
+            if($match_id != 0)
+                $events = $events->where('id_event','=',$match_id);
+
+            $events = $events->orderBy('date','desc')
+                ->lists('name','id_event');
         }
 
 

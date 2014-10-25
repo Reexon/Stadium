@@ -2,6 +2,7 @@
 namespace Backend\Controller;
 
 use Backend\Model\Artist;
+use Backend\Model\Concert;
 use View;
 use Validator;
 use Input;
@@ -17,7 +18,7 @@ class ArtistsController extends BaseController {
 	public function index()
 	{
 
-        $artists = Artist::select('id_team as id_artist','name')->where('category_id','=','2')->paginate();
+        $artists = Artist::select('id_team as id_artist','name')->where('category_id','=',Concert::$concert)->paginate();
 
 		return View::make($this->viewFolder.'artists.index', compact('artists'));
 	}

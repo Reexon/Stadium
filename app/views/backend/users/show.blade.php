@@ -110,7 +110,6 @@
                     <th colspan="3" style="text-align:center;">Purchased Tickets</th>
                 </tr>
                 <tr>
-                    <th>#</th>
                     <th>Type</th>
                     <th>Quantity</th>
                 </tr>
@@ -119,7 +118,6 @@
             @foreach($user->payments as $payment)
                 @foreach($payment->orders as $order)
                 <tr>
-                    <td>{{ $order->id_order }}</td>
                     <td>{{ $order->ticket->label }}</td>
                     <td>{{ $order->quantity }}</td>
                 </tr>

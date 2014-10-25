@@ -6,6 +6,9 @@ use Symfony\Component\Console\Input\InputArgument;
 use Backend\Model\Payment;
 use Backend\Controller\UPSCourrier;
 
+/**
+ * Class ShipmentsUpdateCommand
+ */
 class ShipmentsUpdateCommand extends Command {
 
 	/**
@@ -32,13 +35,10 @@ class ShipmentsUpdateCommand extends Command {
 		parent::__construct();
 	}
 
-	/**
-	 * Preleva le informazioni delle spedizioni dal server UPS e le salva localmente
-	 *
-	 * @return mixed
-	 */
+
 	public function fire()
 	{
+
         $payments = Payment::
             whereNotNull('trackingcode')
             ->where(function($query){
@@ -50,13 +50,21 @@ class ShipmentsUpdateCommand extends Command {
 		foreach($payments as $payment){
             $ups = new UPSCourrier($payment->trackingcode);
 
-            echo $ups->signedBy."<br>";
-            if(!is_null($ups->signedBy) )
-                $payment->signedBy = $ups->signedBy;
+            if(!is_null($ups->signedBy) ) {
+                $payment->signedby = $ups->signedBy;
+            }
 
             $payment->shipmentStatus = $ups->currentStatus;
+
             $payment->save();
         }
+
+        //se è tutto ok, lo memorizzo nell'history del cron job
+        $jobHistory = new \Backend\Model\JobHistory(['result' => 1]);
+        $cronJob = \Backend\Model\Cronjob::where('name','=','shipments_update')->first();
+        $cronJob->histories()->save($jobHistory);
+
+        
 	}
 
 	/**

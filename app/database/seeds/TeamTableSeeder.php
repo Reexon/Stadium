@@ -3,7 +3,7 @@
 // Composer: "fzaninotto/faker": "v1.3.0"
 use Faker\Factory as Faker;
 use Backend\Model\Team;
-
+use Backend\Model\Match;
 class TeamTableSeeder extends Seeder {
 
     public function run()
@@ -28,7 +28,7 @@ class TeamTableSeeder extends Seeder {
         {
             Team::create([
                 'name'          => $team,
-                'category_id'   => 1
+                'category_id'   => Match::$football
             ]);
         }
     }

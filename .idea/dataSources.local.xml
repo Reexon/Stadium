@@ -7,6 +7,12 @@
       <schema-pattern>thrcodes_stadium.*</schema-pattern>
       <default-schemas>thrcodes_stadium.*</default-schemas>
     </data-source>
+    <data-source name="MySQL - thrcodes_stadium@localhost" uuid="cd0b9ff6-3f92-4afe-964b-455197eb417c">
+      <secret-storage>master_key</secret-storage>
+      <user-name>root</user-name>
+      <schema-pattern>thrcodes_stadium.*</schema-pattern>
+      <default-schemas>thrcodes_stadium.*</default-schemas>
+    </data-source>
   </component>
 </project>
 

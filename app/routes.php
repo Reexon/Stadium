@@ -30,7 +30,10 @@ Route::get('contact',function(){return View::make('contact');});
 Route::get('event/info/{id_category}/{id_event}','Frontend\Controller\MatchesController@info');
 Route::post('match/signup/{id_event}','Frontend\Controller\MatchesController@signup');
 
-
+/*
+ * Cron Jobs
+ */
+Route::resource('cronjobs', 'Backend\Controller\CronjobsController');
 /*
  * Gestione del carrello dei ticket
  */
@@ -79,13 +82,13 @@ Route::post('cart/receipt','Frontend\Controller\CartController@receipt');
 Route::get('cart/result','Frontend\Controller\CartController@result');
 //nel caso in cui non si riesca a raggiungere la pagina receipt, questa pagina verrà richiamata
 Route::get('cart/error','Frontend\Controller\CartController@error');
-
 Route::post('users/login','Backend\Controller\UsersController@login');
 
 /*
  * Registration manager
  */
 Route::get('register',function(){ return View::make('backend.users.register');});
+
 Route::post('register','Backend\Controller\UsersController@store');
 
 /*
@@ -198,6 +201,8 @@ Route::group(array('prefix' => 'admin', 'before' => 'auth|admin','namespace' => 
      * Gain
      */
     Route::get('gain','GainController@index');
+
+    Route::resource('races','RacesController');
 });
 
 Route::group(array('prefix' => 'user', 'before' => 'auth','namespace' => 'Frontend\Controller'), function() {

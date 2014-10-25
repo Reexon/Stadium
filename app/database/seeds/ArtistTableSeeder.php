@@ -3,6 +3,7 @@
 // Composer: "fzaninotto/faker": "v1.3.0"
 use Faker\Factory as Faker;
 use Backend\Model\Artist;
+use Backend\Model\Concert;
 class ArtistTableSeeder extends Seeder {
 
 	public function run()
@@ -25,7 +26,7 @@ class ArtistTableSeeder extends Seeder {
 		{
 			Artist::create([
                 'name'          => $artist,
-                'category_id'   => 2
+                'category_id'   => Concert::$concert
 			]);
 		}
 	}

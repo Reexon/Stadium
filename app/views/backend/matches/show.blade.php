@@ -91,7 +91,7 @@
     <h2>No Purchases !</h2>
     @endif
     <div class="clearfix">
-        <a class="btn btn-primary btn-lg btn-block btn-warning" href="{{ URL::to('admin/payments/create') }}">{{FA::icon('euro')}} Add Payment</a>
+        <a class="btn btn-primary btn-lg btn-block btn-warning" href="{{ URL::to('admin/payments/create/'.$match->category_id) }}">{{FA::icon('euro')}} Add Payment</a>
     </div>
     </div>
 

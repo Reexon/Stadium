@@ -123,8 +123,9 @@ return array(
 		'Illuminate\Workbench\WorkbenchServiceProvider',
         'Way\Generators\GeneratorsServiceProvider',
         'Khill\Fontawesome\FontAwesomeServiceProvider',
-        'Cornford\Bootstrapper\BootstrapServiceProvider',
         'Barryvdh\Debugbar\ServiceProvider',
+        'Cornford\Bootstrapper\BootstrapServiceProvider',
+
 
 	),
 

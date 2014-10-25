@@ -8,9 +8,19 @@ class CategoryTableSeeder extends Seeder {
 	{
 
         $categories = [
+            //Multi - Team
             'Calcio',
-            'Concerti',     'Hockey'    ,'Rugby',    'NBA',
-            'Show',     'Moto GP',      'Formula 1'
+            'Hockey',
+            'Rugby',
+            'NBA',
+
+            //Single
+            'Concerti',
+            'Show',
+
+            //No-Team
+            'Moto GP',
+            'Formula 1'
         ];
 
         $calcio_subcategories = [
@@ -20,14 +30,24 @@ class CategoryTableSeeder extends Seeder {
             new SubCategory(['name' => 'Mondiali'])
         ];
 
+        $motogp_subcategories = [
+            new SubCategory(['name' => 'Grand Prix'])
+        ];
+
 		foreach($categories as $category)
 		{
 			$cat = Category::create([
                 'name'  =>  $category
 			]);
 
-            if($category == "Calcio")
-                $cat->subcategories()->saveMany($calcio_subcategories);
+                switch($category){
+                    case 'Calcio':
+                        $cat->subcategories()->saveMany($calcio_subcategories);
+                        break;
+                    case 'Moto GP':
+                        $cat->subcategories()->saveMany($motogp_subcategories);
+                        break;
+                }
 
 		}
 	}
