@@ -1,18 +1,9 @@
-@extends('layouts.master')
+@extends('layouts.backend.master')
 
-@section('head')
-@parent
-
-@stop
-
-@section('navigation')
-@parent
-@stop
-
-@section('header-title')
-<h1>All Ticket Selled For : {{$ticket->match->homeTeam->name}} vs {{$ticket->match->guestTeam->name}} ({{ $ticket->match->date->format('d-m-Y')}})
+@section('title')
+All Ticket Selled For : {{$ticket->match->homeTeam->name}} vs {{$ticket->match->guestTeam->name}} ({{ $ticket->match->date->format('d-m-Y')}})
 <small>#{{$ticket->id_ticket}}</small>
-</h1>
+
 @stop
 
 @section('content')

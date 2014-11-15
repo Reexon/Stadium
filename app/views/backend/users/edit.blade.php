@@ -1,18 +1,8 @@
-@extends('layouts.master')
+@extends('layouts.backend.master')
 
-@section('head')
-@parent
-@stop
-
-
-@section('navigation')
-@parent
-@stop
-
-@section('header-title')
-<h1>Edit {{ $user->firstname }} {{ $user->lastname}}
+@section('title')
+Edit {{ $user->firstname }} {{ $user->lastname}}
     <small>#{{$user->id_user}}</small>
-</h1>
 @stop
 
 @section('content')

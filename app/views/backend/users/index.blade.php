@@ -1,83 +1,6 @@
-@extends('layouts.master')
+@extends('layouts.backend.master')
 
-    @section('head')
-        @parent
-        <script>
-                function searchUserRequest(){
-
-                    $.post(
-                        $( 'form[name=searchUserForm]' ).prop( 'action' ),//preleva l'attributo "action" del form
-                        {
-                            /*
-                            quando safari rendereizza il form stranamente lo chiude immediatamente, mettendo gli input al di fuori
-                            dei tag del form, visto che il token non si trova all'interno del form, devo cercarlo sull'intera pagina.
-                             */
-                            "_token": $('input[name=_token]:first').val(),
-                            "firstname": $( 'input[name=firstname]' ).val(),
-                            "lastname": $( 'input[name=lastname]' ).val(),
-                            "email": $( 'input[name=email]' ).val()
-                        },
-                        function( userData ) {
-                            clearTableBody('table tbody');
-                            if(userData.length > 0 )
-                                addNewLineToTable(userData,'table tbody');
-                        },
-                        'json'
-                    );
-                    return false;
-                }
-
-                function clearTableBody(body){
-                    $(body+" tr").remove();
-                }
-                function addNewLineToTable(user,selectorTable){
-
-                    //TODO: Da aggiungere i bottoni dei action
-                    user.forEach(function(dataUser){
-                        $(selectorTable).append('<tr>' +
-                            '<td>'+dataUser.id_user+'</td>'+
-                            '<td>'+dataUser.firstname+'</td>' +
-                            '<td>'+dataUser.lastname+'</td>' +
-                            '<td>'+dataUser.email+'</td>' +
-                            '<td>'+dataUser.created_at+'</td>' +
-                            '<td>'+showButton(dataUser.id_user)+
-                                    editButton(dataUser.id_user)+
-                                    deleteButton(dataUser.id_user)+
-                            '</td>' +
-                            '</tr>');
-                    });
-
-                }
-
-            function showButton(id_user){
-
-                return "<a class='btn btn-small btn-success' href=\"<?=URL::to('admin/users/')?>/"+id_user+"\">" +
-                    "<i class=\"fa fa-eye\"></i>" +
-                    "</a>";
-            }
-            function editButton(id_user){
-
-                return "<a class='btn btn-small btn-info' href=\"<?=URL::to('admin/users/')?>/"+id_user+"/edit\">" +
-                    "<i class=\"fa fa-pencil\"></i>" +
-                    "</a>";
-            }
-                //TODO:bisogna inserire il form qua
-            function deleteButton(id_user){
-                return "<a class='btn btn-small btn-danger' href=\"<?=URL::to('admin/users/')?>/"+id_user+"\">" +
-                    "<i class=\"fa fa-trash-o\"></i>" +
-                    "</a>";
-            }
-
-        </script>
-    @stop
-
-
-    @section('navigation')
-        @parent
-    @stop
-
-
-    @section('header-title')
+    @section('title')
     <h1>
         All Registered Users
         <a href="{{URL::to('admin/users/create')}}" class="btn btn-sm btn-primary">{{FA::icon('plus')}}</a>
@@ -134,4 +57,74 @@
     </tbody>
 </table>
 {{$users->links()}}
+    @stop
+
+    @section('footer-javascript')
+     <script>
+                    function searchUserRequest(){
+
+                        $.post(
+                            $( 'form[name=searchUserForm]' ).prop( 'action' ),//preleva l'attributo "action" del form
+                            {
+                                /*
+                                quando safari rendereizza il form stranamente lo chiude immediatamente, mettendo gli input al di fuori
+                                dei tag del form, visto che il token non si trova all'interno del form, devo cercarlo sull'intera pagina.
+                                 */
+                                "_token": $('input[name=_token]:first').val(),
+                                "firstname": $( 'input[name=firstname]' ).val(),
+                                "lastname": $( 'input[name=lastname]' ).val(),
+                                "email": $( 'input[name=email]' ).val()
+                            },
+                            function( userData ) {
+                                clearTableBody('table tbody');
+                                if(userData.length > 0 )
+                                    addNewLineToTable(userData,'table tbody');
+                            },
+                            'json'
+                        );
+                        return false;
+                    }
+
+                    function clearTableBody(body){
+                        $(body+" tr").remove();
+                    }
+                    function addNewLineToTable(user,selectorTable){
+
+                        //TODO: Da aggiungere i bottoni dei action
+                        user.forEach(function(dataUser){
+                            $(selectorTable).append('<tr>' +
+                                '<td>'+dataUser.id_user+'</td>'+
+                                '<td>'+dataUser.firstname+'</td>' +
+                                '<td>'+dataUser.lastname+'</td>' +
+                                '<td>'+dataUser.email+'</td>' +
+                                '<td>'+dataUser.created_at+'</td>' +
+                                '<td>'+showButton(dataUser.id_user)+
+                                        editButton(dataUser.id_user)+
+                                        deleteButton(dataUser.id_user)+
+                                '</td>' +
+                                '</tr>');
+                        });
+
+                    }
+
+                function showButton(id_user){
+
+                    return "<a class='btn btn-small btn-success' href=\"<?=URL::to('admin/users/')?>/"+id_user+"\">" +
+                        "<i class=\"fa fa-eye\"></i>" +
+                        "</a>";
+                }
+                function editButton(id_user){
+
+                    return "<a class='btn btn-small btn-info' href=\"<?=URL::to('admin/users/')?>/"+id_user+"/edit\">" +
+                        "<i class=\"fa fa-pencil\"></i>" +
+                        "</a>";
+                }
+                    //TODO:bisogna inserire il form qua
+                function deleteButton(id_user){
+                    return "<a class='btn btn-small btn-danger' href=\"<?=URL::to('admin/users/')?>/"+id_user+"\">" +
+                        "<i class=\"fa fa-trash-o\"></i>" +
+                        "</a>";
+                }
+
+            </script>
     @stop

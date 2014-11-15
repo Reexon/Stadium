@@ -1,7 +1,52 @@
-@extends('layouts.master')
+@extends('layouts.backend.master')
 
-@section('head')
-@parent
+@section('title')
+<h1>Add New Concert
+    <small></small>
+</h1>
+@stop
+@section('content')
+
+{{ Form::open(array('url' => 'admin/concerts','class' => 'form-inline')) }}
+
+<table class="table">
+    <thead>
+    <tr>
+        <th>#</th>
+        <th>Artist</th>
+        <th>Stadium</th>
+        <th>Date</th>
+        <th>Action</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td>1</td>
+        <td>
+
+            {{ Form::select('artist_id[]',$artists,null,['class' => 'form-control']) }}
+        </td>
+        <td>
+            {{ Form::text('stadium[]', Input::old('stadium'), array('class' => 'form-control','placeholder' => 'Stadium')) }}
+        </td>
+        <td>
+            {{ Form::input('text','date[]',null,['class' => 'form-control datepicker','placeholder' =>'Date']) }}
+        </td>
+        <td>
+            {{ Form::button(FA::icon('plus'), ['class' => 'btn btn-large btn-primary openbutton','id' => 'addMatch'])}}
+            {{ Form::button(FA::icon('times'), ['class' => 'btn btn-large btn-danger','id' => 'deleteMatch'])}}
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+{{ Form::button(FA::icon('check').' Create Concert!', array('class' => 'btn btn-success','type' => 'submit'))}}
+
+{{ Form::close() }}
+
+@stop
+
+@section('footer-javascript')
 <script>
 
     /* in default_tr memorizzo html dell'unica riga presente nella tabella,
@@ -47,55 +92,4 @@
 
     });
 </script>
-@stop
-
-
-@section('navigation')
-@parent
-@stop
-
-@section('header-title')
-<h1>Add New Concert
-    <small></small>
-</h1>
-@stop
-@section('content')
-
-{{ Form::open(array('url' => 'admin/concerts','class' => 'form-inline')) }}
-
-<table class="table">
-    <thead>
-    <tr>
-        <th>#</th>
-        <th>Artist</th>
-        <th>Stadium</th>
-        <th>Date</th>
-        <th>Action</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr>
-        <td>1</td>
-        <td>
-
-            {{ Form::select('artist_id[]',$artists,null,['class' => 'form-control']) }}
-        </td>
-        <td>
-            {{ Form::text('stadium[]', Input::old('stadium'), array('class' => 'form-control','placeholder' => 'Stadium')) }}
-        </td>
-        <td>
-            {{ Form::input('text','date[]',null,['class' => 'form-control datepicker','placeholder' =>'Date']) }}
-        </td>
-        <td>
-            {{ Form::button(FA::icon('plus'), ['class' => 'btn btn-large btn-primary openbutton','id' => 'addMatch'])}}
-            {{ Form::button(FA::icon('times'), ['class' => 'btn btn-large btn-danger','id' => 'deleteMatch'])}}
-        </td>
-    </tr>
-    </tbody>
-</table>
-
-{{ Form::button(FA::icon('check').' Create Concert!', array('class' => 'btn btn-success','type' => 'submit'))}}
-
-{{ Form::close() }}
-
 @stop

@@ -9,7 +9,6 @@ class Ticket extends \Eloquent {
          'price'        => 'required',
          'event_id'     => 'required',
          'quantity'     => 'required',
-         'category_id'  => 'required'
 	];
 
     protected $perPage = 10;

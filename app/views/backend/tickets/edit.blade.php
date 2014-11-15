@@ -1,18 +1,9 @@
-@extends('layouts.master')
+@extends('layouts.backend.master')
 
-@section('head')
-@parent
-@stop
-
-
-@section('navigation')
-@parent
-@stop
-
-@section('header-title')
-<h1>{{ $ticket->match->homeTeam->name}} vs {{ $ticket->match->guestTeam->name }} ({{ $ticket->label }}) - {{ $ticket->match->date->format('d.m.Y') }}
+@section('title')
+{{ $ticket->match->homeTeam->name}} vs {{ $ticket->match->guestTeam->name }} ({{ $ticket->label }}) - {{ $ticket->match->date->format('d.m.Y') }}
     <small>#{{$ticket->id_ticket}}</small>
-</h1>
+
 @stop
 
 @section('content')
@@ -55,3 +46,5 @@
 {{ Form::close() }}
 
 @stop
+
+

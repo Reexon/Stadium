@@ -7,13 +7,13 @@ class JobHistory extends \Eloquent {
 
     protected $table = 'job_history';
 
-    protected $primaryKey = 'cronjob_id';
+    protected $primaryKey = 'id_history';
 
     protected $dates = ['last_execution'];
 
     public $timestamps = false;
 
     public function cronjob(){
-        return $this->hasOne('Backend\Model\Cronjob');
+        return $this->belongsTo('Backend\Model\Cronjob');
     }
 }

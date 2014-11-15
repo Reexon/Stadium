@@ -1,8 +1,7 @@
 bootstrap-star-rating
 =====================
 
-> NOTE: Version 3.0.0 has been released. Refer [change log](https://github.com/kartik-v/bootstrap-star-rating/blob/master/CHANGE.md) for details.
-With version 3.0.0, the plugin now supports mouse hover functionality and displays state changes to rating stars & captions on hover. 
+> NOTE: Version 3.3.0 has been released. Refer [change log](https://github.com/kartik-v/bootstrap-star-rating/blob/master/CHANGE.md) for details.
 
 A simple yet powerful JQuery star rating plugin for Bootstrap which supports advanced features like fractional star fill and RTL input support. 
 Developed with a focus on utlizing pure CSS-3 styling to render the control. The plugin uses Bootstrap markup and styling by default, but it 
@@ -29,9 +28,10 @@ at Krajee JQuery plugins.
   caption element can be shown.
 - Ability to size the rating control including the stars, caption, and clear button. Five prebuilt size templates are 
   available `xl`, `lg`, `md`, `sm`, and `xs`.
-- Triggers JQuery events for advanced development. Events currently available are `rating.change`, `rating.clear`, and  `rating.reset`.
+- Triggers JQuery events for advanced development. Events currently available are `rating.change`, `rating.clear`, `rating.reset`, `rating.refresh`, `rating.hover`, and `rating.hoverleave`.
 - Disabled and readonly input star rating support.
 - Change stars and caption on mouse hover (new feature since v3.0.0).
+- Change stars and caption on slide and drag for mobile/touch devices (new feature since v3.1.0).
 
 ## Browser Support
 
@@ -313,6 +313,16 @@ This event is triggered, when the mouse (pointing input device) is hovered out o
 ```js
 $('#input-id').on('rating.hoverleave', function(event, target) {
     console.log(target);
+});
+```
+
+#### rating.refresh
+This event is triggered when the rating is refreshed using the refresh method.
+
+**Example:**
+```js
+$('#input-id').on('rating.refresh', function(event) {
+    console.log("rating.refresh");
 });
 ```
 

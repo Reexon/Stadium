@@ -1,18 +1,8 @@
-@extends('layouts.master')
+@extends('layouts.backend.master')
 
-@section('head')
-@parent
-@stop
-
-
-@section('navigation')
-@parent
-@stop
-
-@section('header-title')
-<h1>All Concerts of {{ $artist->name }}
+@section('title')
+All Concerts of {{ $artist->name }}
     <small>#{{$artist->id_team}}</small>
-</h1>
 @stop
 
 @section('content')

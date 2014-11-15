@@ -11,15 +11,14 @@
 |
 */
 
-Route::get('/into',function(){
-   phpinfo();
-});
-
 Route::get('task/courrier/run',function(){
     Artisan::call('shipments:update');
 });
 Route::get('/track','Backend\Controller\UPSCourrier@start');
-Route::get('/','Frontend\Controller\MatchesController@index');
+
+Route::get('/',function(){
+    return View::make('frontend.index');
+});
 
 Route::get('contact',function(){return View::make('contact');});
 
@@ -94,7 +93,7 @@ Route::post('register','Backend\Controller\UsersController@store');
 /*
  * Login / Logout
  */
-Route::get('login',function(){return View::make('backend.users.login');});
+Route::get('login',function(){return View::make('frontend.user.login');});
 Route::post('login','Backend\Controller\UsersController@login');
 Route::get('logout','Backend\Controller\UsersController@logout');
 
@@ -205,6 +204,8 @@ Route::group(array('prefix' => 'admin', 'before' => 'auth|admin','namespace' => 
     Route::resource('races','RacesController');
 });
 
+
+Route::get('user/payments/{id_payment}/consumers','Backend\Controller\PaymentsController@showConsumers');
 Route::group(array('prefix' => 'user', 'before' => 'auth','namespace' => 'Frontend\Controller'), function() {
     Route::get('payments','UsersController@payments');
     Route::get('payments/{id_payment}','UsersController@paymentDetail');

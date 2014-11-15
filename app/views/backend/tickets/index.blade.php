@@ -1,28 +1,8 @@
-@extends('layouts.master')
+@extends('layouts.backend.master')
 
-@section('head')
-@parent
-<script>
-    $(function() {
-        $('a[data-toggle=popover]').popover({
-            html : true,
-            delay: {
-                show: "500",
-                hide: "100"
-            }
-        });
-    });
-</script>
-@stop
-
-@section('navigation')
-@parent
-@stop
-
-@section('header-title')
-<h1>All Tickets <a href="{{URL::to('admin/tickets/create')}}" class="btn btn-sm btn-primary">{{FA::icon('plus')}}</a>
+@section('title')
+All Tickets <a href="{{URL::to('admin/tickets/create')}}" class="btn btn-sm btn-primary">{{FA::icon('plus')}}</a>
     <small></small>
-</h1>
 @stop
 
 @section('content')
@@ -130,4 +110,18 @@
     @endforeach
     </tbody>
 </table>
+@stop
+
+@section('footer-javascript')
+<script>
+    $(function() {
+        $('a[data-toggle=popover]').popover({
+            html : true,
+            delay: {
+                show: "500",
+                hide: "100"
+            }
+        });
+    });
+</script>
 @stop

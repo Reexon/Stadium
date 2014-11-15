@@ -3,6 +3,8 @@
 namespace Backend\Controller;
 
 use Backend\Model\Cronjob;
+use Backend\Model\JobHistory;
+use Illuminate\Support\Traits\MacroableTrait;
 use View;
 use Redirect;
 
@@ -15,7 +17,7 @@ class CronjobsController extends BaseController {
 	 */
 	public function index()
 	{
-		$cronjobs = Cronjob::with('histories')->get();
+		$cronjobs = JobHistory::with('cronjob')->orderBy('last_execution','desc')->paginate(15);
 
 		return View::make($this->viewFolder.'cronjobs.index', compact('cronjobs'));
 	}

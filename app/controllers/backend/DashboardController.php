@@ -20,18 +20,18 @@ class DashboardController extends BaseController{
     public function index(){
         //pagamenti con success ma senza codice tracciamento
         Paginator::setPageName('pshippings');
-        $shipPayments = Payment::with('user')->whereNull('trackingcode')->where('status','=','APPROVED')->paginate();
-        $data['shipCount'] = Payment::whereNull('trackingcode')->where('status','=','APPROVED')->count();
+        $shipPayments = Payment::with('user')->notShipped()->approved()->paginate();
+        $data['shipCount'] = Payment::notShipped()->approved()->count();
 
         //pagamenti falliti o in errore
         Paginator::setPageName('pfailed');
-        $data['failPayCount'] = Payment::where('status','=','NOT APPROVED')->whereNull('status','or')->count();
-        $failPayments = Payment::where('status','=','NOT APPROVED')->whereNull('status','or')->paginate();
+        $data['failPayCount'] = Payment::notApproved()->whereNull('status','or')->count();
+        $failPayments = Payment::notApproved()->whereNull('status','or')->paginate();
 
         //pagamenti non ancora guardati
         Paginator::setPageName('pnew');
-        $data['newPayCount'] = Payment::where('visited','=','0')->count();
-        $newPayments = Payment::where('visited','=','0')->paginate();
+        $data['newPayCount'] = Payment::notVisited()->count();
+        $newPayments = Payment::notVisited()->paginate();
 
         return View::make($this->viewFolder."dashboard",compact('shipPayments','failPayments','newPayments','data'));
 

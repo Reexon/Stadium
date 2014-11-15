@@ -2,7 +2,6 @@
 namespace Backend\Controller;
 
 use Backend\Model\Category;
-use Backend\Model\Concert;
 use View;
 use Validator;
 use Input;

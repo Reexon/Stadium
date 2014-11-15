@@ -1,18 +1,8 @@
-@extends('layouts.master')
-
-@section('head')
-@parent
-@stop
-
-
-@section('navigation')
-@parent
-@stop
+@extends('layouts.backend.master')
 
 @section('header-title')
-<h1>Detail {{ $match->homeTeam->name }} vs {{ $match->guestTeam->name }} - ({{$match->date->format('d-m-Y')}})
+Detail {{ $match->homeTeam->name }} vs {{ $match->guestTeam->name }} - ({{$match->date->format('d-m-Y')}})
     <small>#{{$match->id_event}}</small>
-</h1>
 @stop
 
 @section('content')

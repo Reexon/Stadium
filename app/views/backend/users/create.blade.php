@@ -1,18 +1,7 @@
-@extends('layouts.master')
-
-@section('head')
-@parent
-@stop
-
-
-@section('navigation')
-@parent
-@stop
-
+@extends('layouts.backend.master')
 @section('header-title')
-<h1>Create User
+Create User
     <small></small>
-</h1>
 @stop
 
 @section('content')

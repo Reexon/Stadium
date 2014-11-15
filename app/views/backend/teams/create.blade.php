@@ -1,7 +1,41 @@
-@extends('layouts.master')
+@extends('layouts.backend.master')
 
-    @section('head')
-        @parent
+@section('title')
+Add New Team
+
+@stop
+
+@section('content')
+
+{{ Form::open(array('url' => 'admin/teams','class' => 'form-inline')) }}
+
+<table class="table">
+    <thead>
+    <tr>
+        <th>Team Name</th>
+        <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td>
+            {{ Form::text('name[]', Input::old('name'), array('class' => 'form-control','placeholder' => 'Home Team')) }}
+        </td>
+        <td>
+            {{ Form::button(FA::icon('plus'), ['class' => 'btn btn-large btn-primary openbutton','id' => 'addTeam'])}}
+            {{ Form::button(FA::icon('times'), ['class' => 'btn btn-large btn-danger','id' => 'deleteTeam'])}}
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+{{ Form::button(FA::icon('check').' Create Team!', array('class' => 'btn btn-success','type' => 'submit')) }}
+
+{{ Form::close() }}
+
+@stop
+
+@section('footer-javascript')
 <script>
 
     /* in default_tr memorizzo html dell'unica riga presente nella tabella,
@@ -47,46 +81,4 @@
 
     });
 </script>
-    @stop
-
-
-
-@section('navigation')
-@parent
-@stop
-
-@section('header-title')
-<h1>Add New Team
-    <small></small>
-</h1>
-@stop
-
-@section('content')
-
-{{ Form::open(array('url' => 'admin/teams','class' => 'form-inline')) }}
-
-<table class="table">
-    <thead>
-    <tr>
-        <th>Team Name</th>
-        <th>Actions</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr>
-        <td>
-            {{ Form::text('name[]', Input::old('name'), array('class' => 'form-control','placeholder' => 'Home Team')) }}
-        </td>
-        <td>
-            {{ Form::button(FA::icon('plus'), ['class' => 'btn btn-large btn-primary openbutton','id' => 'addTeam'])}}
-            {{ Form::button(FA::icon('times'), ['class' => 'btn btn-large btn-danger','id' => 'deleteTeam'])}}
-        </td>
-    </tr>
-    </tbody>
-</table>
-
-{{ Form::button(FA::icon('check').' Create Team!', array('class' => 'btn btn-success','type' => 'submit')) }}
-
-{{ Form::close() }}
-
 @stop

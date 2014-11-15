@@ -1,18 +1,8 @@
-@extends('layouts.master')
+@extends('layouts.backend.master')
 
-@section('head')
-@parent
-@stop
-
-
-@section('navigation')
-@parent
-@stop
-
-@section('header-title')
-<h1>Detail {{ $concert->artist->name }} - ({{$concert->date->format('d-m-Y')}})
+@section('title')
+Detail {{ $concert->artist->name }} - ({{$concert->date->format('d-m-Y')}})
     <small>#{{$concert->id_event}}</small>
-</h1>
 @stop
 
 @section('content')
@@ -74,14 +64,14 @@
         </thead>
         <tbody>
         @foreach($concert->tickets as $ticket)
-        @foreach($ticket->orders as $order)
-        <tr>
-            <td><a href="{{URL::to('admin/users/'.$order->payment->user->id_user)}}">{{ $order->payment->user->firstname }} {{ $order->payment->user->lastname }}</a></td>
-            <td>{{ $order->quantity }}</td>
-            <td>{{ $order->payment->total}}</td>
-            <td>{{ $order->payment->pay_date->format('d-m-Y') }}</td>
-        </tr>
-        @endforeach
+            @foreach($ticket->orders as $order)
+            <tr>
+                <td><a href="{{URL::to('admin/users/'.$order->payment->user->id_user)}}">{{ $order->payment->user->firstname }} {{ $order->payment->user->lastname }}</a></td>
+                <td>{{ $order->quantity }}</td>
+                <td>{{ $order->payment->total}}</td>
+                <td>{{ $order->payment->pay_date->format('d-m-Y') }}</td>
+            </tr>
+            @endforeach
         @endforeach
         </tbody>
     </table>

@@ -1,18 +1,11 @@
-@extends('layouts.master')
+@extends('layouts.backend.master')
 
-@section('head')
-    @parent
-@stop
-
-@section('navigation')
-@parent
-@stop
-@section('header-title')
-<h1>Display All Matches
+@section('title')
+Display All Matches
     <a href="{{URL::to('admin/matches/create')}}" class="btn btn-sm btn-primary">{{FA::icon('plus')}}</a>
     <small></small>
-</h1>
 @stop
+
 @section('content')
 
     <table class="table table-striped table-bordered">

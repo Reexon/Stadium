@@ -27,16 +27,14 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach($cronjobs as $job)
-                    @foreach($job->histories as $history)
+                @foreach($cronjobs as $history)
                         <tr>
-                            <td>{{$job->name}}</td>
+                            <td>{{$history->cronjob->name}}</td>
                             <td>{{$history->result}}</td>
                             <td>{{$history->last_execution->format('d.m.Y H:i:s')}}</td>
                         </tr>
-                    @endforeach
                 @endforeach
             </tbody>
         </table>
-
+        {{$cronjobs->links()}}
     @stop

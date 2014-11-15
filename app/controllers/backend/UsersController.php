@@ -133,11 +133,15 @@ class UsersController extends BaseController {
      * @return Response
      */
     public function login(){
-        if (Auth::attempt(array('email'=>Input::get('email'), 'password'=>Input::get('password')))) {
+        if (Auth::attempt(['email'=>Input::get('email'), 'password'=>Input::get('password')])) {
+
+            if(Auth::user()->isAdmin)
+                return Redirect::to('admin/dashboard')->with('message', 'You are now logged in!');
+
             return Redirect::to('/')->with('message', 'You are now logged in!');
         } else {
             return Redirect::to('login')
-                ->with('Your username/password combination was incorrect')
+                ->withErrors('Your username/password combination was incorrect')
                 ->withInput();
         }
     }

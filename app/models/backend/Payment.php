@@ -102,7 +102,7 @@ class Payment extends \Eloquent {
     public function hasEventOfCategory($category_id){
         //$payment = Payment::with('orders.ticket.event')->where('id_payment','=',$this->id_payment)->get();
         foreach ($this->orders as $order){
-            if($order->ticket->event->category->id_category == $category_id) return true;
+            if($order->ticket->event->category_id == $category_id) return true;
         }
         return false;
     }
@@ -123,5 +123,60 @@ class Payment extends \Eloquent {
      */
     public function getIsDeliveredAttribute(){
         return !is_null($this->signedBy);
+    }
+
+    /**
+     * all payments not shipped yet
+     *
+     * @param $query
+     *
+     * @return mixed
+     */
+    public function scopeNotShipped($query){
+        return $query->whereNull('trackingcode');
+    }
+
+    /**
+     * all approved payments
+     *
+     * @param $query
+     *
+     * @return mixed
+     */
+    public function scopeApproved($query){
+        return $query->where('status','=','APPROVED');
+    }
+
+    /**
+     * all non- approved payment
+     *
+     * @param $query
+     *
+     * @return mixed
+     */
+    public function scopeNotApproved($query){
+        return $query->where('status','=','NOT APPROVED');
+    }
+
+    /**
+     * payments visited
+     *
+     * @param $query
+     *
+     * @return mixed
+     */
+    public function scopeNotVisited($query){
+        return $query->where('visited','=','0');
+    }
+
+    /**
+     * already visited payments
+     *
+     * @param $query
+     *
+     * @return mixed
+     */
+    public function scopeVisited($query){
+        return $query->where('visited','=','1');
     }
 }
